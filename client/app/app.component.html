@@ -1,46 +1,24 @@
-<nav class="navbar navbar-inverse navbar-fixed-top bg-inverse">
-    <div class="inline">
-        <div class="navbar-header">
-            <a class="navbar-brand" routerLink="/home">[DAD] Sueca</a>
-            <p class="navbar-text" *ngIf="auth.isLogged()">Welcome, <a routerLink="/users/" +auth.getCurrentUser()._id>
-                {{ auth.getCurrentUser().username }}</a></p>
-        </div>
-        <div class="navbar-right">
-            <ul class="navbar-nav">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <a class="navbar-brand" routerLink="/home">[DAD] Sueca Game</a>
+        <ul class="nav navbar-nav">
+            <a class="navbar-brand" *ngIf="auth.isLogged()"> Welcome, {{ auth.getCurrentUser().username }}</a>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
 
-                <li *ngIf="!auth.isLogged()">
-                    <a class="nav-link" routerLink="/login">Login</a>
-                </li>
+            <li *ngIf="!auth.isLogged()" class="nav-item">
+                <a class="nav-link" routerLink="/login">Login</a>
+            </li>
 
-                <li *ngIf="!auth.isLogged()">
-                    <a class="nav-link" routerLink="/register">Register</a>
-                </li>
+            <li *ngIf="!auth.isLogged()" class="nav-item">
+                <a class="nav-link" routerLink="/register">Register</a>
+            </li>
 
-                <li *ngIf="auth.isLogged()">
-                    <a class="nav-link" routerLink="/home" (click)="logout()">logout</a>
-                </li>
-            </ul>
-        </div>
+            <li *ngIf="auth.isLogged()" class="nav-item">
+                <a class="nav-link" routerLink="/home" (click)="logout()">logout</a>
+            </li>
+        </ul>
     </div>
 </nav>
-
-<!--
-<nav class="navbar navbar-inverse bg-inverse">
-
-    <ul class="nav navbar-nav">
-
-        <li *ngIf="!auth.isLogged()" class="nav-item">
-            <a class="nav-link" routerLink="/login" *ngIf="!auth.isLogged()">Login</a>
-        </li>
-
-        <li *ngIf="!auth.isLogged()" class="nav-item">
-            <a class="nav-link" routerLink="/register">Register</a>
-        </li>
-
-        <li *ngIf="auth.isLogged()" class="nav-item">
-            <a class="nav-link" routerLink="/home" (click)="logout()">logout</a>
-        </li>
-    </ul>
-</nav>-->
 
 <router-outlet></router-outlet>

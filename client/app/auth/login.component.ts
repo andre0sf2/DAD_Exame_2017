@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../services/auth.service';
+import {User} from "../model/user";
 
 
 @Component({
@@ -16,10 +17,11 @@ import { AuthService } from '../services/auth.service';
 
 export class LoginComponent {
 
+    user = new User(0, '', '', '', '', '');
 
     constructor(private authService: AuthService, private router: Router) { }
 
-    
+
 
 }
 
