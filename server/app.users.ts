@@ -1,3 +1,4 @@
+import {Security} from "./app.security";
 const mongodb = require('mongodb');
 const util = require('util');
 import {HandlerSettings} from './handler.settings';
@@ -66,13 +67,15 @@ export class User {
     public createUser = (request: any, response: any, next: any) => {
         const user = request.body;
         if (user === undefined) {
-            response.send(400, 'No player data');
+            response.send(400, 'No user data');
             return next();
         }
+
         database.db.collection('users')
             .insertOne(user)
             .then(result => this.returnUser(result.insertedId, response, next))
             .catch(err => this.handleError(err, response, next));
+
     }
 
     public deleteUser = (request: any, response: any, next: any) => {
@@ -115,7 +118,7 @@ export class User {
         server.get(settings.prefix + 'users', settings.security.authorize, this.getUsers);
         server.get(settings.prefix + 'users/:id', settings.security.authorize, this.getUser);
         server.put(settings.prefix + 'users/:id', settings.security.authorize, this.updateUser);
-        server.post(settings.prefix + 'register', settings.security.authorize, this.createUser);
+        server.post(settings.prefix + 'register', this.createUser);
         server.del(settings.prefix + 'users/:id', settings.security.authorize, this.deleteUser);
         console.log("Users routes registered");
     };

@@ -12,10 +12,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var auth_service_1 = require("../services/auth.service");
 var LoginComponent = (function () {
-    function LoginComponent(auth) {
-        this.auth = auth;
+    function LoginComponent(authService, router) {
+        this.authService = authService;
+        this.router = router;
     }
     return LoginComponent;
 }());
@@ -25,7 +27,7 @@ LoginComponent = __decorate([
         selector: 'login',
         templateUrl: 'login.component.html'
     }),
-    __metadata("design:paramtypes", [auth_service_1.AuthService])
+    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
 ], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

@@ -47,5 +47,3 @@ passport.use(new BearerStrategy((token, done) => {
         .then((user) => user ? done(null, user, {scope:'all'}) : done(null, false))
         .catch(err => done(err));
 }));
-
-

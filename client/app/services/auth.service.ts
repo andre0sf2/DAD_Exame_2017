@@ -16,7 +16,10 @@ export class AuthService {
     }
 
     login(username: string, password: string): Observable<User> {
-        return this.http.post('http://localhost:7777/api/v1/auth', {username: username, password: password})
+        let options = this.buildHeaders();
+
+        return this.http.post('http://localhost:7777/api/v1/login',
+            {username: username, password: password}, options)
             .map(res => {
                 this.currentUser = <User>res.json();
                 return this.currentUser;
@@ -65,11 +68,11 @@ export class AuthService {
         return this.currentUser;
     }
 
-    buildHeaders(): RequestOptions {
+    buildHeaders(): Headers {
         let headers = new Headers();
         headers.append('Authorization', 'bearer ' + this.currentUser.token);
         headers.append('Content-Type', 'application/json');
 
-        return new RequestOptions({headers: headers});
+        return headers;
     }
 }

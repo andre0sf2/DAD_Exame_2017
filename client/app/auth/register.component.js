@@ -28,7 +28,7 @@ var RegisterComponent = (function () {
         }
         this.auth.register(this.user.username, this.user.password, this.user.email).subscribe(function (res) {
             console.log("username: " + _this.user.username + " password: " + _this.user.password);
-            // this.auth.login(this.user.username, this.user.password).subscribe(r => console.log(r));
+            _this.auth.login(_this.user.username, _this.user.password).subscribe(function (r) { return console.log(r); });
         });
     };
     return RegisterComponent;

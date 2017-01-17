@@ -1,13 +1,36 @@
-<nav class="navbar navbar-inverse bg-inverse">
-    <a class="navbar-brand " routerLink="/home">[DAD] Sueca</a>
-    <ul class="nav navbar-nav navbar"  *ngIf="auth.isLogged()">
-        <a class="navbar-brand"> Welcome, {{ auth.getCurrentUser().username }}</a>
-    </ul>
+<nav class="navbar navbar-inverse navbar-fixed-top bg-inverse">
+    <div class="inline">
+        <div class="navbar-header">
+            <a class="navbar-brand" routerLink="/home">[DAD] Sueca</a>
+            <p class="navbar-text" *ngIf="auth.isLogged()">Welcome, <a routerLink="/users/" +auth.getCurrentUser()._id>
+                {{ auth.getCurrentUser().username }}</a></p>
+        </div>
+        <div class="navbar-right">
+            <ul class="navbar-nav">
 
-    <ul class="nav navbar-nav navbar-right">
+                <li *ngIf="!auth.isLogged()">
+                    <a class="nav-link" routerLink="/login">Login</a>
+                </li>
+
+                <li *ngIf="!auth.isLogged()">
+                    <a class="nav-link" routerLink="/register">Register</a>
+                </li>
+
+                <li *ngIf="auth.isLogged()">
+                    <a class="nav-link" routerLink="/home" (click)="logout()">logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!--
+<nav class="navbar navbar-inverse bg-inverse">
+
+    <ul class="nav navbar-nav">
 
         <li *ngIf="!auth.isLogged()" class="nav-item">
-            <a class="nav-link" routerLink="/login">Login</a>
+            <a class="nav-link" routerLink="/login" *ngIf="!auth.isLogged()">Login</a>
         </li>
 
         <li *ngIf="!auth.isLogged()" class="nav-item">
@@ -18,6 +41,6 @@
             <a class="nav-link" routerLink="/home" (click)="logout()">logout</a>
         </li>
     </ul>
-</nav>
+</nav>-->
 
 <router-outlet></router-outlet>

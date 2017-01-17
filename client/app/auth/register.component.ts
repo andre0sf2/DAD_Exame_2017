@@ -17,6 +17,7 @@ import {User} from "../model/user";
 export class RegisterComponent {
     user = new User(0, '', '', '', '', '');
 
+
     constructor(private auth: AuthService, private router: Router) {
     }
 
@@ -28,7 +29,7 @@ export class RegisterComponent {
 
         this.auth.register(this.user.username, this.user.password, this.user.email).subscribe(res => {
             console.log("username: " + this.user.username + " password: " + this.user.password);
-           // this.auth.login(this.user.username, this.user.password).subscribe(r => console.log(r));
+            this.auth.login(this.user.username, this.user.password).subscribe(r => console.log(r));
 
         });
     }

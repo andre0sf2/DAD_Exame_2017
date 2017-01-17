@@ -60,7 +60,7 @@ var User = (function () {
         this.createUser = function (request, response, next) {
             var user = request.body;
             if (user === undefined) {
-                response.send(400, 'No player data');
+                response.send(400, 'No user data');
                 return next();
             }
             app_database_1.databaseConnection.db.collection('users')
@@ -107,7 +107,7 @@ var User = (function () {
             server.get(settings.prefix + 'users', settings.security.authorize, _this.getUsers);
             server.get(settings.prefix + 'users/:id', settings.security.authorize, _this.getUser);
             server.put(settings.prefix + 'users/:id', settings.security.authorize, _this.updateUser);
-            server.post(settings.prefix + 'register', settings.security.authorize, _this.createUser);
+            server.post(settings.prefix + 'register', _this.createUser);
             server.del(settings.prefix + 'users/:id', settings.security.authorize, _this.deleteUser);
             console.log("Users routes registered");
         };

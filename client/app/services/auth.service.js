@@ -20,7 +20,8 @@ var AuthService = (function () {
     }
     AuthService.prototype.login = function (username, password) {
         var _this = this;
-        return this.http.post('http://localhost:7777/api/v1/auth', { username: username, password: password })
+        var options = this.buildHeaders();
+        return this.http.post('http://localhost:7777/api/v1/login', { username: username, password: password }, options)
             .map(function (res) {
             _this.currentUser = res.json();
             return _this.currentUser;
@@ -68,7 +69,7 @@ var AuthService = (function () {
         var headers = new http_1.Headers();
         headers.append('Authorization', 'bearer ' + this.currentUser.token);
         headers.append('Content-Type', 'application/json');
-        return new http_1.RequestOptions({ headers: headers });
+        return headers;
     };
     return AuthService;
 }());
