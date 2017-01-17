@@ -1,10 +1,10 @@
-<nav class="navbar navbar-inverse" style="border: 0">
-    <a class="navbar-brand" routerLink="/home">Sueca Game</a>
-    <ul class="nav navbar-nav navbar-right">
-        <a class="navbar-brand" *ngIf="auth.isLogged()"> Welcome, {{ auth.getCurrentUser().username }}</a>
+<nav class="navbar navbar-inverse bg-inverse">
+    <a class="navbar-brand " routerLink="/home">[DAD] Sueca</a>
+    <ul class="nav navbar-nav navbar"  *ngIf="auth.isLogged()">
+        <a class="navbar-brand"> Welcome, {{ auth.getCurrentUser().username }}</a>
     </ul>
 
-    <ul class="nav navbar-nav">
+    <ul class="nav navbar-nav navbar-right">
 
         <li *ngIf="!auth.isLogged()" class="nav-item">
             <a class="nav-link" routerLink="/login">Login</a>

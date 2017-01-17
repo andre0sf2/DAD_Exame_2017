@@ -1,21 +1,22 @@
-import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Http, Headers, RequestOptions} from '@angular/http';
 
-import { Observable } from 'rxjs/Rx';
+import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
-import { User } from '../model/user';
+import {User} from '../model/user';
 
 @Injectable()
 export class AuthService {
     currentUser: User;
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+    }
 
     login(username: string, password: string): Observable<User> {
-        return this.http.post('http://localhost:7777/api/v1/auth', { username: username, password: password })
+        return this.http.post('http://localhost:7777/api/v1/auth', {username: username, password: password})
             .map(res => {
                 this.currentUser = <User>res.json();
                 return this.currentUser;
@@ -41,7 +42,11 @@ export class AuthService {
     }
 
     register(username: string, password: string, email: string): Observable<User> {
-        return this.http.post('http://localhost:7777/api/v1/register', { username: username, password: password, email: email })
+        return this.http.post('http://localhost:7777/api/v1/register', {
+            username: username,
+            password: password,
+            email: email
+        })
             .map(res => {
                 return res.json();
             })
@@ -50,7 +55,6 @@ export class AuthService {
                 return Observable.throw(e);
             });
     }
-
 
 
     isLogged(): boolean {
@@ -66,6 +70,6 @@ export class AuthService {
         headers.append('Authorization', 'bearer ' + this.currentUser.token);
         headers.append('Content-Type', 'application/json');
 
-        return new RequestOptions({ headers: headers });
+        return new RequestOptions({headers: headers});
     }
 }

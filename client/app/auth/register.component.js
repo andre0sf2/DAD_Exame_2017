@@ -11,21 +11,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var auth_service_1 = require('../services/auth.service');
+var core_1 = require("@angular/core");
+var auth_service_1 = require("../services/auth.service");
+var router_1 = require("@angular/router");
+var user_1 = require("../model/user");
 var RegisterComponent = (function () {
-    function RegisterComponent(auth) {
+    function RegisterComponent(auth, router) {
         this.auth = auth;
+        this.router = router;
+        this.user = new user_1.User(0, '', '', '', '', '');
     }
-    RegisterComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'register',
-            templateUrl: 'register.component.html'
-        }), 
-        __metadata('design:paramtypes', [auth_service_1.AuthService])
-    ], RegisterComponent);
+    RegisterComponent.prototype.register = function () {
+        var _this = this;
+        if (this.user.password !== this.user.passwordConfirmation) {
+            return;
+        }
+        this.auth.register(this.user.username, this.user.password, this.user.email).subscribe(function (res) {
+            console.log("username: " + _this.user.username + " password: " + _this.user.password);
+            // this.auth.login(this.user.username, this.user.password).subscribe(r => console.log(r));
+        });
+    };
     return RegisterComponent;
 }());
+RegisterComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'register',
+        templateUrl: 'register.component.html'
+    }),
+    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
+], RegisterComponent);
 exports.RegisterComponent = RegisterComponent;
 //# sourceMappingURL=register.component.js.map

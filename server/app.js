@@ -25,8 +25,8 @@ var settings = new handler_settings_1.HandlerSettings(socketServer, security, '/
 var app_authentication_1 = require('./app.authentication');
 new app_authentication_1.Authentication().init(restifyServer, settings);
 // Players Handler
-var app_players_1 = require('./app.players');
-new app_players_1.Player().init(restifyServer, settings);
+var app_users_1 = require('./app.users');
+new app_users_1.User().init(restifyServer, settings);
 // Games Handler
 var app_games_1 = require('./app.games');
 new app_games_1.Game().init(restifyServer, settings);

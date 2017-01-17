@@ -33,8 +33,8 @@ new Authentication().init(restifyServer, settings);
 
 
 // Players Handler
-import {Player} from './app.players';
-new Player().init(restifyServer, settings);
+import {User} from './app.users';
+new User().init(restifyServer, settings);
 
 // Games Handler
 import {Game} from './app.games';

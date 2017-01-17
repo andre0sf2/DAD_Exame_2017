@@ -11,21 +11,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var auth_service_1 = require('../services/auth.service');
+var core_1 = require("@angular/core");
+var auth_service_1 = require("../services/auth.service");
 var LoginComponent = (function () {
     function LoginComponent(auth) {
         this.auth = auth;
     }
-    LoginComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'login',
-            templateUrl: 'login.component.html'
-        }), 
-        __metadata('design:paramtypes', [auth_service_1.AuthService])
-    ], LoginComponent);
     return LoginComponent;
 }());
+LoginComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'login',
+        templateUrl: 'login.component.html'
+    }),
+    __metadata("design:paramtypes", [auth_service_1.AuthService])
+], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

@@ -19,28 +19,28 @@ var validPassword = function (player, password) {
     return sha1(password) === player.passwordHash;
 };
 passport.use(new LocalStrategy(function (username, password, done) {
-    app_database_1.databaseConnection.db.collection('players').findOne({
+    app_database_1.databaseConnection.db.collection('users').findOne({
         username: username
-    }).then(function (player) {
-        if (player === null) {
+    }).then(function (user) {
+        if (user === null) {
             return done(null, false, {
                 message: 'Incorrect credentials.'
             });
         }
-        if (!validPassword(player, password)) {
+        if (!validPassword(user, password)) {
             return done(null, false, {
                 message: 'Incorrect credentials.'
             });
         }
-        player.token = sha1(player.username + Date.now());
-        app_database_1.databaseConnection.db.collection('players')
-            .updateOne({ _id: player._id }, { $set: { token: player.token } })
-            .then(function (r) { return r.modifiedCount !== 1 ? done(null, false) : done(null, player); })
+        user.token = sha1(user.username + Date.now());
+        app_database_1.databaseConnection.db.collection('users')
+            .updateOne({ _id: user._id }, { $set: { token: user.token } })
+            .then(function (r) { return r.modifiedCount !== 1 ? done(null, false) : done(null, user); })
             .catch(function (err) { return done(err); });
     }).catch(function (err) { return done(err); });
 }));
 passport.use(new BearerStrategy(function (token, done) {
-    app_database_1.databaseConnection.db.collection('players')
+    app_database_1.databaseConnection.db.collection('users')
         .findOne({ token: token })
         .then(function (user) { return user ? done(null, user, { scope: 'all' }) : done(null, false); })
         .catch(function (err) { return done(err); });

@@ -8,12 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
-var Rx_1 = require('rxjs/Rx');
-require('rxjs/add/operator/map');
-require('rxjs/add/operator/catch');
-require('rxjs/add/observable/throw');
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
+var Rx_1 = require("rxjs/Rx");
+require("rxjs/add/operator/map");
+require("rxjs/add/operator/catch");
+require("rxjs/add/observable/throw");
 var AuthService = (function () {
     function AuthService(http) {
         this.http = http;
@@ -45,7 +45,11 @@ var AuthService = (function () {
         });
     };
     AuthService.prototype.register = function (username, password, email) {
-        return this.http.post('http://localhost:7777/api/v1/register', { username: username, password: password, email: email })
+        return this.http.post('http://localhost:7777/api/v1/register', {
+            username: username,
+            password: password,
+            email: email
+        })
             .map(function (res) {
             return res.json();
         })
@@ -66,11 +70,11 @@ var AuthService = (function () {
         headers.append('Content-Type', 'application/json');
         return new http_1.RequestOptions({ headers: headers });
     };
-    AuthService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
-    ], AuthService);
     return AuthService;
 }());
+AuthService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], AuthService);
 exports.AuthService = AuthService;
 //# sourceMappingURL=auth.service.js.map

@@ -20,29 +20,29 @@ let validPassword = (player: any, password: any) => {
 }
 
 passport.use(new LocalStrategy((username, password, done) => {
-    database.db.collection('players').findOne({
+    database.db.collection('users').findOne({
         username: username
-    }).then(player => {
-        if (player === null) {
+    }).then(user => {
+        if (user === null) {
             return done(null, false, {
                 message: 'Incorrect credentials.'
             });
         }
-        if (!validPassword(player, password)) {
+        if (!validPassword(user, password)) {
             return done(null, false, {
                 message: 'Incorrect credentials.'
             });
         }
-        player.token = sha1(player.username+ Date.now());
-        database.db.collection('players')
-            .updateOne({_id: player._id}, {$set: {token: player.token}})
-            .then(r => r.modifiedCount !== 1 ? done(null, false) : done(null, player))
+        user.token = sha1(user.username+ Date.now());
+        database.db.collection('users')
+            .updateOne({_id: user._id}, {$set: {token: user.token}})
+            .then(r => r.modifiedCount !== 1 ? done(null, false) : done(null, user))
             .catch(err => done(err));
     }).catch(err => done(err));
 }));
 
 passport.use(new BearerStrategy((token, done) => {
-    database.db.collection('players')
+    database.db.collection('users')
         .findOne({token: token})
         .then((user) => user ? done(null, user, {scope:'all'}) : done(null, false))
         .catch(err => done(err));

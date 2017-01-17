@@ -3,7 +3,7 @@ const util = require('util');
 import {HandlerSettings} from './handler.settings';
 import {databaseConnection as database} from './app.database';
 
-export class Player {
+export class User {
 
     private settings: HandlerSettings = null;
 
@@ -12,24 +12,24 @@ export class Player {
 	    next();
     }
 
-    private returnPlayer = (id:string, response: any, next: any) => {
-        database.db.collection('players')
+    private returnUser = (id:string, response: any, next: any) => {
+        database.db.collection('users')
             .findOne({
                 _id: id
             })
-            .then((player) => {
-                if (player === null) {
-                    response.send(404, 'Player not found');
+            .then((user) => {
+                if (user === null) {
+                    response.send(404, 'User not found');
                 } else {
-                    response.json(player);
+                    response.json(user);
                 }
                 next();
             })
             .catch(err => this.handleError(err, response, next));
     }
 
-    public getPlayers = (request: any, response: any, next: any) => {
-        database.db.collection('players')
+    public getUsers = (request: any, response: any, next: any) => {
+        database.db.collection('users')
             .find()
             .toArray()
             .then(players => {
@@ -39,55 +39,55 @@ export class Player {
             .catch(err => this.handleError(err, response, next));
     }
 
-    public getPlayer =  (request: any, response: any, next: any) => {
+    public getUser =  (request: any, response: any, next: any) => {
         const id = new mongodb.ObjectID(request.params.id);
-        this.returnPlayer(id, response, next);
+        this.returnUser(id, response, next);
     }
     
-    public updatePlayer = (request: any, response: any, next: any) => {
+    public updateUser = (request: any, response: any, next: any) => {
         const id = new mongodb.ObjectID(request.params.id);
-        const player = request.body;
+        const user = request.body;
 
-        if (player === undefined) {
-            response.send(400, 'No player data');
+        if (user === undefined) {
+            response.send(400, 'No user data');
             return next();
         }
-        delete player._id;
-        database.db.collection('players')
+        delete user._id;
+        database.db.collection('users')
             .updateOne({
                 _id: id
             }, {
-                $set: player
+                $set: user
             })
-            .then(result => this.returnPlayer(id, response, next))
+            .then(result => this.returnUser(id, response, next))
             .catch(err => this.handleError(err, response, next));
     }
     
-    public createPlayer = (request: any, response: any, next: any) => {
-        const player = request.body;
-        if (player === undefined) {
+    public createUser = (request: any, response: any, next: any) => {
+        const user = request.body;
+        if (user === undefined) {
             response.send(400, 'No player data');
             return next();
         }
-        database.db.collection('players')
-            .insertOne(player)
-            .then(result => this.returnPlayer(result.insertedId, response, next))
+        database.db.collection('users')
+            .insertOne(user)
+            .then(result => this.returnUser(result.insertedId, response, next))
             .catch(err => this.handleError(err, response, next));
     }
 
-    public deletePlayer = (request: any, response: any, next: any) => {
+    public deleteUser = (request: any, response: any, next: any) => {
         var id = new mongodb.ObjectID(request.params.id);
-        database.db.collection('players')
+        database.db.collection('users')
             .deleteOne({
                 _id: id
             })
             .then(result => {
                 if (result.deletedCount === 1) {
                     response.json({
-                        msg: util.format('Player -%s- Deleted', id)
+                        msg: util.format('User -%s- Deleted', id)
                     });
                 } else {
-                    response.send(404, 'No player found');
+                    response.send(404, 'No user found');
                 }
                 next();
             })
@@ -95,14 +95,14 @@ export class Player {
     }
         
     public getTop10 = (request: any, response: any, next: any) => {
-        database.db.collection('players')
+        database.db.collection('users')
             .find()
             .sort({totalVictories:-1})
             .limit(10)
             .toArray()
             .then(players => {
                 response.json(players || []);
-                this.settings.wsServer.notifyAll('players', Date.now() + ': Somebody accessed top 10');
+                this.settings.wsServer.notifyAll('users', Date.now() + ': Somebody accessed top 10');
                 next();
             })
             .catch(err => this.handleError(err, response, next));
@@ -112,11 +112,11 @@ export class Player {
     public init = (server: any, settings: HandlerSettings) => {
         this.settings = settings;
         server.get(settings.prefix + 'top10', this.getTop10);
-        server.get(settings.prefix + 'players', settings.security.authorize, this.getPlayers);
-        server.get(settings.prefix + 'players/:id', settings.security.authorize, this.getPlayer);
-        server.put(settings.prefix + 'players/:id', settings.security.authorize, this.updatePlayer);
-        server.post(settings.prefix + 'players', settings.security.authorize, this.createPlayer);
-        server.del(settings.prefix + 'players/:id', settings.security.authorize, this.deletePlayer);
-        console.log("Players routes registered");
+        server.get(settings.prefix + 'users', settings.security.authorize, this.getUsers);
+        server.get(settings.prefix + 'users/:id', settings.security.authorize, this.getUser);
+        server.put(settings.prefix + 'users/:id', settings.security.authorize, this.updateUser);
+        server.post(settings.prefix + 'register', settings.security.authorize, this.createUser);
+        server.del(settings.prefix + 'users/:id', settings.security.authorize, this.deleteUser);
+        console.log("Users routes registered");
     };
 }

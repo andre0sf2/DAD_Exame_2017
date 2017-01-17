@@ -8,6 +8,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent }   from './auth/login.component';
 import { HomeComponent }   from './home/home.component';
 import { RegisterComponent }   from './auth/register.component';
+import {AppComponent} from "./app.component";
+import {AuthService} from "./services/auth.service";
 
 
 const routes: Routes = [

@@ -7,13 +7,12 @@ import {AuthService} from '../services/auth.service';
 
 @Component({
     moduleId: module.id,
-    selector: 'home',
-    templateUrl: 'home.component.html'
+    template: `<h1>HOME</h1>`
 })
 
 
 export class HomeComponent {
     constructor(private auth: AuthService) {
-    }
 
+    }
 }
