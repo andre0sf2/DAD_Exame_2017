@@ -11,12 +11,13 @@ var app_component_1 = require("./app.component");
 var home_component_1 = require("./home/home.component");
 var login_component_1 = require("./auth/login.component");
 var register_component_1 = require("./auth/register.component");
-var auth_service_1 = require("./services/auth.service");
 var router_1 = require("@angular/router");
 var app_routing_module_1 = require("./app-routing.module");
 var common_1 = require("@angular/common");
 var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms");
+var user_service_1 = require("./services/user.service");
+var auth_service_1 = require("./services/auth.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -26,7 +27,7 @@ AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, router_1.RouterModule, app_routing_module_1.AppRoutingModule, http_1.HttpModule, forms_1.FormsModule],
         declarations: [app_component_1.AppComponent, home_component_1.HomeComponent, login_component_1.LoginComponent, register_component_1.RegisterComponent],
-        providers: [auth_service_1.AuthService, { provide: common_1.APP_BASE_HREF, useValue: '/' }],
+        providers: [auth_service_1.AuthService, user_service_1.UserService, { provide: common_1.APP_BASE_HREF, useValue: '/' }],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

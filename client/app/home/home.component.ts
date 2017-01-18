@@ -7,7 +7,7 @@ import {AuthService} from '../services/auth.service';
 
 @Component({
     moduleId: module.id,
-    template: `<h1>HOME</h1>`
+    templateUrl: 'home.component.html'
 })
 
 

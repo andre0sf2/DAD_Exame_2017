@@ -3,8 +3,9 @@ import {HandlerSettings} from './handler.settings';
 export class Authentication{
    
     public login = (request: any, response: any, next: any) => {
-        let player = request.user;
-        response.json(player);
+        console.log(request.user);
+        let user = request.user;
+        response.json(user);
         return next();
     }
 

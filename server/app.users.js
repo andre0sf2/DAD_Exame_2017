@@ -1,6 +1,7 @@
 "use strict";
 var mongodb = require('mongodb');
 var util = require('util');
+var sha1 = require('sha1');
 var app_database_1 = require('./app.database');
 var User = (function () {
     function User() {
@@ -58,14 +59,33 @@ var User = (function () {
                 .catch(function (err) { return _this.handleError(err, response, next); });
         };
         this.createUser = function (request, response, next) {
-            var user = request.body;
-            if (user === undefined) {
-                response.send(400, 'No user data');
-                return next();
-            }
             app_database_1.databaseConnection.db.collection('users')
-                .insertOne(user)
-                .then(function (result) { return _this.returnUser(result.insertedId, response, next); })
+                .findOne({ username: request.body.username })
+                .then(function (user) {
+                if (user !== null) {
+                    response.json({
+                        msg: util.format('Username already exists.')
+                    });
+                }
+                else {
+                    var user_1 = request.body;
+                    if (user_1 === undefined) {
+                        response.send(400, 'No user data');
+                        return next();
+                    }
+                    user_1.username = request.body.username;
+                    user_1.passwordHash = sha1(request.body.password);
+                    user_1.email = request.body.email;
+                    delete user_1.password;
+                    delete user_1.passwordConfirmation;
+                    app_database_1.databaseConnection.db.collection('users')
+                        .insertOne(user_1)
+                        .then(function (result) { return _this.returnUser(result.insertedId, response, next); })
+                        .catch(function (err) {
+                        return _this.handleError(err, response, next);
+                    });
+                }
+            })
                 .catch(function (err) { return _this.handleError(err, response, next); });
         };
         this.deleteUser = function (request, response, next) {

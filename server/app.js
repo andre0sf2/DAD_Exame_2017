@@ -11,6 +11,8 @@ var restifyServer = restify.createServer();
 var socketServer = new app_websockets_1.WebSocketServer();
 // Prepare and configure Restify Server
 restify.CORS.ALLOW_HEADERS.push("content-type");
+restify.CORS.ALLOW_HEADERS.push("authorization");
+restify.CORS.ALLOW_HEADERS.push("Access-Control-Allow-Origin");
 restifyServer.use(restify.bodyParser());
 restifyServer.use(restify.queryParser());
 restifyServer.use(restify.CORS());

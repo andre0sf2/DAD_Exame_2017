@@ -1,6 +1,6 @@
-import {Security} from "./app.security";
 const mongodb = require('mongodb');
 const util = require('util');
+const sha1 = require('sha1');
 import {HandlerSettings} from './handler.settings';
 import {databaseConnection as database} from './app.database';
 
@@ -9,11 +9,11 @@ export class User {
     private settings: HandlerSettings = null;
 
     private handleError = (err: string, response: any, next: any) => {
-    	response.send(500, err);
-	    next();
+        response.send(500, err);
+        next();
     }
 
-    private returnUser = (id:string, response: any, next: any) => {
+    private returnUser = (id: string, response: any, next: any) => {
         database.db.collection('users')
             .findOne({
                 _id: id
@@ -40,11 +40,11 @@ export class User {
             .catch(err => this.handleError(err, response, next));
     }
 
-    public getUser =  (request: any, response: any, next: any) => {
+    public getUser = (request: any, response: any, next: any) => {
         const id = new mongodb.ObjectID(request.params.id);
         this.returnUser(id, response, next);
     }
-    
+
     public updateUser = (request: any, response: any, next: any) => {
         const id = new mongodb.ObjectID(request.params.id);
         const user = request.body;
@@ -63,20 +63,42 @@ export class User {
             .then(result => this.returnUser(id, response, next))
             .catch(err => this.handleError(err, response, next));
     }
-    
-    public createUser = (request: any, response: any, next: any) => {
-        const user = request.body;
-        if (user === undefined) {
-            response.send(400, 'No user data');
-            return next();
-        }
 
+
+    public createUser = (request: any, response: any, next: any) => {
         database.db.collection('users')
-            .insertOne(user)
-            .then(result => this.returnUser(result.insertedId, response, next))
+            .findOne({username: request.body.username})
+            .then((user) => {
+
+                if (user !== null) {
+                    response.json({
+                        msg: util.format('Username already exists.')
+                    });
+                } else {
+                    const user = request.body;
+                    if (user === undefined) {
+                        response.send(400, 'No user data');
+                        return next();
+                    }
+
+                    user.username = request.body.username;
+                    user.passwordHash = sha1(request.body.password);
+                    user.email = request.body.email;
+
+                    delete user.password;
+                    delete user.passwordConfirmation;
+
+                    database.db.collection('users')
+                        .insertOne(user)
+                        .then(result => this.returnUser(result.insertedId, response, next))
+                        .catch(err =>
+                            this.handleError(err, response, next)
+                        );
+                }
+            })
             .catch(err => this.handleError(err, response, next));
 
-    }
+    };
 
     public deleteUser = (request: any, response: any, next: any) => {
         var id = new mongodb.ObjectID(request.params.id);
@@ -96,11 +118,11 @@ export class User {
             })
             .catch(err => this.handleError(err, response, next));
     }
-        
+
     public getTop10 = (request: any, response: any, next: any) => {
         database.db.collection('users')
             .find()
-            .sort({totalVictories:-1})
+            .sort({totalVictories: -1})
             .limit(10)
             .toArray()
             .then(players => {
