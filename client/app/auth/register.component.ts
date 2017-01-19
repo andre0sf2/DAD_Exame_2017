@@ -15,7 +15,7 @@ import {User} from "../model/user";
 
 
 export class RegisterComponent {
-    user = new User(0, '', '', '', '', '');
+    user = new User(0, '', '', '', 0, 0, '', '');
 
 
     constructor(private auth: AuthService, private router: Router) {

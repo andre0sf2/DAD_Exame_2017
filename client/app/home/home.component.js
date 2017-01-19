@@ -22,7 +22,7 @@ var HomeComponent = (function () {
 HomeComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        template: "<h1>HOME</h1>"
+        templateUrl: 'home.component.html'
     }),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], HomeComponent);

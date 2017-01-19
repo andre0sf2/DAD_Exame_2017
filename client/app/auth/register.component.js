@@ -19,7 +19,7 @@ var RegisterComponent = (function () {
     function RegisterComponent(auth, router) {
         this.auth = auth;
         this.router = router;
-        this.user = new user_1.User(0, '', '', '', '', '');
+        this.user = new user_1.User(0, '', '', '', 0, 0, '', '');
     }
     RegisterComponent.prototype.register = function () {
         var _this = this;

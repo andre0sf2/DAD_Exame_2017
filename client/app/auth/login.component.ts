@@ -17,7 +17,7 @@ import {User} from "../model/user";
 
 export class LoginComponent {
 
-    user = new User(0, '', '', '', '', '');
+    user = new User(0, '', '', '', 0, 0, '', '');
 
     constructor(private authService: AuthService, private router: Router) { }
 
