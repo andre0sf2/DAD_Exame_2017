@@ -1,5 +1,1 @@
-<<<<<<< HEAD
 {"version":3,"file":"home.component.js","sourceRoot":"","sources":["home.component.ts"],"names":[],"mappings":"AAAA;;GAEG;;;;;;;;;;;AAEH,sCAAwC;AACxC,yDAAqD;AAUrD,IAAa,aAAa;IACtB,uBAAoB,IAAiB;QAAjB,SAAI,GAAJ,IAAI,CAAa;IAErC,CAAC;IACL,oBAAC;AAAD,CAAC,AAJD,IAIC;AAJY,aAAa;IANzB,gBAAS,CAAC;QACP,QAAQ,EAAE,MAAM,CAAC,EAAE;QACnB,WAAW,EAAE,qBAAqB;KACrC,CAAC;qCAI4B,0BAAW;GAD5B,aAAa,CAIzB;AAJY,sCAAa"}
-=======
-{"version":3,"file":"home.component.js","sourceRoot":"","sources":["home.component.ts"],"names":[],"mappings":"AAAA;;GAEG;;;;;;;;;;;AAEH,sCAAwC;AACxC,yDAAqD;AAQrD,IAAa,aAAa;IACtB,uBAAoB,IAAiB;QAAjB,SAAI,GAAJ,IAAI,CAAa;IAErC,CAAC;IACL,oBAAC;AAAD,CAAC,AAJD,IAIC;AAJY,aAAa;IANzB,gBAAS,CAAC;QACP,QAAQ,EAAE,MAAM,CAAC,EAAE;QACnB,WAAW,EAAE,qBAAqB;KACrC,CAAC;qCAI4B,0BAAW;GAD5B,aAAa,CAIzB;AAJY,sCAAa"}
->>>>>>> adeea102a9fcc5a5590383815de404e7c4487c39

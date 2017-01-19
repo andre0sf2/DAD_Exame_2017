@@ -16,12 +16,9 @@ import {AuthService} from "../services/auth.service";
 
 export class LoginComponent {
 
-<<<<<<< HEAD
-    user = new User(0, '', '', '', 0, 0, '', '');
-=======
+
     _username: string;
     _password: string;
->>>>>>> adeea102a9fcc5a5590383815de404e7c4487c39
 
     constructor(private router: Router, private auth: AuthService) { }
 

@@ -21,13 +21,8 @@ import {AuthService} from "./services/auth.service";
 
 @NgModule({
   imports:      [ BrowserModule, RouterModule, AppRoutingModule, HttpModule, FormsModule],
-<<<<<<< HEAD
   declarations: [ AppComponent, HomeComponent, LoginComponent, RegisterComponent, Top10Component ],
-  providers: [Top10Service, AuthService, { provide: APP_BASE_HREF, useValue: '/' } ],
-=======
-  declarations: [ AppComponent, HomeComponent, LoginComponent, RegisterComponent ],
-  providers: [ AuthService, UserService, { provide: APP_BASE_HREF, useValue: '/' } ],
->>>>>>> adeea102a9fcc5a5590383815de404e7c4487c39
+  providers: [Top10Service, AuthService,UserService, { provide: APP_BASE_HREF, useValue: '/' } ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

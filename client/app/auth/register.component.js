@@ -18,13 +18,9 @@ var user_1 = require("../model/user");
 var RegisterComponent = (function () {
     function RegisterComponent(router, auth) {
         this.router = router;
-<<<<<<< HEAD
-        this.user = new user_1.User(0, '', '', '', 0, 0, '', '');
-=======
         this.auth = auth;
-        this._user = new user_1.User(null, '', '', '', '', '');
+        this._user = new user_1.User(null, '', '', '', 0, 0, '', '');
         this._formSubmitted = false;
->>>>>>> adeea102a9fcc5a5590383815de404e7c4487c39
     }
     RegisterComponent.prototype.register = function () {
         var _this = this;
