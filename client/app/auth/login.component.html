@@ -1,8 +1,8 @@
 <div class="container">
-    <h1 style="margin-left: 20%; margin-right: 20%;" class="text-center">Welcome to [DAD] Sueca Online</h1>
+    <h1 style="margin-left: 20%; margin-right: 20%;" class="text-center">Welcome to [DAD] Sueca Game</h1>
 
     <form class="form-horizontal form-login jumbotron" style="margin-left: 20%; margin-right: 20%;"
-          #loginForm="ngForm" (ngSubmit)="login()">
+          #loginForm="ngForm" (ngSubmit)="login()" method="POST">
         <div id="legend">
             <legend><strong>Login</strong></legend>
         </div>
@@ -11,7 +11,7 @@
             <!-- Username -->
             <label for="username">Username</label>
             <input type="text" id="username" name="username" placeholder="username" class="form-control"
-                   [(ngModel)]="user.username"
+                   [(ngModel)]="_username"
                    #username="ngModel">
         </div>
 
@@ -19,7 +19,7 @@
             <!-- Password-->
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="password" class="form-control"
-                   [(ngModel)]="user.password"
+                   [(ngModel)]="_password"
                    #password="ngModel">
         </div>
 

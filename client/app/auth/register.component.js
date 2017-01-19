@@ -16,20 +16,35 @@ var auth_service_1 = require("../services/auth.service");
 var router_1 = require("@angular/router");
 var user_1 = require("../model/user");
 var RegisterComponent = (function () {
-    function RegisterComponent(auth, router) {
-        this.auth = auth;
+    function RegisterComponent(router, auth) {
         this.router = router;
+<<<<<<< HEAD
         this.user = new user_1.User(0, '', '', '', 0, 0, '', '');
+=======
+        this.auth = auth;
+        this._user = new user_1.User(null, '', '', '', '', '');
+        this._formSubmitted = false;
+>>>>>>> adeea102a9fcc5a5590383815de404e7c4487c39
     }
     RegisterComponent.prototype.register = function () {
         var _this = this;
-        if (this.user.password !== this.user.passwordConfirmation) {
-            return;
-        }
-        this.auth.register(this.user.username, this.user.password, this.user.email).subscribe(function (res) {
-            console.log("username: " + _this.user.username + " password: " + _this.user.password);
-            _this.auth.login(_this.user.username, _this.user.password).subscribe(function (r) { return console.log(r); });
+        this._formSubmitted = true;
+        this.auth
+            .register(this._user)
+            .then(function (res) {
+            console.log("REGISTOU: " + res);
+            _this.goToLogin();
+        })
+            .catch(function (e) {
+            _this.error = true;
+            console.log("ERRO: " + e);
         });
+    };
+    RegisterComponent.prototype.goBack = function () {
+        this.router.navigateByUrl('').then();
+    };
+    RegisterComponent.prototype.goToLogin = function () {
+        this.router.navigateByUrl('/login').then();
     };
     return RegisterComponent;
 }());
@@ -39,7 +54,7 @@ RegisterComponent = __decorate([
         selector: 'register',
         templateUrl: 'register.component.html'
     }),
-    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
+    __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService])
 ], RegisterComponent);
 exports.RegisterComponent = RegisterComponent;
 //# sourceMappingURL=register.component.js.map

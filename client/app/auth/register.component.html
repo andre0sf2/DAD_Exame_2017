@@ -1,8 +1,8 @@
 <div class="container">
-    <h1 style="margin-left: 20%; margin-right: 20%;" class="text-center">Welcome to [DAD] Sueca Online</h1>
+    <h1 style="margin-left: 20%; margin-right: 20%;" class="text-center">Welcome to [DAD] Sueca Game</h1>
 
     <form class="form-horizontal form-register jumbotron" style="margin-left: 20%; margin-right: 20%;"
-          #registerForm="ngForm" (ngSubmit)="register()">
+          #registerForm="ngForm" (ngSubmit)="register()" method="POST">
         <div id="legend">
             <legend><strong>Register</strong></legend>
         </div>
@@ -11,20 +11,22 @@
             <!-- Username -->
             <label for="username">Username</label>
             <input type="text" id="username" name="username" placeholder="username" class="form-control"
-                   [(ngModel)]="user.username"
+                   [(ngModel)]="_user.username"
                    #username="ngModel">
             <p class="help-block alert-danger"
-               [hidden]="username.valid || (!registerForm.submitted)">Username can only contain any
+               *ngIf="username.invalid || (username.pristine && _formSubmitted)">Username can only contain any
                 letters or numbers, without spaces</p>
+            <p class="help-block alert-danger"
+               *ngIf="(usernameTaken && _formSubmitted)">Username is already taken</p>
         </div>
 
         <div class="form-group">
             <!-- E-mail -->
             <label for="email">E-mail</label>
             <input type="text" id="email" name="email" placeholder="email" class="form-control"
-                   [(ngModel)]="user.email"
+                   [(ngModel)]="_user.email"
                    #email="ngModel">
-            <p class="help-block alert-danger" [hidden]="email.valid || (!registerForm.submitted)">
+            <p class="help-block alert-danger" *ngIf="email.invalid || (email.pristine && _formSubmitted)">
                 Please provide your email</p>
 
         </div>
@@ -33,27 +35,32 @@
             <!-- Password-->
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="password" class="form-control"
-                   [(ngModel)]="user.password"
+                   [(ngModel)]="_user.password"
                    #password="ngModel">
             <p class="help-block alert-danger"
-               [hidden]="password.valid || (!registerForm.submitted)">Password should be at least 4
+               *ngIf="password.invalid || (password.pristine && _formSubmitted)">Password should be at least 4
                 characters</p>
         </div>
 
         <div class="form-group">
             <!-- Password -->
             <label for="passwordConfirmation">Password (Confirm)</label>
-            <input type="password" id="passwordConfirmation" name="passwordConfirmation" placeholder="password confirmation"
-                   class="form-control" [(ngModel)]="user.passwordConfirmation"
+            <input type="password" id="passwordConfirmation" name="passwordConfirmation"
+                   placeholder="password confirmation"
+                   class="form-control" [(ngModel)]="_user.passwordConfirmation"
                    #passwordConfirmation="ngModel">
             <p class="help-block alert-danger"
-               [hidden]="passwordConfirmation.valid || (!registerForm.submitted)">Please
+               *ngIf="passwordConfirmation.invalid || (passwordConfirmation.pristine && _formSubmitted)">Please
                 confirm password</p>
         </div>
 
+        <p class="help-block alert-danger"
+           *ngIf="(error && _formSubmitted)">Internal Error, please try again later</p>
+
         <div class="form-group">
-            <!-- Button Register -->
             <button class="btn btn-success" type="submit">Register</button>
+            <button class="btn btn-danger" type="reset" (click)="goBack()">Cancel</button>
+            <button class="btn btn-default" style="float: right" type="reset" (click)="registerForm.reset()">Reset</button>
         </div>
     </form>
 </div>

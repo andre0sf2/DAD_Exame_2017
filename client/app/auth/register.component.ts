@@ -6,6 +6,8 @@ import {Component} from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {Router} from "@angular/router";
 import {User} from "../model/user";
+import {UserService} from "../services/user.service";
+import {error} from "util";
 
 @Component({
     moduleId: module.id,
@@ -15,22 +17,42 @@ import {User} from "../model/user";
 
 
 export class RegisterComponent {
+<<<<<<< HEAD
     user = new User(0, '', '', '', 0, 0, '', '');
+=======
+>>>>>>> adeea102a9fcc5a5590383815de404e7c4487c39
 
+    protected _user = new User(null, '', '', '', '', '');
+    protected _formSubmitted = false;
 
-    constructor(private auth: AuthService, private router: Router) {
+    protected usernameTaken: boolean;
+
+    protected error: boolean;
+
+    constructor(private router: Router, private auth: AuthService) {
     }
 
     register() {
-        if (this.user.password !== this.user.passwordConfirmation) {
+        this._formSubmitted = true;
 
-            return;
-        }
+        this.auth
+            .register(this._user)
+            .then(res => {
+                    console.log("REGISTOU: " + res);
+                    this.goToLogin();
+            })
+            .catch(e => {
+                this.error = true;
+                console.log("ERRO: " + e);
 
-        this.auth.register(this.user.username, this.user.password, this.user.email).subscribe(res => {
-            console.log("username: " + this.user.username + " password: " + this.user.password);
-            this.auth.login(this.user.username, this.user.password).subscribe(r => console.log(r));
+            })
+    }
 
-        });
+    goBack() {
+        this.router.navigateByUrl('').then(/*Do Nothing*/);
+    }
+
+    goToLogin() {
+        this.router.navigateByUrl('/login').then(/*Do Nothing*/);
     }
 }

@@ -1,5 +1,9 @@
+/**
+ * Created by joao on 18-01-2017.
+ */
+
 import {Injectable} from '@angular/core';
-import {Http, Headers, RequestOptions} from '@angular/http';
+import {Http, Headers} from '@angular/http';
 
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -7,6 +11,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import {User} from '../model/user';
+
+const url = 'http://localhost:7777/api/v1/';
 
 @Injectable()
 export class AuthService {
@@ -18,7 +24,7 @@ export class AuthService {
     login(username: string, password: string): Observable<User> {
         let options = this.buildHeaders();
 
-        return this.http.post('http://localhost:7777/api/v1/login',
+        return this.http.post(url + 'login',
             {username: username, password: password}, options)
             .map(res => {
                 this.currentUser = <User>res.json();
@@ -44,19 +50,14 @@ export class AuthService {
             });
     }
 
-    register(username: string, password: string, email: string): Observable<User> {
-        return this.http.post('http://localhost:7777/api/v1/register', {
-            username: username,
-            password: password,
-            email: email
-        })
-            .map(res => {
-                return res.json();
-            })
-            .catch(e => {
-                console.log(e);
-                return Observable.throw(e);
-            });
+    register(user: User): Promise<User> {
+        let options = this.buildHeaders();
+
+        return this.http
+            .post(url + 'register', user, options)
+            .toPromise()
+            .then(r => Promise.resolve(r.json()))
+            .catch(r => Promise.resolve({error: true, message: 'internal error'}));
     }
 
 
@@ -70,7 +71,8 @@ export class AuthService {
 
     buildHeaders(): Headers {
         let headers = new Headers();
-        headers.append('Authorization', 'bearer ' + this.currentUser.token);
+        headers.append('Access-Control-Allow-Origin', '*');
+        //headers.append('Authorization', 'bearer ' + this.currentUser.token);
         headers.append('Content-Type', 'application/json');
 
         return headers;

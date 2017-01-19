@@ -1,3 +1,6 @@
+/**
+ * Created by joao on 18-01-2017.
+ */
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -8,12 +11,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
-var Rx_1 = require("rxjs/Rx");
-require("rxjs/add/operator/map");
-require("rxjs/add/operator/catch");
-require("rxjs/add/observable/throw");
+var core_1 = require('@angular/core');
+var http_1 = require('@angular/http');
+var Rx_1 = require('rxjs/Rx');
+require('rxjs/add/operator/map');
+require('rxjs/add/operator/catch');
+require('rxjs/add/observable/throw');
+var url = 'http://localhost:7777/api/v1/';
 var AuthService = (function () {
     function AuthService(http) {
         this.http = http;
@@ -21,7 +25,7 @@ var AuthService = (function () {
     AuthService.prototype.login = function (username, password) {
         var _this = this;
         var options = this.buildHeaders();
-        return this.http.post('http://localhost:7777/api/v1/login', { username: username, password: password }, options)
+        return this.http.post(url + 'login', { username: username, password: password }, options)
             .map(function (res) {
             _this.currentUser = res.json();
             return _this.currentUser;
@@ -45,19 +49,13 @@ var AuthService = (function () {
             return Rx_1.Observable.throw(e);
         });
     };
-    AuthService.prototype.register = function (username, password, email) {
-        return this.http.post('http://localhost:7777/api/v1/register', {
-            username: username,
-            password: password,
-            email: email
-        })
-            .map(function (res) {
-            return res.json();
-        })
-            .catch(function (e) {
-            console.log(e);
-            return Rx_1.Observable.throw(e);
-        });
+    AuthService.prototype.register = function (user) {
+        var options = this.buildHeaders();
+        return this.http
+            .post(url + 'register', user, options)
+            .toPromise()
+            .then(function (r) { return Promise.resolve(r.json()); })
+            .catch(function (r) { return Promise.resolve({ error: true, message: 'internal error' }); });
     };
     AuthService.prototype.isLogged = function () {
         return this.currentUser != null ? true : false;
@@ -67,15 +65,16 @@ var AuthService = (function () {
     };
     AuthService.prototype.buildHeaders = function () {
         var headers = new http_1.Headers();
-        headers.append('Authorization', 'bearer ' + this.currentUser.token);
+        headers.append('Access-Control-Allow-Origin', '*');
+        //headers.append('Authorization', 'bearer ' + this.currentUser.token);
         headers.append('Content-Type', 'application/json');
         return headers;
     };
+    AuthService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [http_1.Http])
+    ], AuthService);
     return AuthService;
 }());
-AuthService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
-], AuthService);
 exports.AuthService = AuthService;
 //# sourceMappingURL=auth.service.js.map
