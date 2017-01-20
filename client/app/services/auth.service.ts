@@ -3,7 +3,7 @@
  */
 
 import {Injectable} from '@angular/core';
-import {Http, Headers, RequestOptions} from '@angular/http';
+import {Http, Headers} from '@angular/http';
 
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -16,7 +16,6 @@ const url = 'http://localhost:7777/api/v1/';
 
 @Injectable()
 export class AuthService {
-    currentUser: User;
 
     constructor(private http: Http) {
     }
@@ -26,8 +25,8 @@ export class AuthService {
 
         return this.http.post(url + 'login', user, options)
             .map(res => {
-                this.currentUser = <User>res.json();
-                return this.currentUser;
+                localStorage.setItem('user', JSON.stringify(<User>res.json()) )
+                return this.getCurrentUser();
             })
             .catch(e => {
                 console.log(e);
@@ -44,14 +43,14 @@ export class AuthService {
         return this.http.post('http://localhost:7777/api/v1/logout', null, {headers: options})
             .map(res => {
                 res.json();
-                this.currentUser = null;
-                return this.currentUser;
+                localStorage.removeItem('user');
             })
             .catch(e => {
                 console.log(e);
                 return Observable.throw(e);
             });
     }
+
 
     register(user: User): Promise<User> {
         let options = this.buildHeaders();
@@ -65,11 +64,11 @@ export class AuthService {
 
 
     isLogged(): boolean {
-        return this.currentUser != null ? true : false;
+        return this.getCurrentUser() != null ? true : false;
     }
 
     getCurrentUser(): User {
-        return this.currentUser;
+        return JSON.parse(localStorage.getItem('user'));
     }
 
     buildHeaders(): Headers {
@@ -84,7 +83,7 @@ export class AuthService {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Access-Control-Allow-Origin', '*');
-        headers.append('Authorization', 'Bearer ' + this.currentUser.token);
+        headers.append('Authorization', 'Bearer ' + this.getCurrentUser().token);
 
         return headers;
     }

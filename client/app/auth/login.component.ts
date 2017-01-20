@@ -27,6 +27,7 @@ export class LoginComponent {
             .login({username: this._username, password: this._password})
             .toPromise()
             .then(res => {
+                console.log(res);
                 this.goBack();
             });
     }

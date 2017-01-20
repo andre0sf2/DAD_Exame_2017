@@ -27,8 +27,8 @@ var AuthService = (function () {
         var options = this.buildHeaders();
         return this.http.post(url + 'login', user, options)
             .map(function (res) {
-            _this.currentUser = res.json();
-            return _this.currentUser;
+            localStorage.setItem('user', JSON.stringify(res.json()));
+            return _this.getCurrentUser();
         })
             .catch(function (e) {
             console.log(e);
@@ -36,13 +36,11 @@ var AuthService = (function () {
         });
     };
     AuthService.prototype.logout = function () {
-        var _this = this;
         var options = this.buildHeadersWithAuthorization();
         return this.http.post('http://localhost:7777/api/v1/logout', null, { headers: options })
             .map(function (res) {
             res.json();
-            _this.currentUser = null;
-            return _this.currentUser;
+            localStorage.removeItem('user');
         })
             .catch(function (e) {
             console.log(e);
@@ -58,10 +56,10 @@ var AuthService = (function () {
             .catch(function (r) { return Promise.resolve({ error: true, message: 'internal error' }); });
     };
     AuthService.prototype.isLogged = function () {
-        return this.currentUser != null ? true : false;
+        return this.getCurrentUser() != null ? true : false;
     };
     AuthService.prototype.getCurrentUser = function () {
-        return this.currentUser;
+        return JSON.parse(localStorage.getItem('user'));
     };
     AuthService.prototype.buildHeaders = function () {
         var headers = new http_1.Headers();
@@ -73,7 +71,7 @@ var AuthService = (function () {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Access-Control-Allow-Origin', '*');
-        headers.append('Authorization', 'Bearer ' + this.currentUser.token);
+        headers.append('Authorization', 'Bearer ' + this.getCurrentUser().token);
         return headers;
     };
     return AuthService;

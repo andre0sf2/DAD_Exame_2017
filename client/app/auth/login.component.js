@@ -25,6 +25,7 @@ var LoginComponent = (function () {
             .login({ username: this._username, password: this._password })
             .toPromise()
             .then(function (res) {
+            console.log(res);
             _this.goBack();
         });
     };

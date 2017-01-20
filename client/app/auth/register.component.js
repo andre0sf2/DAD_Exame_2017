@@ -29,7 +29,8 @@ var RegisterComponent = (function () {
             .register(this._user)
             .then(function (res) {
             console.log("REGISTOU: " + res);
-            _this.goToLogin();
+            _this.auth.login({ username: _this._user.username, password: _this._user.username });
+            _this.goBack();
         })
             .catch(function (e) {
             _this.error = true;
@@ -38,9 +39,6 @@ var RegisterComponent = (function () {
     };
     RegisterComponent.prototype.goBack = function () {
         this.router.navigateByUrl('').then();
-    };
-    RegisterComponent.prototype.goToLogin = function () {
-        this.router.navigateByUrl('/login').then();
     };
     return RegisterComponent;
 }());

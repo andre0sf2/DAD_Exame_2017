@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var websocket_service_1 = require("../websocket/websocket.service");
+var websocket_service_1 = require("../services/websocket.service");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("../services/auth.service");
 var mesa_1 = require("./mesa");
@@ -20,6 +20,7 @@ var TableComponent = (function () {
         this.auth = auth;
         this.error = '';
         this.cards = [];
+        this.baralhoJogadores = [];
         this.adversarios = [];
         this.temAdversario = false;
         this.chatChannel = [];
@@ -56,6 +57,7 @@ var TableComponent = (function () {
         });
         this.mesa = new mesa_1.Mesa();
         this.cards = this.mesa.cards;
+        this.baralharCartas(this.cards);
     };
     TableComponent.prototype.addCard = function () {
     };
@@ -67,6 +69,16 @@ var TableComponent = (function () {
         var mesa = new mesa_1.Mesa();
         var card = this.mesa.getCard(naipe, simbolo);
         return '../../cards-1/' + card.tipoCard + card.simbolo + ".png";
+    };
+    TableComponent.prototype.baralharCartas = function (cards) {
+        var j, k;
+        for (var i = cards.length; i; i--) {
+            j = Math.floor(Math.random() * i);
+            k = cards[i - 1];
+            cards[i - 1] = cards[j];
+            cards[j] = k;
+        }
+        console.log(this.cards);
     };
     return TableComponent;
 }());
