@@ -11,15 +11,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var auth_service_1 = require("../services/auth.service");
+var core_1 = require('@angular/core');
+var auth_service_1 = require('../services/auth.service');
 var router_1 = require("@angular/router");
 var user_1 = require("../model/user");
 var RegisterComponent = (function () {
     function RegisterComponent(router, auth) {
         this.router = router;
         this.auth = auth;
-        this._user = new user_1.User(null, '', '', '', '', '');
+        this._user = new user_1.User(null, '', '', '', 0, 0, '', '');
         this._formSubmitted = false;
     }
     RegisterComponent.prototype.register = function () {
@@ -42,15 +42,15 @@ var RegisterComponent = (function () {
     RegisterComponent.prototype.goToLogin = function () {
         this.router.navigateByUrl('/login').then();
     };
+    RegisterComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'register',
+            templateUrl: 'register.component.html'
+        }), 
+        __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService])
+    ], RegisterComponent);
     return RegisterComponent;
 }());
-RegisterComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'register',
-        templateUrl: 'register.component.html'
-    }),
-    __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService])
-], RegisterComponent);
 exports.RegisterComponent = RegisterComponent;
 //# sourceMappingURL=register.component.js.map

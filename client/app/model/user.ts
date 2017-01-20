@@ -8,8 +8,9 @@ export class User {
         public username: string,
         public email: string,
         public token: string,
+        public totalStars : number,
+        public totalPoints : number,
         public password?: string,
-        public passwordConfirmation?: string,
-        // public avatar?: string
+        public passwordConfirmation?: string
     ) {  }
 }

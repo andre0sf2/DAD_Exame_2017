@@ -18,7 +18,7 @@ import {error} from "util";
 
 export class RegisterComponent {
 
-    protected _user = new User(null, '', '', '', '', '');
+    protected _user = new User(null, '', '', '', 0, 0, '', '');
     protected _formSubmitted = false;
 
     protected usernameTaken: boolean;
