@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="table.component.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+<div class="container">
+    <h1>Mesa</h1>
+    <h2 style="color:red">{{this.error}}</h2>
+
+    <div class="baralho">
+        <div class=""><img src="../../cards-1/semFace.png" class="cartasMesa">1</div>
+        <div class=""><img src="../../cards-1/semFace.png" class="cartasMesa">2</div>
+        <div class=""><img src="../../cards-1/semFace.png" class="cartasMesa">3</div>
+        <div class=""><img src="../../cards-1/semFace.png" class="cartasMesa">4</div>
+    </div>
+
+    <div *ngFor="let card of cards;  let i=index" > <!-- Baralho do Jogador!-->
+        <template [ngIf]="i<10">
+            <img class="cartas alignLeft" [src]="putImage(card.tipoCard,card.simbolo)" style="padding-right: 10px">
+        </template>
+    </div>
+
+    <div style="clear: both"></div><br>
+
+
+    <chatroom></chatroom>
+    <h3>Chat history:</h3>
+    <div class="scrollRoom">
+        <p *ngFor="let m of chatChannel">
+        <li>{{m}}</li>
+        </p>
+    </div>
+    <div>
+        <notificationsRoom></notificationsRoom>
+    </div>
+
+</div>

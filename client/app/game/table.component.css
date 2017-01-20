@@ -1,0 +1,43 @@
+.cartas{
+    width: 10%;
+}
+
+.cartasMesa{
+    width: 17%;
+}
+
+.rotate90 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    padding: 20px;
+}
+
+.alignLeft {
+    float: left;
+}
+.alignRight {
+    float: right;
+}
+.alignUp {
+    vertical-align: text-top;
+}
+
+.alignDown {
+    vertical-align: text-top;
+}
+
+.baralho{
+    width: 300px;
+    height: 300px;
+    border: 1px solid black;
+}
+
+.jogardor1{
+    float: left;
+}
+.jogardor2{
+    float: right;
+}
