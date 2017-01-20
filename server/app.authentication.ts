@@ -10,7 +10,7 @@ export class Authentication{
     }
 
     public logout = (request: any, response: any, next: any) => {
-        request.logOut();
+        request.logout();
         response.json({msg: 'Logout'});
         return next();
     }  

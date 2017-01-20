@@ -15,14 +15,15 @@ export class Security {
     public authorize = this.passport.authenticate('bearer', { session: false });
 }
 
-let validPassword = (player: any, password: any) => {
-    return sha1(password) === player.passwordHash;
+let validPassword = (user: any, password: any) => {
+    return sha1(password) === user.passwordHash;
 }
 
 passport.use(new LocalStrategy((username, password, done) => {
     database.db.collection('users').findOne({
         username: username
     }).then(user => {
+        console.log("debug: " + user);
         if (user === null) {
             return done(null, false, {
                 message: 'Incorrect credentials.'

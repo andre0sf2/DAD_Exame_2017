@@ -19,10 +19,10 @@ var LoginComponent = (function () {
         this.router = router;
         this.auth = auth;
     }
-    LoginComponent.prototype.login = function (username, password) {
+    LoginComponent.prototype.login = function () {
         var _this = this;
         this.auth
-            .login(username, password)
+            .login({ username: this._username, password: this._password })
             .toPromise()
             .then(function (res) {
             _this.goBack();

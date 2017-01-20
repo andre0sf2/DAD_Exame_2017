@@ -3,7 +3,7 @@
  */
 
 import {Injectable} from '@angular/core';
-import {Http, Headers} from '@angular/http';
+import {Http, Headers, RequestOptions} from '@angular/http';
 
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -21,11 +21,10 @@ export class AuthService {
     constructor(private http: Http) {
     }
 
-    login(username: string, password: string): Observable<User> {
+    login(user: any): Observable<User> {
         let options = this.buildHeaders();
 
-        return this.http.post(url + 'login',
-            {username: username, password: password}, options)
+        return this.http.post(url + 'login', user, options)
             .map(res => {
                 this.currentUser = <User>res.json();
                 return this.currentUser;
@@ -36,9 +35,13 @@ export class AuthService {
             });
     }
 
-    logout(): Observable<any> {
-        let options = this.buildHeaders();
-        return this.http.post('http://localhost:7777/api/v1/logout', null, options)
+
+
+    logout() {
+
+        let options = this.buildHeadersWithAuthorization();
+
+        return this.http.post('http://localhost:7777/api/v1/logout', null, {headers: options})
             .map(res => {
                 res.json();
                 this.currentUser = null;
@@ -71,9 +74,17 @@ export class AuthService {
 
     buildHeaders(): Headers {
         let headers = new Headers();
-        headers.append('Access-Control-Allow-Origin', '*');
-        //headers.append('Authorization', 'bearer ' + this.currentUser.token);
         headers.append('Content-Type', 'application/json');
+        headers.append('Access-Control-Allow-Origin', '*');
+
+        return headers;
+    }
+
+    buildHeadersWithAuthorization(): Headers {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Access-Control-Allow-Origin', '*');
+        headers.append('Authorization', 'Bearer ' + this.currentUser.token);
 
         return headers;
     }

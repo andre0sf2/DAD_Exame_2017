@@ -9,7 +9,7 @@ var Authentication = (function () {
             return next();
         };
         this.logout = function (request, response, next) {
-            request.logOut();
+            request.logout();
             response.json({ msg: 'Logout' });
             return next();
         };

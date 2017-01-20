@@ -22,10 +22,10 @@ var AuthService = (function () {
     function AuthService(http) {
         this.http = http;
     }
-    AuthService.prototype.login = function (username, password) {
+    AuthService.prototype.login = function (user) {
         var _this = this;
         var options = this.buildHeaders();
-        return this.http.post(url + 'login', { username: username, password: password }, options)
+        return this.http.post(url + 'login', user, options)
             .map(function (res) {
             _this.currentUser = res.json();
             return _this.currentUser;
@@ -37,8 +37,8 @@ var AuthService = (function () {
     };
     AuthService.prototype.logout = function () {
         var _this = this;
-        var options = this.buildHeaders();
-        return this.http.post('http://localhost:7777/api/v1/logout', null, options)
+        var options = this.buildHeadersWithAuthorization();
+        return this.http.post('http://localhost:7777/api/v1/logout', null, { headers: options })
             .map(function (res) {
             res.json();
             _this.currentUser = null;
@@ -65,9 +65,15 @@ var AuthService = (function () {
     };
     AuthService.prototype.buildHeaders = function () {
         var headers = new http_1.Headers();
-        headers.append('Access-Control-Allow-Origin', '*');
-        //headers.append('Authorization', 'bearer ' + this.currentUser.token);
         headers.append('Content-Type', 'application/json');
+        headers.append('Access-Control-Allow-Origin', '*');
+        return headers;
+    };
+    AuthService.prototype.buildHeadersWithAuthorization = function () {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Access-Control-Allow-Origin', '*');
+        headers.append('Authorization', 'Bearer ' + this.currentUser.token);
         return headers;
     };
     AuthService = __decorate([

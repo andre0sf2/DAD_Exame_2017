@@ -13,13 +13,32 @@ const restifyServer = restify.createServer();
 const socketServer = new WebSocketServer();
 
 // Prepare and configure Restify Server
-restify.CORS.ALLOW_HEADERS.push("content-type");
-restify.CORS.ALLOW_HEADERS.push("authorization");
 restify.CORS.ALLOW_HEADERS.push("Access-Control-Allow-Origin");
+restify.CORS.ALLOW_HEADERS.push("Content-Type");
+restify.CORS.ALLOW_HEADERS.push("Authorization");
 restifyServer.use(restify.bodyParser());
 restifyServer.use(restify.queryParser());
 restifyServer.use(restify.CORS());
 restifyServer.use(restify.fullResponse());
+
+function unknownMethodHandler(req, res) {
+    if (req.method.toLowerCase() === 'options') {
+        var allowHeaders = ['Accept', 'Accept-Version', 'Content-Type', 'Api-Version', 'Access-Control-Allow-Origin', 'Content-Type', 'Authorization'];
+
+        if (res.methods.indexOf('OPTIONS') === -1) res.methods.push('OPTIONS');
+
+        res.header('Access-Control-Allow-Headers', allowHeaders.join(', '));
+        res.header('Access-Control-Allow-Methods', res.methods.join(', '));
+        res.header('Access-Control-Allow-Origin', req.headers.origin);
+
+        return res.send(204);
+    }
+    else
+        return res.send(new restify.MethodNotAllowedError());
+}
+
+restifyServer.on('MethodNotAllowed', unknownMethodHandler);
+
 
 // Prepare and configure Passport based security
 import {Security} from './app.security';
@@ -42,8 +61,8 @@ new User().init(restifyServer, settings);
 import {Game} from './app.games';
 new Game().init(restifyServer, settings);
 
-restifyServer.get(/^\/(?!api\/).*/, restify.serveStatic({
-    directory: '../angular',
+restifyServer.get(/^\/(?!api\/).*!/, restify.serveStatic({
+    directory: '../client',
     default: 'index.html'
 }));
 
