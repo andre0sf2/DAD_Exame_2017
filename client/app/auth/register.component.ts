@@ -35,7 +35,8 @@ export class RegisterComponent {
             .register(this._user)
             .then(res => {
                     console.log("REGISTOU: " + res);
-                    this.goToLogin();
+                    this.auth.login({username: this._user.username, password: this._user.username});
+                    this.goBack();
             })
             .catch(e => {
                 this.error = true;
@@ -48,7 +49,4 @@ export class RegisterComponent {
         this.router.navigateByUrl('').then(/*Do Nothing*/);
     }
 
-    goToLogin() {
-        this.router.navigateByUrl('/login').then(/*Do Nothing*/);
-    }
 }
