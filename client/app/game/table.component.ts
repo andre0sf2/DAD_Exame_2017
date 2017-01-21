@@ -69,7 +69,7 @@ export class TableComponent implements OnInit{
     }
 
     addCard(){
-
+        this.mesa.getCard("o", 2);
     }
 
     cleanMesa(){
@@ -77,10 +77,17 @@ export class TableComponent implements OnInit{
         this.error = '';
     }
 
-    putImage(naipe:string, simbolo: number): string{
-        let mesa = new Mesa();
-        let card = this.mesa.getCard(naipe, simbolo);
-        return '../../cards-1/'+ card.tipoCard+card.simbolo+".png";
+    countCards(): number{
+        let count: number = 0;
+        for(let i = 0; i < this.mesa.cards.length; i++){
+            count += this.mesa.cards[i].ponto;
+        }
+        console.log(count);
+        return count;
+    }
+
+    checkCheating() {
+
     }
 
     baralharCartas(cards: Card[])

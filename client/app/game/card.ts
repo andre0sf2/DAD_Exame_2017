@@ -3,12 +3,14 @@ export class Card{
     private _simbolo: number;
     private _isAval: boolean;
     private _ponto: number;
+    private _img: string;
 
-    public constructor (tipo: string, id: number, pontos: number){
+    public constructor (tipo: string, id: number, pontos: number, img: string){
         this._tipoCard = tipo;
         this._simbolo = id;
         this._isAval = true;
         this._ponto = pontos;
+        this._img = img;
     }
 
     public toString(){

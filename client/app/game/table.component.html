@@ -1,20 +1,46 @@
-<link rel="stylesheet" href="table.component.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
-
 <div class="container">
     <h1>Mesa</h1>
     <h2 style="color:red">{{this.error}}</h2>
 
+    <!--
+        baralha-se
+
+        ultima carta do array vai ser o trunfo
+
+        joga a pessoa que esta ao lado esquerdo da pessoa que deu joga
+
+        if is my turn jogo carta
+
+        joga a pessoa que esta ao lado esquerdo que fez a ultima jogada
+
+        ao fim das 4 jogarem guarda-se no historico e no array de quem ganhou a ronda
+
+        trunfo ganha a jogada a nao sei que aja uma com mais pontos ou com maior numero caso sejam de 0 pontos
+
+        guardar o historico das jogadas num array para caso seja permido o botao renuncia
+
+        cada ronda ganha guarda-se as cartas num array para contar no final
+    !-->
+
     <div class="baralho">
-        <div class=""><img src="../../cards-1/semFace.png" class="cartasMesa">1</div>
-        <div class=""><img src="../../cards-1/semFace.png" class="cartasMesa">2</div>
-        <div class=""><img src="../../cards-1/semFace.png" class="cartasMesa">3</div>
-        <div class=""><img src="../../cards-1/semFace.png" class="cartasMesa">4</div>
-    </div>
+        <div class=""><p style="text-align:center">Jogador </p><img src="../../cards-1/semFace.png" class="cartasMesa centrar"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <p>Jogador </p>
+                <img src="../../cards-1/semFace.png" class="cartasMesa2">
+            </div>
+            <div class="col-md-6">
+                <p style="text-align:right">Jogador </p>
+                <img src="../../cards-1/semFace.png" class="cartasMesa2 alignRight">
+            </div>
+        </div>
+        <div style="clear: both"></div>
+        <div class=""><p style="text-align:center">Jogador <img src="../../cards-1/semFace.png" class="cartasMesa centrar"></div>
+    </div><br>
 
     <div *ngFor="let card of cards;  let i=index" > <!-- Baralho do Jogador!-->
         <template [ngIf]="i<10">
-            <img class="cartas alignLeft" [src]="putImage(card.tipoCard,card.simbolo)" style="padding-right: 10px">
+            <img class="cartas alignLeft" src="{{card._img}}" style="padding-right: 10px">
         </template>
     </div>
 

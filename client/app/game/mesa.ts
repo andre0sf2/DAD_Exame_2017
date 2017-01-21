@@ -7,29 +7,30 @@ export class Mesa {
     constructor() {
         this.cards = [];
         Mesa.todosOsNaipes().forEach(naipe => {
-           Mesa.todosOsSimbolos().forEach(simbolo => {
-               let c: Card = null;
-               switch (simbolo){
-                   case 1 : c = new Card(naipe, simbolo, 11);
-                   break;
-                   case 7 : c = new Card(naipe, simbolo, 10);
-                   break;
-                   case 13 : c = new Card(naipe, simbolo, 4);
-                   break;
-                   case 11 : c = new Card(naipe, simbolo, 3);
-                   break;
-                   case 12 : c = new Card(naipe, simbolo, 2);
-                   break;
-                   default : c = new Card(naipe, simbolo, 0);
-               }
-               this.cards.push(c);
-           });
+            Mesa.todosOsSimbolos().forEach(simbolo => {
+                let c: Card = null;
+                let img = '../../cards-1/'+ naipe+simbolo+".png"
+                switch (simbolo){
+                    case 1 : c = new Card(naipe, simbolo, 11,img);
+                        break;
+                    case 7 : c = new Card(naipe, simbolo, 10,img);
+                        break;
+                    case 13 : c = new Card(naipe, simbolo, 4,img);
+                        break;
+                    case 11 : c = new Card(naipe, simbolo, 3,img);
+                        break;
+                    case 12 : c = new Card(naipe, simbolo, 2,img);
+                        break;
+                    default : c = new Card(naipe, simbolo, 0,img);
+                }
+                this.cards.push(c);
+            });
         });
     }
 
     public getCard(naipe:string, simbolo: number): Card {
 
-        for (let i = 0; i < 40; i++) {
+        for (let i = 0; i < this.cards.length; i++) {
             if (this.cards[i].tipoCard == naipe && this.cards[i].simbolo == simbolo) {
                 return this.cards[i];
             }
