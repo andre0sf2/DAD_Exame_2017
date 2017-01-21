@@ -48,7 +48,7 @@ export class RegisterComponent {
                     this._formSubmitted = false;
                 } else {
                     console.log("REGISTOU: " + res);
-                    this.auth.login({username: this._user.username, password: this._user.password}).subscribe(r => console.log(r));
+                    this.auth.login({username: this._user.username, password: this._user.password}).subscribe(r =>{ console.log(r)})
                     setTimeout(() => {
                         this.goBack();
                     }, 1000);

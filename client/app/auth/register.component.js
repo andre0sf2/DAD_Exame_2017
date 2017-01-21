@@ -41,7 +41,7 @@ var RegisterComponent = (function () {
             }
             else {
                 console.log("REGISTOU: " + res);
-                _this.auth.login({ username: _this._user.username, password: _this._user.password }).subscribe(function (r) { return console.log(r); });
+                _this.auth.login({ username: _this._user.username, password: _this._user.password }).subscribe(function (r) { console.log(r); });
                 setTimeout(function () {
                     _this.goBack();
                 }, 1000);
