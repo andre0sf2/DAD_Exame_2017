@@ -23,7 +23,7 @@
 				<td>{{item._id}}</td>
 				<td>{{item.nplayers}}</td>
 				<td><button class="btn btn-danger" (click)="deleteGame(i)">Delete</button></td>
-				<td><button class="btn btn-success" type="button"   (click)="startGame(i)">Start</button></td>
+				<td><button class="btn btn-success" type="button"  [disabled]="item.players.length!=4" (click)="startGame(i)">Start</button></td>
 			</tr>
 		</tbody>
 	</table>
