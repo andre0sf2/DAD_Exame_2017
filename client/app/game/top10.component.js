@@ -27,7 +27,7 @@ var Top10Component = (function () {
     Top10Component.prototype.getTopPlayersByPoints = function () {
         var _this = this;
         this.top10Service.getTop10byPoints().subscribe(function (players) { return _this.playersPoints = players; });
-        console.log(this.playersPoints);
+        //console.log(this.playersPoints);
     };
     return Top10Component;
 }());

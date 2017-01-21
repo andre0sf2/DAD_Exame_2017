@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { WebSocketService } from '../services/websocket.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
@@ -28,13 +27,13 @@ export class TableComponent implements OnInit{
     public allReady: boolean = false;
     public isMyTurn: boolean = false;
 
-    constructor(private websocketService: WebSocketService, private route: ActivatedRoute, private auth: AuthService) { }
+    constructor(private route: ActivatedRoute, private auth: AuthService) { }
 
     ngOnInit() {
 
         this.cards = [];
 
-        this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
+        /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
 
         this.route.params.subscribe(params => {
             this.room = params['room'];
@@ -62,7 +61,7 @@ export class TableComponent implements OnInit{
                 this.error = 'Fui derrotado';
             }
         });
-
+*/
         this.mesa = new Mesa();
         this.cards = this.mesa.cards;
         this.baralharCartas(this.cards);

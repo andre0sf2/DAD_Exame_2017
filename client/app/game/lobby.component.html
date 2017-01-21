@@ -9,6 +9,7 @@
 				<th>Game ID</th>
 				<th>Number of Players</th>
 				<th>Actions</th>
+				<th>Start Game</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -16,11 +17,13 @@
 				<td>New Game</td>
 				<td>--</td>
 				<td><button class="btn btn-success" (click)="createGame()">Create</button></td>
+
 			</tr>
 			<tr *ngFor="let item of myGames; let i = index">
 				<td>{{item._id}}</td>
 				<td>{{item.nplayers}}</td>
 				<td><button class="btn btn-danger" (click)="deleteGame(i)">Delete</button></td>
+				<td><button class="btn btn-success" type="button"   (click)="startGame(i)">Start</button></td>
 			</tr>
 		</tbody>
 	</table>

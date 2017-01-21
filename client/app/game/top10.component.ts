@@ -26,6 +26,6 @@ export class Top10Component implements OnInit{
 
     getTopPlayersByPoints() : void{
         this.top10Service.getTop10byPoints().subscribe(players => this.playersPoints = players);
-        console.log(this.playersPoints);
+        //console.log(this.playersPoints);
     }
 }

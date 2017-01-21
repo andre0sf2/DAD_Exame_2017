@@ -31,6 +31,28 @@ export class LobbyComponent implements OnInit{
         this.findMyGames();
         this.findOtherGames();
 
+        /*this.websocketService.getNewRoom().subscribe((m: any) => {
+            this.findOtherGames();
+            this.findMyGames();
+        });
+
+        this.websocketService.getJoinOnRoom().subscribe((m: any) => {
+            console.log("Join Player: " + m);
+            this.findMyGames();
+            this.findOtherGames();
+        });
+
+        this.websocketService.getGameStart().subscribe((m: any) => {
+            console.log("Jogo vai começar: " + m);
+            this.router.navigateByUrl('/table-game/' + m);
+        });
+
+        this.websocketService.getRoomDeleted().subscribe((m: any) => {
+            console.log("Apaguei jogo");
+            this.findOtherGames();
+            this.findMyGames();
+        });*/
+
     }
 
     findMyGames(){
@@ -99,5 +121,14 @@ export class LobbyComponent implements OnInit{
             });
             
         }
+    }
+
+    startGame(i: number){
+        let room: string = 'room' + this.myGames[i]._id;
+        //notifyAll
+        this.myGames[i].status = 'playing';
+        this.gameService.updateGame(this.myGames[i], this.authService.getCurrentUser()).subscribe(r => console.log(r));
+        this.router.navigateByUrl('/table-game/' + Date.now());
+        //this.websocketService.notifyAllPlayerGameStarted({ message: 'Game Start!', room: room });
     }
 }

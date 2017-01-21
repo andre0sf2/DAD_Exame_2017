@@ -7,6 +7,7 @@ import {LoginComponent} from "./auth/login.component";
 import {RegisterComponent} from "./auth/register.component";
 import {Top10Component} from "./game/top10.component";
 import {LobbyComponent} from "./game/lobby.component";
+import {TableComponent} from './game/table.component';
 
 import {RouterModule} from "@angular/router";
 import {Top10Service} from "./services/top10.service";
@@ -22,7 +23,7 @@ import {AuthService} from "./services/auth.service";
 
 @NgModule({
   imports:      [ BrowserModule, RouterModule, AppRoutingModule, HttpModule, FormsModule],
-  declarations: [ AppComponent, HomeComponent, LoginComponent, RegisterComponent, Top10Component, LobbyComponent],
+  declarations: [ AppComponent, HomeComponent, LoginComponent, RegisterComponent, Top10Component, LobbyComponent, TableComponent],
   providers:    [ Top10Service, AuthService, GameService, UserService, { provide: APP_BASE_HREF, useValue: '/' } ],
   bootstrap:    [ AppComponent ]
 })

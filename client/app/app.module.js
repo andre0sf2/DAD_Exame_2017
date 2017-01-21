@@ -13,6 +13,7 @@ var login_component_1 = require("./auth/login.component");
 var register_component_1 = require("./auth/register.component");
 var top10_component_1 = require("./game/top10.component");
 var lobby_component_1 = require("./game/lobby.component");
+var table_component_1 = require("./game/table.component");
 var router_1 = require("@angular/router");
 var top10_service_1 = require("./services/top10.service");
 var game_service_1 = require("./services/game.service");
@@ -30,7 +31,7 @@ var AppModule = (function () {
 AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, router_1.RouterModule, app_routing_module_1.AppRoutingModule, http_1.HttpModule, forms_1.FormsModule],
-        declarations: [app_component_1.AppComponent, home_component_1.HomeComponent, login_component_1.LoginComponent, register_component_1.RegisterComponent, top10_component_1.Top10Component, lobby_component_1.LobbyComponent],
+        declarations: [app_component_1.AppComponent, home_component_1.HomeComponent, login_component_1.LoginComponent, register_component_1.RegisterComponent, top10_component_1.Top10Component, lobby_component_1.LobbyComponent, table_component_1.TableComponent],
         providers: [top10_service_1.Top10Service, auth_service_1.AuthService, game_service_1.GameService, user_service_1.UserService, { provide: common_1.APP_BASE_HREF, useValue: '/' }],
         bootstrap: [app_component_1.AppComponent]
     })

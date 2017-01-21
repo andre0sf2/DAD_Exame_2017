@@ -26,6 +26,27 @@ var LobbyComponent = (function () {
     LobbyComponent.prototype.ngOnInit = function () {
         this.findMyGames();
         this.findOtherGames();
+        /*this.websocketService.getNewRoom().subscribe((m: any) => {
+            this.findOtherGames();
+            this.findMyGames();
+        });
+
+        this.websocketService.getJoinOnRoom().subscribe((m: any) => {
+            console.log("Join Player: " + m);
+            this.findMyGames();
+            this.findOtherGames();
+        });
+
+        this.websocketService.getGameStart().subscribe((m: any) => {
+            console.log("Jogo vai começar: " + m);
+            this.router.navigateByUrl('/table-game/' + m);
+        });
+
+        this.websocketService.getRoomDeleted().subscribe((m: any) => {
+            console.log("Apaguei jogo");
+            this.findOtherGames();
+            this.findMyGames();
+        });*/
     };
     LobbyComponent.prototype.findMyGames = function () {
         var _this = this;
@@ -87,6 +108,14 @@ var LobbyComponent = (function () {
                 }
             });
         }
+    };
+    LobbyComponent.prototype.startGame = function (i) {
+        var room = 'room' + this.myGames[i]._id;
+        //notifyAll
+        this.myGames[i].status = 'playing';
+        this.gameService.updateGame(this.myGames[i], this.authService.getCurrentUser()).subscribe(function (r) { return console.log(r); });
+        this.router.navigateByUrl('/table-game/' + Date.now());
+        //this.websocketService.notifyAllPlayerGameStarted({ message: 'Game Start!', room: room });
     };
     return LobbyComponent;
 }());

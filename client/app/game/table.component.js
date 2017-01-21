@@ -9,13 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var websocket_service_1 = require("../services/websocket.service");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("../services/auth.service");
 var mesa_1 = require("./mesa");
 var TableComponent = (function () {
-    function TableComponent(websocketService, route, auth) {
-        this.websocketService = websocketService;
+    function TableComponent(route, auth) {
         this.route = route;
         this.auth = auth;
         this.error = '';
@@ -28,33 +26,36 @@ var TableComponent = (function () {
         this.isMyTurn = false;
     }
     TableComponent.prototype.ngOnInit = function () {
-        var _this = this;
         this.cards = [];
-        this.websocketService.getChatMessagesOnRoom().subscribe(function (m) { return _this.chatChannel.push(m); });
-        this.route.params.subscribe(function (params) {
-            _this.room = params['room'];
+        /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
+
+        this.route.params.subscribe(params => {
+            this.room = params['room'];
         });
-        this.websocketService.getAllPlayersReady().subscribe(function (r) {
+
+        this.websocketService.getAllPlayersReady().subscribe((r: any) => {
             console.log(r);
-            _this.allReady = true;
+            this.allReady = true;
         });
-        this.websocketService.getTurn().subscribe(function (r) {
+
+        this.websocketService.getTurn().subscribe((r: string) => {
             //r = username
-            if (r === _this.auth.getCurrentUser().username) {
-                _this.error = 'My turn!';
-                _this.isMyTurn = true;
-            }
-            else {
-                _this.isMyTurn = false;
-                _this.error = 'Player turn!: ' + r;
+            if (r === this.auth.getCurrentUser().username) {
+                this.error = 'My turn!';
+                this.isMyTurn = true;
+            } else {
+                this.isMyTurn = false;
+                this.error = 'Player turn!: ' + r;
             }
         });
-        this.websocketService.getDerrotado().subscribe(function (r) {
-            if (_this.auth.getCurrentUser().username == r.usernameAlvo) {
+
+        this.websocketService.getDerrotado().subscribe((r: any) => {
+            if (this.auth.getCurrentUser().username == r.usernameAlvo) {
                 console.log("Derrotado");
-                _this.error = 'Fui derrotado';
+                this.error = 'Fui derrotado';
             }
         });
+*/
         this.mesa = new mesa_1.Mesa();
         this.cards = this.mesa.cards;
         this.baralharCartas(this.cards);
@@ -95,7 +96,7 @@ TableComponent = __decorate([
         templateUrl: 'table.component.html',
         styleUrls: ['table.component.css']
     }),
-    __metadata("design:paramtypes", [websocket_service_1.WebSocketService, router_1.ActivatedRoute, auth_service_1.AuthService])
+    __metadata("design:paramtypes", [router_1.ActivatedRoute, auth_service_1.AuthService])
 ], TableComponent);
 exports.TableComponent = TableComponent;
 //# sourceMappingURL=table.component.js.map

@@ -13,11 +13,13 @@ var router_1 = require("@angular/router");
 var login_component_1 = require("./auth/login.component");
 var home_component_1 = require("./home/home.component");
 var register_component_1 = require("./auth/register.component");
+var table_component_1 = require("./game/table.component");
 var routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: home_component_1.HomeComponent },
     { path: 'login', component: login_component_1.LoginComponent },
-    { path: 'register', component: register_component_1.RegisterComponent }
+    { path: 'register', component: register_component_1.RegisterComponent },
+    { path: 'table-game/:room', component: table_component_1.TableComponent }
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
