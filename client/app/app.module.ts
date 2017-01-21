@@ -6,10 +6,11 @@ import {HomeComponent} from "./home/home.component";
 import {LoginComponent} from "./auth/login.component";
 import {RegisterComponent} from "./auth/register.component";
 import {Top10Component} from "./game/top10.component";
-
+import {LobbyComponent} from "./game/lobby.component";
 
 import {RouterModule} from "@angular/router";
 import {Top10Service} from "./services/top10.service";
+import {GameService} from "./services/game.service";
 
 
 import { AppRoutingModule }     from './app-routing.module';
@@ -21,8 +22,8 @@ import {AuthService} from "./services/auth.service";
 
 @NgModule({
   imports:      [ BrowserModule, RouterModule, AppRoutingModule, HttpModule, FormsModule],
-  declarations: [ AppComponent, HomeComponent, LoginComponent, RegisterComponent, Top10Component ],
-  providers: [Top10Service, AuthService,UserService, { provide: APP_BASE_HREF, useValue: '/' } ],
+  declarations: [ AppComponent, HomeComponent, LoginComponent, RegisterComponent, Top10Component, LobbyComponent],
+  providers:    [ Top10Service, AuthService, GameService, UserService, { provide: APP_BASE_HREF, useValue: '/' } ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

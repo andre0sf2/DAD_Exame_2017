@@ -6,6 +6,7 @@ export class Mesa {
 
     constructor() {
         this.cards = [];
+
         Mesa.todosOsNaipes().forEach(naipe => {
            Mesa.todosOsSimbolos().forEach(simbolo => {
                let c: Card = null;

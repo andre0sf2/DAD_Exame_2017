@@ -27,7 +27,7 @@ var WebSocketService = (function () {
         return this.listenOnChannel('chat');
     };
     WebSocketService.prototype.getNotes = function () {
-        console.log("entrei auqi ");
+        // console.log("entrei auqi ");
         return this.listenOnChannel('notes');
     };
     WebSocketService.prototype.sendChatMessageOnRoom = function (message) {
