@@ -97,7 +97,7 @@ var LobbyComponent = (function () {
             }
         });
         if (!this.already_join) {
-            this.otherGames[i].players.push({ player: this.authService.getCurrentUser()._id, score: 0 });
+            this.otherGames[i].players.push({ player: this.authService.getCurrentUser()._id, points: 0 });
             this.otherGames[i].nplayers = this.otherGames[i].nplayers + 1;
             this.gameService.updateGame(this.otherGames[i], this.authService.getCurrentUser()).subscribe(function (response) {
                 /*console.log(response)*/
