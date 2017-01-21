@@ -72,7 +72,7 @@ export class User {
 
                 if (user !== null) {
                     response.json({
-                        msg: util.format('Username already exists.')
+                        msg: util.format('username already exists')
                     });
                 } else {
                     const user = request.body;

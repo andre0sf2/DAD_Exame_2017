@@ -1,10 +1,11 @@
 "use strict";
 var Card = (function () {
-    function Card(tipo, id, pontos) {
+    function Card(tipo, id, pontos, img) {
         this._tipoCard = tipo;
         this._simbolo = id;
         this._isAval = true;
         this._ponto = pontos;
+        this._img = img;
     }
     Card.prototype.toString = function () {
         return "Naipe: " + this._tipoCard + " Simbolo: " + this._simbolo + " Pontos: " + this._ponto + "\n";

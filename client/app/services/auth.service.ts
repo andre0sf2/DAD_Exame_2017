@@ -3,7 +3,7 @@
  */
 
 import {Injectable} from '@angular/core';
-import {Http, Headers} from '@angular/http';
+import {Http, Headers, RequestOptions} from '@angular/http';
 
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -16,6 +16,8 @@ const url = 'http://localhost:7777/api/v1/';
 
 @Injectable()
 export class AuthService {
+
+    currentUser: User;
 
     constructor(private http: Http) {
     }
@@ -62,7 +64,6 @@ export class AuthService {
             .catch(r => Promise.resolve({error: true, message: 'internal error'}));
     }
 
-
     isLogged(): boolean {
         return this.getCurrentUser() != null ? true : false;
     }
@@ -70,6 +71,7 @@ export class AuthService {
     getCurrentUser(): User {
         return JSON.parse(localStorage.getItem('user'));
     }
+
 
     buildHeaders(): Headers {
         let headers = new Headers();

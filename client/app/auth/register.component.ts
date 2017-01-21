@@ -20,6 +20,7 @@ export class RegisterComponent {
 
     protected _user = new User(null, '', '', '', 0, 0, '', '');
     protected _formSubmitted = false;
+    errorMessage = '';
 
     protected usernameTaken: boolean;
 
@@ -29,14 +30,29 @@ export class RegisterComponent {
     }
 
     register() {
+
+        if(this._user.password !== this._user.passwordConfirmation){
+            this.errorMessage = 'Password mismatch';
+            this.error = true;
+            return;
+        }
+
         this._formSubmitted = true;
 
         this.auth
             .register(this._user)
             .then(res => {
+                if (res['msg'] === 'username already exists') {
+                    this.errorMessage = 'Username already exists'
+                    this.error = true;
+                    this._formSubmitted = false;
+                } else {
                     console.log("REGISTOU: " + res);
-                    this.auth.login({username: this._user.username, password: this._user.username});
-                    this.goBack();
+                    this.auth.login({username: this._user.username, password: this._user.password}).subscribe(r => console.log(r));
+                    setTimeout(() => {
+                        this.goBack();
+                    }, 1000);
+                }
             })
             .catch(e => {
                 this.error = true;

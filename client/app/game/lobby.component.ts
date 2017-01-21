@@ -30,6 +30,7 @@ export class LobbyComponent implements OnInit{
     ngOnInit(){
         this.findMyGames();
         this.findOtherGames();
+
     }
 
     findMyGames(){

@@ -60,15 +60,21 @@ var TableComponent = (function () {
         this.baralharCartas(this.cards);
     };
     TableComponent.prototype.addCard = function () {
+        this.mesa.getCard("o", 2);
     };
     TableComponent.prototype.cleanMesa = function () {
         this.mesa = new mesa_1.Mesa();
         this.error = '';
     };
-    TableComponent.prototype.putImage = function (naipe, simbolo) {
-        var mesa = new mesa_1.Mesa();
-        var card = this.mesa.getCard(naipe, simbolo);
-        return '../../cards-1/' + card.tipoCard + card.simbolo + ".png";
+    TableComponent.prototype.countCards = function () {
+        var count = 0;
+        for (var i = 0; i < this.mesa.cards.length; i++) {
+            count += this.mesa.cards[i].ponto;
+        }
+        console.log(count);
+        return count;
+    };
+    TableComponent.prototype.checkCheating = function () {
     };
     TableComponent.prototype.baralharCartas = function (cards) {
         var j, k;

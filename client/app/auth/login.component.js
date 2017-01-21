@@ -18,19 +18,30 @@ var LoginComponent = (function () {
     function LoginComponent(router, auth) {
         this.router = router;
         this.auth = auth;
+        this.error = false;
+        this.loggedIn = false;
     }
     LoginComponent.prototype.login = function () {
         var _this = this;
         this.auth
             .login({ username: this._username, password: this._password })
-            .toPromise()
-            .then(function (res) {
-            console.log(res);
-            _this.goBack();
+            .subscribe(function (res) {
+            if (res) {
+                _this.loggedIn = true;
+                _this.error = false;
+                console.log(_this.auth
+                    .login(res));
+                setTimeout(function () {
+                    _this.goBack();
+                }, 1000);
+            }
+            else {
+                _this.error = true;
+            }
         });
     };
     LoginComponent.prototype.goBack = function () {
-        this.router.navigateByUrl('').then();
+        this.router.navigateByUrl('/home');
     };
     return LoginComponent;
 }());

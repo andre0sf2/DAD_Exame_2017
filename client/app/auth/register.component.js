@@ -21,16 +21,31 @@ var RegisterComponent = (function () {
         this.auth = auth;
         this._user = new user_1.User(null, '', '', '', 0, 0, '', '');
         this._formSubmitted = false;
+        this.errorMessage = '';
     }
     RegisterComponent.prototype.register = function () {
         var _this = this;
+        if (this._user.password !== this._user.passwordConfirmation) {
+            this.errorMessage = 'Password mismatch';
+            this.error = true;
+            return;
+        }
         this._formSubmitted = true;
         this.auth
             .register(this._user)
             .then(function (res) {
-            console.log("REGISTOU: " + res);
-            _this.auth.login({ username: _this._user.username, password: _this._user.username });
-            _this.goBack();
+            if (res['msg'] === 'username already exists') {
+                _this.errorMessage = 'Username already exists';
+                _this.error = true;
+                _this._formSubmitted = false;
+            }
+            else {
+                console.log("REGISTOU: " + res);
+                _this.auth.login({ username: _this._user.username, password: _this._user.password }).subscribe(function (r) { return console.log(r); });
+                setTimeout(function () {
+                    _this.goBack();
+                }, 1000);
+            }
         })
             .catch(function (e) {
             _this.error = true;

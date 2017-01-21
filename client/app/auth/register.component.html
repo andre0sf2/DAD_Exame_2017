@@ -63,4 +63,13 @@
             <button class="btn btn-default" style="float: right" type="reset" (click)="registerForm.reset()">Reset</button>
         </div>
     </form>
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <hr>
+            <div *ngIf="error" class="alert alert-danger">
+                <li> {{errorMessage}} </li>
+            </div>
+        </div>
+    </div>
 </div>
