@@ -26,7 +26,7 @@ export class WebSocketService {
         return this.listenOnChannel('chat');
     }
     getNotes(): Observable<any> {
-        console.log("entrei auqi ");
+       // console.log("entrei auqi ");
         return this.listenOnChannel('notes');
     }
 

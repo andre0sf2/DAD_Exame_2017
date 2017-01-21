@@ -67,6 +67,7 @@ export class Game {
             response.send(400, 'No game data');
             return next();
         }
+        console.log('ee');
         database.db.collection('games')
             .insertOne(game)
             .then(result => this.returnGame(result.insertedId, response, next))
