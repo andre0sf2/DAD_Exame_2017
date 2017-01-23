@@ -1,6 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const BearerStrategy = require('passport-http-bearer').Strategy;
+const FacebookStrategy = require("passport-facebook").Strategy;
 const sha1 = require('sha1');
 
 import {databaseConnection as database} from './app.database';
@@ -48,3 +49,18 @@ passport.use(new BearerStrategy((token, done) => {
         .then((user) => user ? done(null, user, {scope:'all'}) : done(null, false))
         .catch(err => done(err));
 }));
+
+const FacebookID = '944505412318401';
+const FacebookSecret = 'ad3de579cd766e02ef9afc98ee3e259c';
+passport.use(new FacebookStrategy({
+        clientID: FacebookID,
+        clientSecret: FacebookSecret,
+        callbackURL: "http://localhost:7777/auth/facebook/callback"
+    },
+    function (accessToken, refreshToken, profile, done) {
+        // you email, name, id, and so on is on profile
+        let result = profile;
+        console.log("FB " + profile.emails[0].value);
+
+    }
+));

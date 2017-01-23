@@ -62,6 +62,7 @@ var Game = (function () {
                 response.send(400, 'No game data');
                 return next();
             }
+            console.log('ee');
             app_database_1.databaseConnection.db.collection('games')
                 .insertOne(game)
                 .then(function (result) { return _this.returnGame(result.insertedId, response, next); })

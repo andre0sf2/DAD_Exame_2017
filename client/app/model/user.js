@@ -3,15 +3,19 @@
  */
 "use strict";
 var User = (function () {
-    function User(_id, username, email, token, totalStars, totalPoints, password, passwordConfirmation) {
-        this._id = _id;
-        this.username = username;
-        this.email = email;
-        this.token = token;
-        this.totalStars = totalStars;
-        this.totalPoints = totalPoints;
-        this.password = password;
-        this.passwordConfirmation = passwordConfirmation;
+    function User(_username, _email, _token, _password, _passwordConfirmation) {
+        this._username = _username;
+        this._email = _email;
+        this._token = _token;
+        this._password = _password;
+        this._passwordConfirmation = _passwordConfirmation;
+        this.username = _username;
+        this.email = _email;
+        this.token = _token;
+        this.totalStars = 0;
+        this.totalPoints = 0;
+        this.password = _password;
+        this.passwordConfirmation = _passwordConfirmation;
     }
     return User;
 }());

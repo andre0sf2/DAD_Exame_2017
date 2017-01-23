@@ -74,6 +74,14 @@ var AuthService = (function () {
         headers.append('Authorization', 'Bearer ' + this.getCurrentUser().token);
         return headers;
     };
+    AuthService.prototype.facebook = function () {
+        var options = this.buildHeaders();
+        return this.http
+            .get(url + 'auth/facebook', { headers: options })
+            .toPromise()
+            .then(function (r) { return Promise.resolve(r.json()); })
+            .catch(function (r) { return Promise.resolve({ error: true, message: 'Internal error, try again later.' }); });
+    };
     return AuthService;
 }());
 AuthService = __decorate([

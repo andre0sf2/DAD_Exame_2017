@@ -16,6 +16,11 @@ var Authentication = (function () {
         this.init = function (server, settings) {
             server.post(settings.prefix + 'login', settings.security.passport.authenticate('local', { 'session': false }), _this.login);
             server.post(settings.prefix + 'logout', settings.security.authorize, _this.logout);
+            server.get('/auth/facebook', settings.security.passport.authenticate('facebook', { scope: 'email' }));
+            server.get('/auth/facebook/callback', settings.security.passport.authenticate('facebook', {
+                successRedirect: 'http://localhost:3000/home',
+                failureRedirect: '/login'
+            }));
             console.log("Authentication routes registered");
         };
     }

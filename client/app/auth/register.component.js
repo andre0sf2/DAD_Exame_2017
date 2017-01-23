@@ -11,17 +11,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var auth_service_1 = require("../services/auth.service");
+var core_1 = require('@angular/core');
+var auth_service_1 = require('../services/auth.service');
 var router_1 = require("@angular/router");
 var user_1 = require("../model/user");
+var forms_1 = require("@angular/forms");
 var RegisterComponent = (function () {
-    function RegisterComponent(router, auth) {
+    function RegisterComponent(formBuilder, router, auth) {
         this.router = router;
         this.auth = auth;
-        this._user = new user_1.User(null, '', '', '', 0, 0, '', '');
+        this._user = new user_1.User('', '', '', '', '');
         this._formSubmitted = false;
         this.errorMessage = '';
+        var usernameRegex = '^[a-zA-Z0-9]+$';
+        var emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
+        this.registerForm = formBuilder.group({
+            'username': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(3), forms_1.Validators.maxLength(50), forms_1.Validators.pattern(usernameRegex)])],
+            'email': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.pattern((emailRegex))])],
+            'password': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(3), forms_1.Validators.maxLength(50)])],
+            'passwordConfirmation': [null, forms_1.Validators.compose([forms_1.Validators.required])]
+        });
     }
     RegisterComponent.prototype.register = function () {
         var _this = this;
@@ -40,30 +49,42 @@ var RegisterComponent = (function () {
                 _this._formSubmitted = false;
             }
             else {
-                console.log("REGISTOU: " + res);
-                _this.auth.login({ username: _this._user.username, password: _this._user.password }).subscribe(function (r) { console.log(r); });
-                setTimeout(function () {
-                    _this.goBack();
-                }, 1000);
+                if (_this._user.password !== _this._user.passwordConfirmation) {
+                    _this.registerForm.setErrors({ 'passwordMissmatch': 'Password and Password Confirmation must match.' });
+                }
+                else {
+                    _this.auth
+                        .register(_this._user)
+                        .then(function (res) {
+                        console.log("REGISTOU: " + res);
+                        _this.gotoLogin();
+                    })
+                        .catch(function (e) {
+                        _this.registerForm.controls['username'].setErrors({ 'taken': 'Username already taken' });
+                        console.log("ERRO: " + e);
+                    });
+                }
             }
-        })
-            .catch(function (e) {
-            _this.error = true;
-            console.log("ERRO: " + e);
         });
+    };
+    RegisterComponent.prototype.authFacebook = function () {
+        this.auth.facebook();
+    };
+    RegisterComponent.prototype.gotoLogin = function () {
+        this.router.navigateByUrl('/login').then();
     };
     RegisterComponent.prototype.goBack = function () {
         this.router.navigateByUrl('').then();
     };
+    RegisterComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'register',
+            templateUrl: 'register.component.html'
+        }), 
+        __metadata('design:paramtypes', [forms_1.FormBuilder, router_1.Router, auth_service_1.AuthService])
+    ], RegisterComponent);
     return RegisterComponent;
 }());
-RegisterComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'register',
-        templateUrl: 'register.component.html'
-    }),
-    __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService])
-], RegisterComponent);
 exports.RegisterComponent = RegisterComponent;
 //# sourceMappingURL=register.component.js.map

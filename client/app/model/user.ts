@@ -3,14 +3,28 @@
  */
 
 export class User {
-    constructor(
-        public _id: number,
-        public username: string,
-        public email: string,
-        public token: string,
-        public totalStars : number,
-        public totalPoints : number,
-        public password?: string,
-        public passwordConfirmation?: string
-    ) {  }
+    _id: string;
+    username: string;
+    email: string;
+    passwordHash: string;
+    totalStars: number;
+    totalPoints: number;
+    token: string;
+    password: string;
+    passwordConfirmation: string;
+
+
+    constructor(public _username: string,
+                public _email: string,
+                public _token: string,
+                private _password?: string,
+                private _passwordConfirmation?: string,) {
+        this.username = _username;
+        this.email = _email;
+        this.token = _token;
+        this.totalStars = 0;
+        this.totalPoints = 0;
+        this.password = _password;
+        this.passwordConfirmation = _passwordConfirmation;
+    }
 }

@@ -1,8 +1,8 @@
 <div class="container">
     <h1 style="margin-left: 20%; margin-right: 20%;" class="text-center">Welcome to [DAD] Sueca Game</h1>
 
-    <form class="form-horizontal form-login jumbotron" style="margin-left: 20%; margin-right: 20%;"
-          #loginForm="ngForm" (ngSubmit)="login()" method="POST">
+    <form class="form-horizontal form-register jumbotron" style="margin-left: 20%; margin-right: 20%;"
+          [formGroup]="loginForm" (ngSubmit)="login()" method="POST">
         <div id="legend">
             <legend><strong>Login</strong></legend>
         </div>
@@ -12,7 +12,10 @@
             <label for="username">Username</label>
             <input type="text" id="username" name="username" placeholder="username" class="form-control"
                    [(ngModel)]="_username"
-                   #username="ngModel">
+                   [formControl]="loginForm.controls['username']">
+            <p class="help-block alert-danger"
+               *ngIf="loginForm.controls['username'].hasError('required') && loginForm.controls['username'].touched">
+                You must provide a password</p>
         </div>
 
         <div class="form-group">
@@ -20,12 +23,17 @@
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="password" class="form-control"
                    [(ngModel)]="_password"
-                   #password="ngModel">
+                   [formControl]="loginForm.controls['password']">
+            <p class="help-block alert-danger"
+               *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched">
+                You must provide a password</p>
         </div>
 
         <div class="form-group">
             <!-- Button Login -->
-            <button class="btn btn-success" type="submit">Login</button>
+            <button [disabled]="!loginForm.valid || loginForm.controls['username'].value === '' || loginForm.controls['password'].value === ''"
+                    class="btn btn-success" type="submit">Login
+            </button>
         </div>
     </form>
 

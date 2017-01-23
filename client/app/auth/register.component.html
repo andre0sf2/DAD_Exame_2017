@@ -2,7 +2,7 @@
     <h1 style="margin-left: 20%; margin-right: 20%;" class="text-center">Welcome to [DAD] Sueca Game</h1>
 
     <form class="form-horizontal form-register jumbotron" style="margin-left: 20%; margin-right: 20%;"
-          #registerForm="ngForm" (ngSubmit)="register()" method="POST">
+          [formGroup]="registerForm" (ngSubmit)="register()" method="POST">
         <div id="legend">
             <legend><strong>Register</strong></legend>
         </div>
@@ -12,10 +12,17 @@
             <label for="username">Username</label>
             <input type="text" id="username" name="username" placeholder="username" class="form-control"
                    [(ngModel)]="_user.username"
-                   #username="ngModel">
+                   [formControl]="registerForm.controls['username']">
             <p class="help-block alert-danger"
-               *ngIf="username.invalid || (username.pristine && _formSubmitted)">Username can only contain any
-                letters or numbers, without spaces</p>
+               *ngIf="registerForm.controls['username'].hasError('required') && registerForm.controls['username'].touched">
+                You must provide an username</p>
+            <p class="help-block alert-danger"
+               *ngIf="registerForm.controls['username'].hasError('pattern') && registerForm.controls['username'].touched">
+                Username can only contain letters or numbers, without spaces</p>
+            <p *ngIf="registerForm.controls['username'].hasError('minlength') && registerForm.controls['username'].touched"
+               class="alert alert-danger">Provided username must have at least 3 characters.</p>
+            <p *ngIf="registerForm.controls['username'].hasError('maxlength') && registerForm.controls['username'].touched"
+               class="alert alert-danger">Provided username cannot exceed 50 characters.</p>
             <p class="help-block alert-danger"
                *ngIf="(usernameTaken && _formSubmitted)">Username is already taken</p>
         </div>
@@ -25,9 +32,13 @@
             <label for="email">E-mail</label>
             <input type="text" id="email" name="email" placeholder="email" class="form-control"
                    [(ngModel)]="_user.email"
-                   #email="ngModel">
-            <p class="help-block alert-danger" *ngIf="email.invalid || (email.pristine && _formSubmitted)">
+                   [formControl]="registerForm.controls['email']">
+            <p class="help-block alert-danger"
+               *ngIf="registerForm.controls['email'].hasError('required') && registerForm.controls['username'].touched">
                 Please provide your email</p>
+            <p class="help-block alert-danger"
+               *ngIf="registerForm.controls['email'].hasError('pattern') && registerForm.controls['username'].touched">
+                Please provide a valid email</p>
 
         </div>
 
@@ -36,10 +47,18 @@
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="password" class="form-control"
                    [(ngModel)]="_user.password"
-                   #password="ngModel">
+                   [formControl]="registerForm.controls['password']">
             <p class="help-block alert-danger"
-               *ngIf="password.invalid || (password.pristine && _formSubmitted)">Password should be at least 4
-                characters</p>
+               *ngIf="registerForm.controls['password'].hasError('required') && registerForm.controls['password'].touched">
+                You must provide a password</p>
+            <p class="help-block alert-danger"
+               *ngIf="registerForm.controls['password'].hasError('minlength') && registerForm.controls['password'].touched">
+                Password should have at least 3
+                characters.</p>
+            <p class="help-block alert-danger"
+               *ngIf="registerForm.controls['password'].hasError('maxlength') && registerForm.controls['password'].touched">
+                Password should not exceed 50
+                characters.</p>
         </div>
 
         <div class="form-group">
@@ -48,20 +67,40 @@
             <input type="password" id="passwordConfirmation" name="passwordConfirmation"
                    placeholder="password confirmation"
                    class="form-control" [(ngModel)]="_user.passwordConfirmation"
-                   #passwordConfirmation="ngModel">
+                   [formControl]="registerForm.controls['passwordConfirmation']">
             <p class="help-block alert-danger"
-               *ngIf="passwordConfirmation.invalid || (passwordConfirmation.pristine && _formSubmitted)">Please
-                confirm password</p>
+               *ngIf="registerForm.controls['passwordConfirmation'].hasError('required') && registerForm.controls['passwordConfirmation'].touched">
+                Please confirm your password.</p>
         </div>
 
         <p class="help-block alert-danger"
-           *ngIf="(error && _formSubmitted)">Internal Error, please try again later</p>
+           *ngIf="loginForm.hasError('error')">{{ loginForm.getError('error') }}</p>
+        <p class="help-block alert-danger"
+           *ngIf="loginForm.hasError('passwordMissmatch')">{{ loginForm.getError('passwordMissmatch') }}</p>
 
         <div class="form-group">
-            <button class="btn btn-success" type="submit">Register</button>
+            <button [disabled]="!registerForm.valid ||
+                    registerForm.controls['password'].value != registerForm.controls['passwordConfirmation'].value ||
+                    registerForm.controls['password'].value == '' || registerForm.controls['passwordConfirmation'].value == ''"
+                    class="btn btn-success" type="submit">Register
+            </button>
             <button class="btn btn-danger" type="reset" (click)="goBack()">Cancel</button>
-            <button class="btn btn-default" style="float: right" type="reset" (click)="registerForm.reset()">Reset</button>
+            <button class="btn btn-default" style="float: right" type="reset" (click)="registerForm.reset()">Reset
+            </button>
         </div>
+
+        <div class="social-login">
+            <p>- - - - - - - - - - - - - Sign In With - - - - - - - - - - - - - </p>
+            <ul>
+                <a href="http://localhost:7777/api/v1/auth/facebook" class="btn btn-lg btn-block omb_btn-facebook">
+                    <i class="fa fa-facebook visible-xs"></i>
+                    <span class="hidden-xs">Facebook</span>
+                </a>
+                <li><a href=""><i class="fa fa-google-plus"></i> Google+</a></li>
+                <li><a href=""><i class="fa fa-twitter"></i> Twitter</a></li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
     </form>
 
     <div class="row">

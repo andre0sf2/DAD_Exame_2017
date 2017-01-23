@@ -17,6 +17,7 @@
     "passport": "^0.3.2",
     "passport-http-bearer": "^1.0.1",
     "passport-local": "^1.0.0",
+    "passport-facebook": "^2.1.1",
     "restify": "^4.3.0",
     "sha1": "^1.1.1",
     "socket.io": "^1.6.0",
