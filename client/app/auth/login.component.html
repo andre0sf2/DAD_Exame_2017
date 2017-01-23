@@ -31,19 +31,13 @@
 
         <div class="form-group">
             <!-- Button Login -->
+            <p class="help-block alert-danger"
+               *ngIf="error">
+                {{errorM}}</p>
             <button [disabled]="!loginForm.valid || loginForm.controls['username'].value === '' || loginForm.controls['password'].value === ''"
                     class="btn btn-success" type="submit">Login
             </button>
         </div>
     </form>
 
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <hr>
-            <div *ngIf="error" class="alert alert-danger">
-                <li> Incorrect username or password </li>
-                <li> Please try again! </li>
-            </div>
-        </div>
-    </div>
 </div>

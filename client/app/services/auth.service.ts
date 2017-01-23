@@ -3,7 +3,7 @@
  */
 
 import {Injectable} from '@angular/core';
-import {Http, Headers, RequestOptions} from '@angular/http';
+import {Http, Headers} from '@angular/http';
 
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -31,7 +31,7 @@ export class AuthService {
                 return this.getCurrentUser();
             })
             .catch(e => {
-                console.log(e);
+                console.log("DEBUG " + e);
                 return Observable.of<User>(null);
             });
     }
