@@ -1,6 +1,46 @@
 <div class="container">
 
-	<h1>History</h1>
+	<div *ngIf="authService.isLogged()">
+		<h1>Your History</h1>
+
+		<div class="panel panel-primary">
+
+			<div class="panel-heading">
+				<h3 class="panel-title">Your Games</h3>
+			</div>
+			<table class="table table-hover" id="dev-table">
+				<thead>
+					<tr>
+						<th>Game #</th>
+						<th>Created by</th>
+						<th>Is Finished</th>
+						<th>Date Start</th>
+						<th>Date Finish</th>
+						<th>Winners</th>
+						<th>Players</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let item of myGames">
+						<td>{{item._id}}</td>
+						<td>{{item.UsernameOwner}}</td>
+						<td>{{item.finish}}</td>
+						<td>{{item.dateStart}}</td>
+						<td>{{item.dateFinish}}</td>
+						<td>
+							<ul>{{item.winner1}}</ul>
+							<ul>{{item.winner2}}</ul>
+						</td>
+						<td>
+							<ul *ngFor="let player of item.players">{{player.username}} <br/> ({{player.points}} points / {{player.stars}} stars)</ul>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<h1>All History</h1>
 	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<h3 class="panel-title">All Games</h3>
@@ -36,9 +76,8 @@
 						<ul *ngFor="let player of item.players">{{player.username}} <br/> ({{player.points}} points / {{player.stars}} stars)</ul>
 					</td>
 				</tr>
-
-
 			</tbody>
 		</table>
 	</div>
+
 </div>

@@ -106,6 +106,26 @@ var GameService = (function () {
             return Rx_1.Observable.throw(error);
         });
     };
+    GameService.prototype.getMyGames = function (user) {
+        var publicHeaders = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var games = [];
+        return this.http.get('http://localhost:7777/api/v1/allgames', publicHeaders)
+            .map(function (response) {
+            response.json().forEach(function (game) {
+                game.players.forEach(function (p) {
+                    //console.log(p.username + "SADKDS");
+                    //console.log(user.username);
+                    if (p.username == user.username) {
+                        games.push(game);
+                    }
+                });
+            });
+            return games;
+        })
+            .catch(function (error) {
+            return Rx_1.Observable.throw(error);
+        });
+    };
     return GameService;
 }());
 GameService = __decorate([

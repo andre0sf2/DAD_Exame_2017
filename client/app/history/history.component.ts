@@ -13,15 +13,21 @@ import { Game } from '../model/game';
 export class HistoryComponent implements OnInit{
 
     allGames : Game[] = [];
+    myGames : Game[] = [];
 
-    constructor(private gameService: GameService){}
+    constructor(private gameService: GameService, private authService: AuthService){}
 
     ngOnInit(){
         this.getAllGames();
+        this.getMyGames();
     }
 
     getAllGames() : void{
         this.gameService.getAllGames().subscribe(games => console.log(this.allGames = games));
+    }
+
+    getMyGames() : void {
+        this.gameService.getMyGames(this.authService.getCurrentUser()).subscribe(games => console.log(this.myGames = games));
     }
 
 }

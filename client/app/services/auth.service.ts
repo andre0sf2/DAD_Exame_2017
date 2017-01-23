@@ -17,7 +17,7 @@ const url = 'http://localhost:7777/api/v1/';
 @Injectable()
 export class AuthService {
 
-    currentUser: User;
+    //currentUser: User;
 
     constructor(private http: Http) {
     }

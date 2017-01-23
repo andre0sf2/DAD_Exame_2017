@@ -19,6 +19,7 @@ require("rxjs/add/operator/catch");
 require("rxjs/add/observable/throw");
 var url = 'http://localhost:7777/api/v1/';
 var AuthService = (function () {
+    //currentUser: User;
     function AuthService(http) {
         this.http = http;
     }
