@@ -33,11 +33,7 @@ var LoginComponent = (function () {
             .subscribe(function (res) {
             if (res != null) {
                 _this.error = false;
-                console.log(_this.auth
-                    .login(res));
-                setTimeout(function () {
-                    _this.goBack();
-                }, 1000);
+                _this.goBack();
             }
             else {
                 _this.error = true;

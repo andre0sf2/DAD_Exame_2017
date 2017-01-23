@@ -38,11 +38,7 @@ export class LoginComponent {
             .subscribe(res => {
                 if (res != null) {
                     this.error = false;
-                    console.log(this.auth
-                        .login(res));
-                    setTimeout(() => {
-                        this.goBack();
-                    }, 1000);
+                    this.goBack();
 
                 } else {
                     this.error = true;
