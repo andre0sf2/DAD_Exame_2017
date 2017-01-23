@@ -17,8 +17,8 @@ import {FormGroup, Validators, FormBuilder} from "@angular/forms";
 export class LoginComponent {
     private loginForm: FormGroup;
 
-    error: boolean = false;
-    loggedIn: boolean = false;
+    protected error: boolean;
+    protected errorM: string;
 
     _username: string;
     _password: string;
@@ -36,8 +36,7 @@ export class LoginComponent {
         this.auth
             .login({username: this._username, password: this._password})
             .subscribe(res => {
-                if (res) {
-                    this.loggedIn = true;
+                if (res != null) {
                     this.error = false;
                     console.log(this.auth
                         .login(res));
@@ -47,6 +46,7 @@ export class LoginComponent {
 
                 } else {
                     this.error = true;
+                    this.errorM = 'Username or Password incorrect. Try again.';
                 }
             });
 

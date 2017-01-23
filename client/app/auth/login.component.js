@@ -20,8 +20,6 @@ var LoginComponent = (function () {
         this.formBuilder = formBuilder;
         this.router = router;
         this.auth = auth;
-        this.error = false;
-        this.loggedIn = false;
         var usernameRegex = '^[a-zA-Z0-9]+$';
         this.loginForm = formBuilder.group({
             'username': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.pattern(usernameRegex)])],
@@ -33,8 +31,7 @@ var LoginComponent = (function () {
         this.auth
             .login({ username: this._username, password: this._password })
             .subscribe(function (res) {
-            if (res) {
-                _this.loggedIn = true;
+            if (res != null) {
                 _this.error = false;
                 console.log(_this.auth
                     .login(res));
@@ -44,6 +41,7 @@ var LoginComponent = (function () {
             }
             else {
                 _this.error = true;
+                _this.errorM = 'Username or Password incorrect. Try again.';
             }
         });
     };

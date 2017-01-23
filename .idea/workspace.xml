@@ -2,63 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="14fc78a0-72db-4845-83e6-d9975664c92d" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/server/app.authentication.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/server/app.database.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/server/app.games.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/server/app.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/server/app.security.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/server/app.users.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/server/app.websockets.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/app-routing.module.js" afterPath="$PROJECT_DIR$/client/app/app-routing.module.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/app-routing.module.js.map" afterPath="$PROJECT_DIR$/client/app/app-routing.module.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/app.component.html" afterPath="$PROJECT_DIR$/client/app/app.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/app.component.js" afterPath="$PROJECT_DIR$/client/app/app.component.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/app.component.js.map" afterPath="$PROJECT_DIR$/client/app/app.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/app.component.spec.js" afterPath="$PROJECT_DIR$/client/app/app.component.spec.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/app.component.spec.js.map" afterPath="$PROJECT_DIR$/client/app/app.component.spec.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/app.module.js" afterPath="$PROJECT_DIR$/client/app/app.module.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/app.module.js.map" afterPath="$PROJECT_DIR$/client/app/app.module.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/app.module.ts" afterPath="$PROJECT_DIR$/client/app/app.module.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/auth/login.component.html" afterPath="$PROJECT_DIR$/client/app/auth/login.component.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/auth/login.component.js" afterPath="$PROJECT_DIR$/client/app/auth/login.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/auth/login.component.js.map" afterPath="$PROJECT_DIR$/client/app/auth/login.component.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/auth/login.component.ts" afterPath="$PROJECT_DIR$/client/app/auth/login.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/auth/register.component.html" afterPath="$PROJECT_DIR$/client/app/auth/register.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/auth/register.component.js" afterPath="$PROJECT_DIR$/client/app/auth/register.component.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/auth/register.component.js.map" afterPath="$PROJECT_DIR$/client/app/auth/register.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/auth/register.component.ts" afterPath="$PROJECT_DIR$/client/app/auth/register.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/game/card.js.map" afterPath="$PROJECT_DIR$/client/app/game/card.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/game/gameHistory.component.js" afterPath="$PROJECT_DIR$/client/app/game/gameHistory.component.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/game/gameHistory.component.js.map" afterPath="$PROJECT_DIR$/client/app/game/gameHistory.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/game/lobby.component.js" afterPath="$PROJECT_DIR$/client/app/game/lobby.component.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/game/lobby.component.js.map" afterPath="$PROJECT_DIR$/client/app/game/lobby.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/game/mesa.js" afterPath="$PROJECT_DIR$/client/app/game/mesa.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/game/mesa.js.map" afterPath="$PROJECT_DIR$/client/app/game/mesa.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/game/table.component.js" afterPath="$PROJECT_DIR$/client/app/game/table.component.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/game/table.component.js.map" afterPath="$PROJECT_DIR$/client/app/game/table.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/game/top10.component.js" afterPath="$PROJECT_DIR$/client/app/game/top10.component.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/game/top10.component.js.map" afterPath="$PROJECT_DIR$/client/app/game/top10.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/home/home.component.js" afterPath="$PROJECT_DIR$/client/app/home/home.component.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/home/home.component.js.map" afterPath="$PROJECT_DIR$/client/app/home/home.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/main.js" afterPath="$PROJECT_DIR$/client/app/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/main.js.map" afterPath="$PROJECT_DIR$/client/app/main.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/model/game.js.map" afterPath="$PROJECT_DIR$/client/app/model/game.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/model/user.js.map" afterPath="$PROJECT_DIR$/client/app/model/user.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/services/auth.service.js" afterPath="$PROJECT_DIR$/client/app/services/auth.service.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/services/auth.service.js.map" afterPath="$PROJECT_DIR$/client/app/services/auth.service.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/services/auth.service.ts" afterPath="$PROJECT_DIR$/client/app/services/auth.service.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/services/game.service.js" afterPath="$PROJECT_DIR$/client/app/services/game.service.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/services/game.service.js.map" afterPath="$PROJECT_DIR$/client/app/services/game.service.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/services/top10.service.js" afterPath="$PROJECT_DIR$/client/app/services/top10.service.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/services/top10.service.js.map" afterPath="$PROJECT_DIR$/client/app/services/top10.service.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/services/user.service.js" afterPath="$PROJECT_DIR$/client/app/services/user.service.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/services/user.service.js.map" afterPath="$PROJECT_DIR$/client/app/services/user.service.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/services/websocket.service.js" afterPath="$PROJECT_DIR$/client/app/services/websocket.service.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/services/websocket.service.js.map" afterPath="$PROJECT_DIR$/client/app/services/websocket.service.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/e2e/app.e2e-spec.js" afterPath="$PROJECT_DIR$/client/e2e/app.e2e-spec.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/e2e/app.e2e-spec.js.map" afterPath="$PROJECT_DIR$/client/e2e/app.e2e-spec.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/app.users.ts" afterPath="$PROJECT_DIR$/server/app.users.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/handler.settings.js" afterPath="$PROJECT_DIR$/server/handler.settings.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -79,11 +30,10 @@
       <file leaf-file-name="auth.service.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/app/services/auth.service.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="92" column="16" lean-forward="false" selection-start-line="92" selection-start-column="16" selection-end-line="92" selection-end-column="16" />
+            <state relative-caret-position="85">
+              <caret line="5" column="21" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <element signature="e#43#84#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -103,11 +53,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.users.ts" pinned="false" current-in-tab="true">
+      <file leaf-file-name="app.users.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/app.users.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="76" column="48" lean-forward="true" selection-start-line="76" selection-start-column="48" selection-end-line="76" selection-end-column="48" />
+            <state relative-caret-position="228">
+              <caret line="68" column="23" lean-forward="false" selection-start-line="68" selection-start-column="23" selection-end-line="68" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -143,11 +93,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.component.ts" pinned="false" current-in-tab="false">
+      <file leaf-file-name="login.component.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/app/auth/login.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="15" column="2" lean-forward="false" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
+            <state relative-caret-position="262">
+              <caret line="39" column="39" lean-forward="false" selection-start-line="39" selection-start-column="39" selection-end-line="39" selection-end-column="39" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#43#83#0" expanded="true" />
@@ -160,7 +110,7 @@
         <entry file="file://$PROJECT_DIR$/client/app/app.component.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="221">
-              <caret line="16" column="27" lean-forward="true" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
+              <caret line="16" column="27" lean-forward="false" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -169,8 +119,8 @@
       <file leaf-file-name="login.component.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/app/auth/login.component.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="653">
-              <caret line="48" column="6" lean-forward="false" selection-start-line="48" selection-start-column="6" selection-end-line="48" selection-end-column="6" />
+            <state relative-caret-position="120">
+              <caret line="35" column="24" lean-forward="false" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -198,6 +148,11 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>loggedIn</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -219,17 +174,17 @@
         <option value="$PROJECT_DIR$/client/app/auth/auth.component.css" />
         <option value="$PROJECT_DIR$/server/package.json" />
         <option value="$PROJECT_DIR$/server/app.security.ts" />
-        <option value="$PROJECT_DIR$/client/app/auth/login.component.html" />
         <option value="$PROJECT_DIR$/client/app/model/user.ts" />
         <option value="$PROJECT_DIR$/client/app/auth/auth.component.ts" />
         <option value="$PROJECT_DIR$/server/app.authentication.ts" />
         <option value="$PROJECT_DIR$/client/app/app.module.ts" />
         <option value="$PROJECT_DIR$/client/app/app.component.html" />
-        <option value="$PROJECT_DIR$/client/app/services/auth.service.ts" />
-        <option value="$PROJECT_DIR$/client/app/auth/login.component.ts" />
         <option value="$PROJECT_DIR$/client/app/auth/register.component.html" />
         <option value="$PROJECT_DIR$/server/app.users.ts" />
         <option value="$PROJECT_DIR$/client/app/auth/register.component.ts" />
+        <option value="$PROJECT_DIR$/client/app/services/auth.service.ts" />
+        <option value="$PROJECT_DIR$/client/app/auth/login.component.html" />
+        <option value="$PROJECT_DIR$/client/app/auth/login.component.ts" />
       </list>
     </option>
   </component>
@@ -623,7 +578,7 @@
       <workItem from="1484789303307" duration="22925000" />
       <workItem from="1484927323096" duration="2353000" />
       <workItem from="1485039605568" duration="4023000" />
-      <workItem from="1485185542961" duration="4810000" />
+      <workItem from="1485185542961" duration="6053000" />
     </task>
     <task id="LOCAL-00001" summary="Logout working. Still have validations to make in login and register&#10;">
       <created>1484878273632</created>
@@ -643,7 +598,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36425000" />
+    <option name="totallyTimeSpent" value="37668000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -1054,38 +1009,8 @@
     <entry file="file://$PROJECT_DIR$/client/app/app.component.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
-          <caret line="16" column="27" lean-forward="true" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
+          <caret line="16" column="27" lean-forward="false" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/app/services/auth.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="92" column="16" lean-forward="false" selection-start-line="92" selection-start-column="16" selection-end-line="92" selection-end-column="16" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#43#84#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/app/auth/login.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="653">
-          <caret line="48" column="6" lean-forward="false" selection-start-line="48" selection-start-column="6" selection-end-line="48" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/app/auth/login.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="15" column="2" lean-forward="false" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#43#83#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1129,9 +1054,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/app.users.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="76" column="48" lean-forward="true" selection-start-line="76" selection-start-column="48" selection-end-line="76" selection-end-column="48" />
+        <state relative-caret-position="228">
+          <caret line="68" column="23" lean-forward="false" selection-start-line="68" selection-start-column="23" selection-end-line="68" selection-end-column="23" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/services/auth.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="21" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/auth/login.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="35" column="24" lean-forward="false" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/auth/login.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="39" column="39" lean-forward="false" selection-start-line="39" selection-start-column="39" selection-end-line="39" selection-end-column="39" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#43#83#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

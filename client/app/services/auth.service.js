@@ -31,7 +31,7 @@ var AuthService = (function () {
             return _this.getCurrentUser();
         })
             .catch(function (e) {
-            console.log(e);
+            console.log("DEBUG " + e);
             return Rx_1.Observable.of(null);
         });
     };
