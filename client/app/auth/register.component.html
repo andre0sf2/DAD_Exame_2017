@@ -23,6 +23,8 @@
                class="alert alert-danger">Provided username must have at least 3 characters.</p>
             <p *ngIf="registerForm.controls['username'].hasError('maxlength') && registerForm.controls['username'].touched"
                class="alert alert-danger">Provided username cannot exceed 50 characters.</p>
+            <p *ngIf="registerForm.controls['username'].hasError('taken') && registerForm.controls['username'].touched"
+               class="alert alert-danger">Username already taken.</p>
             <p class="help-block alert-danger"
                *ngIf="(usernameTaken && _formSubmitted)">Username is already taken</p>
         </div>
@@ -73,10 +75,12 @@
                 Please confirm your password.</p>
         </div>
 
-        <p class="help-block alert-danger"
-           *ngIf="loginForm.hasError('error')">{{ loginForm.getError('error') }}</p>
-        <p class="help-block alert-danger"
-           *ngIf="loginForm.hasError('passwordMissmatch')">{{ loginForm.getError('passwordMissmatch') }}</p>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <p *ngIf="error" class="help-block alert-danger">{{errorMessage}}
+                </p>
+            </div>
+        </div>
 
         <div class="form-group">
             <button [disabled]="!registerForm.valid ||
@@ -88,27 +92,5 @@
             <button class="btn btn-default" style="float: right" type="reset" (click)="registerForm.reset()">Reset
             </button>
         </div>
-
-        <div class="social-login">
-            <p>- - - - - - - - - - - - - Sign In With - - - - - - - - - - - - - </p>
-            <ul>
-                <a href="http://localhost:7777/api/v1/auth/facebook" class="btn btn-lg btn-block omb_btn-facebook">
-                    <i class="fa fa-facebook visible-xs"></i>
-                    <span class="hidden-xs">Facebook</span>
-                </a>
-                <li><a href=""><i class="fa fa-google-plus"></i> Google+</a></li>
-                <li><a href=""><i class="fa fa-twitter"></i> Twitter</a></li>
-            </ul>
-        </div>
-        <div class="clearfix"></div>
     </form>
-
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <hr>
-            <div *ngIf="error" class="alert alert-danger">
-                <li> {{errorMessage}} </li>
-            </div>
-        </div>
-    </div>
 </div>

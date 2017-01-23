@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 "use strict";
-=======
->>>>>>> 0a09b415df6e515bafe19ab8422d061932ab1476
 var mongodb = require('mongodb');
 var util = require('util');
 var sha1 = require('sha1');
@@ -65,9 +62,12 @@ var User = (function () {
             app_database_1.databaseConnection.db.collection('users')
                 .findOne({ username: request.body.username })
                 .then(function (user) {
+                console.log("User is: " + request.body.username);
+                console.log("USer found is: " + user.username);
                 if (user !== null) {
+                    console.log("User already exists so...");
                     response.json({
-                        msg: util.format('username already exists')
+                        msg: util.format('Username already exists')
                     });
                 }
                 else {
@@ -159,9 +159,5 @@ var User = (function () {
         };
     }
     return User;
-<<<<<<< HEAD
 }());
-=======
-})();
->>>>>>> 0a09b415df6e515bafe19ab8422d061932ab1476
 exports.User = User;

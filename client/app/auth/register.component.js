@@ -11,8 +11,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var auth_service_1 = require('../services/auth.service');
+var core_1 = require("@angular/core");
+var auth_service_1 = require("../services/auth.service");
 var router_1 = require("@angular/router");
 var user_1 = require("../model/user");
 var forms_1 = require("@angular/forms");
@@ -56,6 +56,10 @@ var RegisterComponent = (function () {
                     _this.auth
                         .register(_this._user)
                         .then(function (res) {
+                        console.log(res);
+                        if (res['msg'] == "Username already exists") {
+                            throw new Error("Username already exists");
+                        }
                         console.log("REGISTOU: " + res);
                         _this.gotoLogin();
                     })
@@ -76,15 +80,15 @@ var RegisterComponent = (function () {
     RegisterComponent.prototype.goBack = function () {
         this.router.navigateByUrl('').then();
     };
-    RegisterComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'register',
-            templateUrl: 'register.component.html'
-        }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder, router_1.Router, auth_service_1.AuthService])
-    ], RegisterComponent);
     return RegisterComponent;
 }());
+RegisterComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'register',
+        templateUrl: 'register.component.html'
+    }),
+    __metadata("design:paramtypes", [forms_1.FormBuilder, router_1.Router, auth_service_1.AuthService])
+], RegisterComponent);
 exports.RegisterComponent = RegisterComponent;
 //# sourceMappingURL=register.component.js.map

@@ -1,3 +1,4 @@
+"use strict";
 var MongoClient = require('mongodb').MongoClient;
 var databaseConnection = (function () {
     function databaseConnection() {
@@ -13,5 +14,5 @@ var databaseConnection = (function () {
             .catch(console.error);
     };
     return databaseConnection;
-})();
+}());
 exports.databaseConnection = databaseConnection;

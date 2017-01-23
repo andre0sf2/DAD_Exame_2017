@@ -27,11 +27,11 @@ var UserService = (function () {
             .then(function (r) { return Promise.resolve(r.json()); })
             .catch(function (r) { return Promise.resolve({ error: true, message: 'internal error' }); });
     };
-    UserService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
-    ], UserService);
     return UserService;
 }());
+UserService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], UserService);
 exports.UserService = UserService;
 //# sourceMappingURL=user.service.js.map

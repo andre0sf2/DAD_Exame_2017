@@ -18,12 +18,12 @@ import {GameService} from "./services/game.service";
 import { AppRoutingModule }     from './app-routing.module';
 import {APP_BASE_HREF} from "@angular/common";
 import {HttpModule} from "@angular/http";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {UserService} from "./services/user.service";
 import {AuthService} from "./services/auth.service";
 
 @NgModule({
-  imports:      [ BrowserModule, RouterModule, AppRoutingModule, HttpModule, FormsModule],
+  imports:      [ BrowserModule, RouterModule, AppRoutingModule, HttpModule, FormsModule, ReactiveFormsModule],
   declarations: [ AppComponent, HomeComponent, HistoryComponent, LoginComponent, RegisterComponent, Top10Component, LobbyComponent, TableComponent],
   providers:    [ Top10Service, AuthService, GameService, UserService, { provide: APP_BASE_HREF, useValue: '/' } ],
   bootstrap:    [ AppComponent ]

@@ -14,7 +14,6 @@ import {FormGroup, Validators, FormBuilder} from "@angular/forms";
     selector: 'login',
     templateUrl: 'login.component.html'
 })
-
 export class LoginComponent {
     private loginForm: FormGroup;
 

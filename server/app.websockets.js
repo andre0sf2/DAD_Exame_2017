@@ -1,3 +1,4 @@
+"use strict";
 var io = require('socket.io');
 var WebSocketServer = (function () {
     function WebSocketServer() {
@@ -31,6 +32,6 @@ var WebSocketServer = (function () {
         }
     };
     return WebSocketServer;
-})();
+}());
 exports.WebSocketServer = WebSocketServer;
 ;

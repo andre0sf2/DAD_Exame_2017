@@ -91,10 +91,8 @@ export class AuthService {
     }
 
     facebook() {
-        let options = this.buildHeaders();
-
         return this.http
-            .get(url + 'auth/facebook', {headers: options})
+            .get(url + 'auth/facebook')
             .toPromise()
             .then(r => Promise.resolve(r.json()))
             .catch(r => Promise.resolve({error: true, message: 'Internal error, try again later.'}));

@@ -69,10 +69,12 @@ export class User {
         database.db.collection('users')
             .findOne({username: request.body.username})
             .then((user) => {
-
+                console.log("User is: " + request.body.username);
+                console.log("USer found is: " + user.username);
                 if (user !== null) {
+                    console.log("User already exists so...");
                     response.json({
-                        msg: util.format('username already exists')
+                        msg: util.format('Username already exists')
                     });
                 } else {
                     const user = request.body;

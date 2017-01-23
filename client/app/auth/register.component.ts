@@ -13,8 +13,6 @@ import {FormBuilder, Validators, FormGroup} from "@angular/forms";
     selector: 'register',
     templateUrl: 'register.component.html'
 })
-
-
 export class RegisterComponent {
     private registerForm: FormGroup;
 
@@ -62,6 +60,10 @@ export class RegisterComponent {
                         this.auth
                             .register(this._user)
                             .then(res => {
+                                console.log(res);
+                                if (res['msg'] == "Username already exists") {
+                                    throw new Error("Username already exists");
+                                }
                                 console.log("REGISTOU: " + res);
                                 this.gotoLogin();
                             })

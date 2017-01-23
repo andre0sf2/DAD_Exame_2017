@@ -8,11 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var Rx_1 = require('rxjs/Rx');
-var http_1 = require('@angular/http');
-require('rxjs/add/operator/map');
-require('rxjs/add/operator/catch');
+var core_1 = require("@angular/core");
+var Rx_1 = require("rxjs/Rx");
+var http_1 = require("@angular/http");
+require("rxjs/add/operator/map");
+require("rxjs/add/operator/catch");
 var GameService = (function () {
     function GameService(http) {
         this.http = http;
@@ -96,12 +96,6 @@ var GameService = (function () {
         headers.append('Content-Type', 'application/json');
         return new http_1.RequestOptions({ headers: headers });
     };
-<<<<<<< HEAD
-    GameService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
-    ], GameService);
-=======
     GameService.prototype.getAllGames = function () {
         var publicHeaders = new http_1.Headers({ 'Content-Type': 'application/json' });
         return this.http.get('http://localhost:7777/api/v1/allgames', publicHeaders)
@@ -112,8 +106,11 @@ var GameService = (function () {
             return Rx_1.Observable.throw(error);
         });
     };
->>>>>>> 0a09b415df6e515bafe19ab8422d061932ab1476
     return GameService;
 }());
+GameService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], GameService);
 exports.GameService = GameService;
 //# sourceMappingURL=game.service.js.map
