@@ -10,15 +10,16 @@ import { HomeComponent }   from './home/home.component';
 import { RegisterComponent }   from './auth/register.component';
 import {AppComponent} from "./app.component";
 import {AuthService} from "./services/auth.service";
-import {TableComponent} from './game/table.component'
-
+import {TableComponent} from './game/table.component';
+import { HistoryComponent } from './history/history.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home',  component: HomeComponent },
     { path: 'login',  component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'table-game/:room', component: TableComponent }
+    { path: 'table-game/:room', component: TableComponent },
+    { path: 'history', component: HistoryComponent}
 ];
 
 @NgModule({

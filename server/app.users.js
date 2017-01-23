@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 "use strict";
+=======
+>>>>>>> 0a09b415df6e515bafe19ab8422d061932ab1476
 var mongodb = require('mongodb');
 var util = require('util');
 var sha1 = require('sha1');
@@ -156,5 +159,9 @@ var User = (function () {
         };
     }
     return User;
+<<<<<<< HEAD
 }());
+=======
+})();
+>>>>>>> 0a09b415df6e515bafe19ab8422d061932ab1476
 exports.User = User;

@@ -1,4 +1,3 @@
-"use strict";
 var HandlerSettings = (function () {
     function HandlerSettings(wsServer, security, prefix) {
         if (prefix === void 0) { prefix = '/api/v1/'; }
@@ -10,5 +9,5 @@ var HandlerSettings = (function () {
         this.prefix = prefix;
     }
     return HandlerSettings;
-}());
+})();
 exports.HandlerSettings = HandlerSettings;
