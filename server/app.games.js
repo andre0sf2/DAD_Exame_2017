@@ -1,4 +1,3 @@
-"use strict";
 var mongodb = require('mongodb');
 var util = require('util');
 var app_database_1 = require('./app.database');
@@ -62,6 +61,7 @@ var Game = (function () {
                 response.send(400, 'No game data');
                 return next();
             }
+            console.log('ee');
             app_database_1.databaseConnection.db.collection('games')
                 .insertOne(game)
                 .then(function (result) { return _this.returnGame(result.insertedId, response, next); })
@@ -86,6 +86,18 @@ var Game = (function () {
             })
                 .catch(function (err) { return _this.handleError(err, response, next); });
         };
+        this.historyGames = function (request, response, next) {
+            app_database_1.databaseConnection.db.collection('games')
+                .find({
+                'status': 'finish'
+            })
+                .toArray()
+                .then(function (games) {
+                response.json(games || []);
+                next();
+            })
+                .catch(function (err) { return _this.handleError(err, response, next); });
+        };
         // Routes for the games
         this.init = function (server, settings) {
             server.get(settings.prefix + 'games', settings.security.authorize, _this.getGames);
@@ -93,9 +105,11 @@ var Game = (function () {
             server.put(settings.prefix + 'games/:id', settings.security.authorize, _this.updateGame);
             server.post(settings.prefix + 'games', settings.security.authorize, _this.createGame);
             server.del(settings.prefix + 'games/:id', settings.security.authorize, _this.deleteGame);
-            console.log("Games routes registered");
+            server.get(settings.prefix + 'allgames', _this.historyGames);
+            console.log("Games routes registered v2");
+            console.log("historyGames added");
         };
     }
     return Game;
-}());
+})();
 exports.Game = Game;

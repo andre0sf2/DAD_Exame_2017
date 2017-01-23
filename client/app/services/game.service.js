@@ -96,6 +96,16 @@ var GameService = (function () {
         headers.append('Content-Type', 'application/json');
         return new http_1.RequestOptions({ headers: headers });
     };
+    GameService.prototype.getAllGames = function () {
+        var publicHeaders = new http_1.Headers({ 'Content-Type': 'application/json' });
+        return this.http.get('http://localhost:7777/api/v1/allgames', publicHeaders)
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(function (error) {
+            return Rx_1.Observable.throw(error);
+        });
+    };
     return GameService;
 }());
 GameService = __decorate([

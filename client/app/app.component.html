@@ -6,6 +6,10 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
 
+            <li  class="nav-item">
+                <a class="nav-link" routerLink="/history">History of Games</a>
+            </li>
+
             <li *ngIf="!auth.isLogged()" class="nav-item">
                 <a class="nav-link" routerLink="/login">Login</a>
             </li>

@@ -93,6 +93,20 @@ export class Game {
             .catch(err => this.handleError(err, response, next));
     }
 
+    public historyGames = (request:any, response: any, next: any) => {
+        database.db.collection('games')
+            .find({
+                'status': 'finish'
+            })
+            .toArray()
+            .then(games => {
+                response.json(games || []);
+                next();
+            })
+            .catch(err => this.handleError(err, response, next));
+
+    };
+
     // Routes for the games
     public init = (server: any, settings: HandlerSettings) => {
         server.get(settings.prefix + 'games', settings.security.authorize, this.getGames);
@@ -100,6 +114,8 @@ export class Game {
         server.put(settings.prefix + 'games/:id', settings.security.authorize, this.updateGame);
         server.post(settings.prefix + 'games', settings.security.authorize, this.createGame);
         server.del(settings.prefix + 'games/:id', settings.security.authorize, this.deleteGame);
-        console.log("Games routes registered");
+        server.get(settings.prefix + 'allgames', this.historyGames);
+        console.log("Games routes registered v2");
+        console.log("historyGames added");
     };    
 }

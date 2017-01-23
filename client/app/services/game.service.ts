@@ -104,4 +104,16 @@ export class GameService{
         return new RequestOptions({headers:headers});
     }
 
+    getAllGames(): Observable<Game[]>{
+        let publicHeaders = new Headers({'Content-Type': 'application/json'});
+
+        return this.http.get('http://localhost:7777/api/v1/allgames', publicHeaders)
+        .map (response => {
+            return response.json();
+        })
+        .catch(error=>{
+            return Observable.throw(error);
+        });
+    }
+
 }
