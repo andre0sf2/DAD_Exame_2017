@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var Rx_1 = require("rxjs/Rx");
-var http_1 = require("@angular/http");
+var core_1 = require('@angular/core');
+var Rx_1 = require('rxjs/Rx');
+var http_1 = require('@angular/http');
 var Top10Service = (function () {
     function Top10Service(http) {
         this.http = http;
@@ -41,11 +41,11 @@ var Top10Service = (function () {
             return Rx_1.Observable.throw(erro);
         });
     };
+    Top10Service = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [http_1.Http])
+    ], Top10Service);
     return Top10Service;
 }());
-Top10Service = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
-], Top10Service);
 exports.Top10Service = Top10Service;
 //# sourceMappingURL=top10.service.js.map

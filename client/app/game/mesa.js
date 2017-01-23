@@ -1,5 +1,5 @@
 "use strict";
-var card_1 = require("./card");
+var card_1 = require('./card');
 var Mesa = (function () {
     function Mesa() {
         var _this = this;

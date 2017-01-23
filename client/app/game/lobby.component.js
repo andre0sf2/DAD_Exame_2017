@@ -8,10 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var auth_service_1 = require("../services/auth.service");
-var game_service_1 = require("../services/game.service");
+var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
+var auth_service_1 = require('../services/auth.service');
+var game_service_1 = require('../services/game.service');
 var LobbyComponent = (function () {
     function LobbyComponent(authService, gameService, router) {
         this.authService = authService;
@@ -117,15 +117,15 @@ var LobbyComponent = (function () {
         this.router.navigateByUrl('/table-game/' + Date.now());
         //this.websocketService.notifyAllPlayerGameStarted({ message: 'Game Start!', room: room });
     };
+    LobbyComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'lobby',
+            templateUrl: 'lobby.component.html'
+        }), 
+        __metadata('design:paramtypes', [auth_service_1.AuthService, game_service_1.GameService, router_1.Router])
+    ], LobbyComponent);
     return LobbyComponent;
 }());
-LobbyComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'lobby',
-        templateUrl: 'lobby.component.html'
-    }),
-    __metadata("design:paramtypes", [auth_service_1.AuthService, game_service_1.GameService, router_1.Router])
-], LobbyComponent);
 exports.LobbyComponent = LobbyComponent;
 //# sourceMappingURL=lobby.component.js.map
