@@ -14,8 +14,8 @@ export class WebSocketService {
         }
     }
 
-    getGamePlayers(){
-        this.socket.emit('players-on-game');
+    getGamePlayers(roomID: string){
+        this.socket.emit('players-on-game', {room: roomID});
         return this.listenOnChannel('players-on-game');
     }
 
@@ -45,11 +45,11 @@ export class WebSocketService {
         return this.listenOnChannel('notes');
     }
 
-    sendChatMessageToRoom(room: any, message: any) {
+    sendChatMessageToRoom(room: string, message: any) {
         this.socket.emit('room-chat', message);
     }
 
-    getChatMessagesFromRoom(room: any): Observable<any> {
+    getChatMessagesFromRoom(room: string): Observable<any> {
         return this.listenOnChannel('room-chat');
     }
 
@@ -60,8 +60,6 @@ export class WebSocketService {
      getDerrotado(): Observable<any> {
         return this.listenOnChannel('derrotado');
     }
-
-
 
     sendClickElementMessage(index: number) {
         this.socket.emit('clickElement', index);

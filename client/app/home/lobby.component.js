@@ -42,7 +42,7 @@ var LobbyComponent = (function () {
         this.webSocketService.getGameStart().subscribe(function (m) {
             console.log("Jogo vai começar: " + m);
             console.log("SADSAD");
-            _this.router.navigateByUrl('/table-game/' + m);
+            _this.router.navigateByUrl('/game/' + m);
         });
         this.webSocketService.getRoomDeleted().subscribe(function (m) {
             console.log("Apaguei jogo");
@@ -115,14 +115,6 @@ var LobbyComponent = (function () {
                 }
             });
         }
-    };
-    LobbyComponent.prototype.startGame = function (i) {
-        var room = 'room' + this.myGames[i]._id;
-        //notifyAll
-        this.myGames[i].status = 'playing';
-        this.gameService.updateGame(this.myGames[i], this.authService.getCurrentUser()).subscribe(function (r) { return console.log(r); });
-        this.router.navigateByUrl('/game/' + this.myGames[i]._id);
-        //this.websocketService.notifyAllPlayerGameStarted({ message: 'Game Start!', room: room });
     };
     return LobbyComponent;
 }());

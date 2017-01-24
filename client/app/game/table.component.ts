@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { WebSocketService } from '../services/websocket.service';
 
@@ -30,21 +30,23 @@ export class TableComponent implements OnInit {
     public allReady: boolean = false;
     public isMyTurn: boolean = false;
 
-    constructor(private route: Router, private auth: AuthService, private websocketService: WebSocketService) { }
+    constructor(private route: Router, private auth: AuthService, private websocketService: WebSocketService,
+            private activeRoute: ActivatedRoute) { }
 
     ngOnInit() {
 
         this.cards = [];
 
-        this.websocketService.getGamePlayers().subscribe((m: any) => console.log(m));
+        this.activeRoute.params.subscribe(params => {
+            this.room = params['room'];
+        });
+        this.websocketService.getGamePlayers(this.room).subscribe((m: any) => console.log(m));
 
 
         this.getCards();
         /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
 
-        this.route.params.subscribe(params => {
-            this.room = params['room'];
-        });
+
 
         console.log(this.room);
 /*        this.route.params

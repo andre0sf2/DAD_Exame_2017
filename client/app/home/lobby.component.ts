@@ -45,7 +45,7 @@ export class LobbyComponent implements OnInit{
         this.webSocketService.getGameStart().subscribe((m: any) => {
             console.log("Jogo vai começar: " + m);
             console.log("SADSAD");
-            this.router.navigateByUrl('/table-game/' + m);
+            this.router.navigateByUrl('/game/' + m);
         });
 
         this.webSocketService.getRoomDeleted().subscribe((m: any) => {
@@ -132,13 +132,5 @@ export class LobbyComponent implements OnInit{
         }
     }
 
-    startGame(i: number){
-        let room: string = 'room' + this.myGames[i]._id;
-        //notifyAll
-        this.myGames[i].status = 'playing';
-        this.gameService.updateGame(this.myGames[i], this.authService.getCurrentUser()).subscribe(r => console.log(r));
-        this.router.navigateByUrl('/game/' + this.myGames[i]._id);
-        //this.websocketService.notifyAllPlayerGameStarted({ message: 'Game Start!', room: room });
-    }
 
 }

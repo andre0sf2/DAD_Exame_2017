@@ -17,8 +17,8 @@ var WebSocketService = (function () {
             this.socket = io("http://localhost:7777");
         }
     }
-    WebSocketService.prototype.getGamePlayers = function () {
-        this.socket.emit('players-on-game');
+    WebSocketService.prototype.getGamePlayers = function (roomID) {
+        this.socket.emit('players-on-game', { room: roomID });
         return this.listenOnChannel('players-on-game');
     };
     WebSocketService.prototype.getMyCards = function (message) {

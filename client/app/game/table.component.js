@@ -14,10 +14,11 @@ var auth_service_1 = require("../services/auth.service");
 var websocket_service_1 = require("../services/websocket.service");
 var mesa_1 = require("./mesa");
 var TableComponent = (function () {
-    function TableComponent(route, auth, websocketService) {
+    function TableComponent(route, auth, websocketService, activeRoute) {
         this.route = route;
         this.auth = auth;
         this.websocketService = websocketService;
+        this.activeRoute = activeRoute;
         this.error = '';
         this.cards = [];
         this.baralhoJogadores = [];
@@ -28,14 +29,16 @@ var TableComponent = (function () {
         this.isMyTurn = false;
     }
     TableComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.cards = [];
-        this.websocketService.getGamePlayers().subscribe(function (m) { return console.log(m); });
+        this.activeRoute.params.subscribe(function (params) {
+            _this.room = params['room'];
+        });
+        this.websocketService.getGamePlayers(this.room).subscribe(function (m) { return console.log(m); });
         this.getCards();
         /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
 
-        this.route.params.subscribe(params => {
-            this.room = params['room'];
-        });
+
 
         console.log(this.room);
 /*        this.route.params
@@ -86,7 +89,8 @@ TableComponent = __decorate([
         templateUrl: 'table.component.html',
         styleUrls: ['table.component.css']
     }),
-    __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService, websocket_service_1.WebSocketService])
+    __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService, websocket_service_1.WebSocketService,
+        router_1.ActivatedRoute])
 ], TableComponent);
 exports.TableComponent = TableComponent;
 //# sourceMappingURL=table.component.js.map

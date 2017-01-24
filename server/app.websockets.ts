@@ -61,12 +61,7 @@ export class WebSocketServer {
                 this.games[data.room].gamers.forEach((player: any) => {
                     this.io.to(client.player.gameRoom).emit('players-on-game', player);
                 });
-            })
-
-            client.on('my-cards',(data) => {
-                this.games[data.room].cards
-            })
-
+            });
 
         });
     };
