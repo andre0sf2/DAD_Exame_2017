@@ -12,11 +12,13 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("../services/auth.service");
 var game_service_1 = require("../services/game.service");
+var websocket_service_1 = require("../services/websocket.service");
 var LobbyComponent = (function () {
-    function LobbyComponent(authService, gameService, router) {
+    function LobbyComponent(authService, gameService, router, webSocketService) {
         this.authService = authService;
         this.gameService = gameService;
         this.router = router;
+        this.webSocketService = webSocketService;
         this.myGames = [];
         this.otherGames = [];
         this.already_join = false;
@@ -24,29 +26,29 @@ var LobbyComponent = (function () {
     }
     ;
     LobbyComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.findMyGames();
         this.findOtherGames();
-        /*this.websocketService.getNewRoom().subscribe((m: any) => {
-            this.findOtherGames();
-            this.findMyGames();
+        this.webSocketService.getCreateRoom().subscribe(function (m) {
+            console.log("ROOOM CREATEDEE");
+            _this.findOtherGames();
+            _this.findMyGames();
         });
-
-        this.websocketService.getJoinOnRoom().subscribe((m: any) => {
+        this.webSocketService.getJoinOnRoom().subscribe(function (m) {
             console.log("Join Player: " + m);
-            this.findMyGames();
-            this.findOtherGames();
+            _this.findMyGames();
+            _this.findOtherGames();
         });
-
-        this.websocketService.getGameStart().subscribe((m: any) => {
+        this.webSocketService.getGameStart().subscribe(function (m) {
             console.log("Jogo vai começar: " + m);
-            this.router.navigateByUrl('/table-game/' + m);
+            console.log("SADSAD");
+            _this.router.navigateByUrl('/table-game/' + m);
         });
-
-        this.websocketService.getRoomDeleted().subscribe((m: any) => {
+        this.webSocketService.getRoomDeleted().subscribe(function (m) {
             console.log("Apaguei jogo");
-            this.findOtherGames();
-            this.findMyGames();
-        });*/
+            _this.findOtherGames();
+            _this.findMyGames();
+        });
     };
     LobbyComponent.prototype.findMyGames = function () {
         var _this = this;
@@ -67,7 +69,8 @@ var LobbyComponent = (function () {
         this.gameService.createGame(JSON.parse(localStorage.getItem('user'))).subscribe(function (resource) {
             if (resource !== 'No game data') {
                 _this.info = "Game created";
-                //               this.websocketService.newRoom({room:'Room' + /*roomName+*/ resource._id, userId: })
+                _this.webSocketService.createRoom({ room: 'room' + resource._id,
+                    userId: _this.authService.getCurrentUser()._id, username: _this.authService.getCurrentUser()._username });
                 _this.findMyGames();
             }
             else {
@@ -97,25 +100,21 @@ var LobbyComponent = (function () {
             }
         });
         if (!this.already_join) {
+            this.webSocketService.joinRoom({ userId: this.authService.getCurrentUser()._id, username: this.authService.getCurrentUser().username, room: 'room' + this.otherGames[i]._id });
             this.otherGames[i].players.push({ player: this.authService.getCurrentUser()._id, points: 0 });
             this.otherGames[i].nplayers = this.otherGames[i].nplayers + 1;
             this.gameService.updateGame(this.otherGames[i], this.authService.getCurrentUser()).subscribe(function (response) {
                 /*console.log(response)*/
-                if (response.nplayers == 4) {
+                if (response.nplayers == 2) {
                     console.log('game will start');
-                    response.status = 'on play';
+                    response.status = 'on going';
                     _this.gameService.updateGame(response, _this.authService.getCurrentUser()).subscribe(function (res) { return console.log('1' + res); });
+                    _this.webSocketService.sendStartGame({ room: 'room' + _this.otherGames[i]._id,
+                        userId: _this.authService.getCurrentUser()._id, username: _this.authService.getCurrentUser()._username });
+                    console.log("pedido efectuado");
                 }
             });
         }
-    };
-    LobbyComponent.prototype.startGame = function (i) {
-        var room = 'room' + this.myGames[i]._id;
-        //notifyAll
-        this.myGames[i].status = 'playing';
-        this.gameService.updateGame(this.myGames[i], this.authService.getCurrentUser()).subscribe(function (r) { return console.log(r); });
-        this.router.navigateByUrl('/table-game/' + Date.now());
-        //this.websocketService.notifyAllPlayerGameStarted({ message: 'Game Start!', room: room });
     };
     return LobbyComponent;
 }());
@@ -125,7 +124,8 @@ LobbyComponent = __decorate([
         selector: 'lobby',
         templateUrl: 'lobby.component.html'
     }),
-    __metadata("design:paramtypes", [auth_service_1.AuthService, game_service_1.GameService, router_1.Router])
+    __metadata("design:paramtypes", [auth_service_1.AuthService, game_service_1.GameService, router_1.Router,
+        websocket_service_1.WebSocketService])
 ], LobbyComponent);
 exports.LobbyComponent = LobbyComponent;
 //# sourceMappingURL=lobby.component.js.map

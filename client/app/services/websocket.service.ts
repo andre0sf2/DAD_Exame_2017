@@ -14,6 +14,11 @@ export class WebSocketService {
         }
     }
 
+    sendStartGame(message:any){
+        this.socket.emit('start-game', message);
+        console.log("sendStartGame");
+    }
+
     sendChatMessage(message: any) {
         this.socket.emit('lobby-chat', message);
     }
@@ -56,18 +61,17 @@ export class WebSocketService {
         return this.listenOnChannel('board');
     }
 
-    newRoom(message: any) {
-        this.socket.emit('room', message); //room15651456146514
+    createRoom(message: any) {
+        this.socket.emit('room', message);
+        console.log("room created");
     }
 
-    getNewRoom(): Observable<any> {
+    getCreateRoom(): Observable<any> {
         return this.listenOnChannel('room');
     }
 
-
-
     roomDeleted(message: any) {
-        this.socket.emit('roomDeleted', message); //room15651456146514
+        this.socket.emit('roomDeleted', message);
     }
 
     getRoomDeleted(): Observable<any> {
@@ -83,13 +87,13 @@ export class WebSocketService {
     }
 
     notifyAllPlayerGameStarted(message: any) {
-        this.socket.emit('game_start', message);
+        this.socket.emit('game-start', message);
     }
 
 
 
     getGameStart(): Observable<any> {
-        return this.listenOnChannel('game_start');
+        return this.listenOnChannel('game-start');
     }
 
     notifyAllPlayersImReady(message: any) {
