@@ -1,10 +1,10 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <h3 class="panel-title">Lobby Chat</h3>
+        <h3 class="panel-title">{{type}} Chat</h3>
     </div>
     <div>
         <div class="message-list">
-            <p *ngFor="let m of chatMessages"> {{ m }} </p>
+            <p *ngFor="let m of chatMessages" style="word-break: break-all"> {{ m }} </p>
         </div>
         <hr/>
         <form class="form-inline" style="margin: 0% 1% 1%;" [formGroup]="chatForm">

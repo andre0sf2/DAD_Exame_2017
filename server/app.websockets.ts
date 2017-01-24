@@ -9,18 +9,13 @@ export class WebSocketServer {
         this.io = io.listen(server);            
         this.io.sockets.on('connection', (client: any) => {
             client.emit('players', Date.now() + ': Welcome to Sueca Online');
+
             client.broadcast.emit('players', Date.now() + ': A new player has arrived');
+
             client.on('lobby-chat', (data) => this.io.emit('lobby-chat', data));
-            
-            //Extra Exercise
-            client.emit('board', this.board);
-            client.on('clickElement', (indexElement) => {
-                this.board[indexElement]++;
-                if (this.board[indexElement] > 2) {
-                    this.board[indexElement] = 0;
-                }
-                this.notifyAll('board', this.board);
-            });
+            client.on('room-chat', (data) => this.io.to(server.user.room).emit('room-chat', data));
+
+
 
         });
     };

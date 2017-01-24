@@ -10,12 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var auth_service_1 = require("../services/auth.service");
 var mesa_1 = require("./mesa");
+var game_service_1 = require("../services/game.service");
 var TableComponent = (function () {
-    function TableComponent(route, auth) {
+    function TableComponent(route, gameService) {
         this.route = route;
-        this.auth = auth;
+        this.gameService = gameService;
         this.error = '';
         this.cards = [];
         this.baralhoJogadores = [];
@@ -26,36 +26,15 @@ var TableComponent = (function () {
         this.isMyTurn = false;
     }
     TableComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.route.params.subscribe(function (params) {
+            _this.room = params['room'];
+        });
+        console.log(this.room);
+        /*        this.route.params
+                    .switchMap((params: Params) => this.gameService.getGame(params['room']))
+                    .subscribe((game: Game) => this.game = game);*/
         this.cards = [];
-        /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
-
-        this.route.params.subscribe(params => {
-            this.room = params['room'];
-        });
-
-        this.websocketService.getAllPlayersReady().subscribe((r: any) => {
-            console.log(r);
-            this.allReady = true;
-        });
-
-        this.websocketService.getTurn().subscribe((r: string) => {
-            //r = username
-            if (r === this.auth.getCurrentUser().username) {
-                this.error = 'My turn!';
-                this.isMyTurn = true;
-            } else {
-                this.isMyTurn = false;
-                this.error = 'Player turn!: ' + r;
-            }
-        });
-
-        this.websocketService.getDerrotado().subscribe((r: any) => {
-            if (this.auth.getCurrentUser().username == r.usernameAlvo) {
-                console.log("Derrotado");
-                this.error = 'Fui derrotado';
-            }
-        });
-*/
         this.mesa = new mesa_1.Mesa();
         this.cards = this.mesa.cards;
         this.baralharCartas(this.cards);
@@ -92,11 +71,11 @@ var TableComponent = (function () {
 TableComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        selector: 'table-game',
+        selector: 'game',
         templateUrl: 'table.component.html',
         styleUrls: ['table.component.css']
     }),
-    __metadata("design:paramtypes", [router_1.ActivatedRoute, auth_service_1.AuthService])
+    __metadata("design:paramtypes", [router_1.ActivatedRoute, game_service_1.GameService])
 ], TableComponent);
 exports.TableComponent = TableComponent;
 //# sourceMappingURL=table.component.js.map

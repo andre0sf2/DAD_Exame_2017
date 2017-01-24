@@ -15,34 +15,36 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var websocket_service_1 = require("../services/websocket.service");
 var auth_service_1 = require("../services/auth.service");
-var ChatComponent = (function () {
-    function ChatComponent(formBuilder, webSocket, auth) {
+var ChatLobbyComponent = (function () {
+    function ChatLobbyComponent(formBuilder, webSocket, auth) {
         this.formBuilder = formBuilder;
         this.webSocket = webSocket;
         this.auth = auth;
+        this.type = "Lobby";
         this.chatMessages = [];
         this.chatForm = this.formBuilder.group({
             'message': [null, forms_1.Validators.minLength(1)]
         });
     }
-    ChatComponent.prototype.ngOnInit = function () {
+    ChatLobbyComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.webSocket.getChatMessages().subscribe(function (m) { return _this.chatMessages.push(m); });
     };
-    ChatComponent.prototype.sendMessage = function () {
-        this.webSocket.sendChatMessage(this.auth.getCurrentUser().username + ': ' + this.chatForm.controls['message'].value);
+    ChatLobbyComponent.prototype.sendMessage = function () {
+        var message = this.auth.getCurrentUser().username + '(' + Date.now() + '): ' + this.chatForm.controls['message'].value;
+        this.webSocket.sendChatMessage(message);
         this.chatForm.controls['message'].setValue("");
     };
-    return ChatComponent;
+    return ChatLobbyComponent;
 }());
-ChatComponent = __decorate([
+ChatLobbyComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        selector: 'chat',
+        selector: 'chat-lobby',
         templateUrl: 'chat.component.html',
         styleUrls: ['chat.component.css']
     }),
     __metadata("design:paramtypes", [forms_1.FormBuilder, websocket_service_1.WebSocketService, auth_service_1.AuthService])
-], ChatComponent);
-exports.ChatComponent = ChatComponent;
-//# sourceMappingURL=chat.component.js.map
+], ChatLobbyComponent);
+exports.ChatLobbyComponent = ChatLobbyComponent;
+//# sourceMappingURL=chat-lobby.component.js.map

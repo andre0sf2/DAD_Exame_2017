@@ -125,7 +125,7 @@ export class LobbyComponent implements OnInit{
         //notifyAll
         this.myGames[i].status = 'playing';
         this.gameService.updateGame(this.myGames[i], this.authService.getCurrentUser()).subscribe(r => console.log(r));
-        this.router.navigateByUrl('/table-game/' + Date.now());
+        this.router.navigateByUrl('/game/' + this.myGames[i]._id);
         //this.websocketService.notifyAllPlayerGameStarted({ message: 'Game Start!', room: room });
     }
 }

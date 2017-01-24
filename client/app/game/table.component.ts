@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 import { Card } from './card';
 import { Mesa } from './mesa';
+import {GameService} from "../services/game.service";
+import {Game} from "../model/game";
 
 @Component({
     moduleId: module.id,
-    selector: 'table-game',
+    selector: 'game',
     templateUrl: 'table.component.html',
     styleUrls: ['table.component.css']
 })
-
 export class TableComponent implements OnInit{
     public error: string = '';
     public cards: Card[] = [];
@@ -27,41 +28,22 @@ export class TableComponent implements OnInit{
     public allReady: boolean = false;
     public isMyTurn: boolean = false;
 
-    constructor(private route: ActivatedRoute, private auth: AuthService) { }
+    constructor(private route: ActivatedRoute, private gameService: GameService) { }
 
     ngOnInit() {
-
-        this.cards = [];
-
-        /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
 
         this.route.params.subscribe(params => {
             this.room = params['room'];
         });
 
-        this.websocketService.getAllPlayersReady().subscribe((r: any) => {
-            console.log(r);
-            this.allReady = true;
-        });
+        console.log(this.room);
+/*        this.route.params
+            .switchMap((params: Params) => this.gameService.getGame(params['room']))
+            .subscribe((game: Game) => this.game = game);*/
 
-        this.websocketService.getTurn().subscribe((r: string) => {
-            //r = username
-            if (r === this.auth.getCurrentUser().username) {
-                this.error = 'My turn!';
-                this.isMyTurn = true;
-            } else {
-                this.isMyTurn = false;
-                this.error = 'Player turn!: ' + r;
-            }
-        });
 
-        this.websocketService.getDerrotado().subscribe((r: any) => {
-            if (this.auth.getCurrentUser().username == r.usernameAlvo) {
-                console.log("Derrotado");
-                this.error = 'Fui derrotado';
-            }
-        });
-*/
+        this.cards = [];
+
         this.mesa = new Mesa();
         this.cards = this.mesa.cards;
         this.baralharCartas(this.cards);

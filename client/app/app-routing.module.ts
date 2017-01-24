@@ -18,7 +18,7 @@ const routes: Routes = [
     { path: 'home',  component: HomeComponent },
     { path: 'login',  component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'table-game/:room', component: TableComponent },
+    { path: 'game/:room', component: TableComponent },
     { path: 'history', component: HistoryComponent}
 ];
 
