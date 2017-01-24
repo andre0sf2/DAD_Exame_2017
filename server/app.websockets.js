@@ -31,14 +31,26 @@ var WebSocketServer = (function () {
                     client.player.socketId = data.id;
                     client.player.username = data.username;
                     client.join(client.player.gameRoom);
-                    _this.games[data.room].gamers.push(data.user);
+                    _this.games[data.room].gamers.push(data.username);
                 });
                 client.on('start-game', function (data) {
                     console.log("Game will start" + data.room + " sdad " + client.player.gameRoom);
                     _this.io.to(client.player.gameRoom).emit('game-start', client.player.gameRoom);
                     console.log('GAME WILL START ->' + client.player.gameRoom);
                     _this.io.emit(client.player.gameRoom).emit('game-start', client.player.gameRoom);
+<<<<<<< HEAD
+                    _this.games[data.room].gamers.forEach(function (player) {
+                        console.log(player);
+                    });
                 });
+                client.on('players-on-game', function (data) {
+                    _this.games[client.player.gameRoom].gamers.forEach(function (player) {
+                        _this.io.to(client.player.gameRoom).emit('players-on-game', player);
+                    });
+=======
+>>>>>>> bfab6e58240fb456247dcdf3daf48f47f74af1d4
+                });
+
             });
         };
         this.notifyAll = function (channel, message) {
@@ -60,6 +72,10 @@ var Mesa = (function () {
         var _this = this;
         this.gamers = [];
         this.gameRoom = '';
+<<<<<<< HEAD
+        this.gamers = [];
+=======
+>>>>>>> bfab6e58240fb456247dcdf3daf48f47f74af1d4
         this.cards = [];
         Mesa.todosOsNaipes().forEach(function (naipe) {
             Mesa.todosOsSimbolos().forEach(function (simbolo) {

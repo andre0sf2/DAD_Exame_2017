@@ -3,11 +3,11 @@ const io = require('socket.io');
 export class WebSocketServer {
     public io: any;
 
-    public games : Mesa[] = [];
+    public games: Mesa[] = [];
 
     public init = (server: any) => {
 
-        this.io = io.listen(server);            
+        this.io = io.listen(server);
         this.io.sockets.on('connection', (client: any) => {
 
             client.player = new Player();
@@ -24,7 +24,7 @@ export class WebSocketServer {
 
 
             client.on('room', (data) => {
-                console.log("One room was created"+ data.room);
+                console.log("One room was created" + data.room);
                 client.join(data.room); // o utilizador junta-se ao room que criou
 
                 client.player.username = data.username;
@@ -37,74 +37,88 @@ export class WebSocketServer {
                 this.games[data.room].gamers.push(data.username);
             })
 
-            client.on('join', (data)=> {
+            client.on('join', (data) => {
                 console.log("One player joined the room " + data.room);
                 client.player.gameRoom = data.room;
                 client.player.socketId = data.id;
-                client.player.username = data.username; 
+                client.player.username = data.username;
                 client.join(client.player.gameRoom);
 
-                this.games[data.room].gamers.push(data.user);
+                this.games[data.room].gamers.push(data.username);
             })
 
-            client.on('start-game', (data)=>{
+            client.on('start-game', (data) => {
                 console.log("Game will start" + data.room + " sdad " + client.player.gameRoom);
                 this.io.to(client.player.gameRoom).emit('game-start', client.player.gameRoom);
-                    console.log('GAME WILL START ->' + client.player.gameRoom)
-                    this.io.emit(client.player.gameRoom).emit('game-start', client.player.gameRoom);
-                    
+                console.log('GAME WILL START ->' + client.player.gameRoom)
+                this.io.emit(client.player.gameRoom).emit('game-start', client.player.gameRoom);
+                this.games[data.room].gamers.forEach((player: any) => {
+                    console.log(player);
                 });
+            });
+
+            client.on('players-on-game', (data) => {
+                this.games[data.room].gamers.forEach((player: any) => {
+                    this.io.to(client.player.gameRoom).emit('players-on-game', player);
+                });
+            })
+
+            client.on('my-cards',(data) => {
+                this.games[data.room].cards
+            })
+
 
         });
     };
 
-   public notifyAll = (channel: string, message: any) => {
+    public notifyAll = (channel: string, message: any) => {
         this.io.sockets.emit(channel, message);
-    }; 
+    };
 };
 
-export class Player{
-    public username : string;
-    public id : number;
-    public gameRoom : string;
-    public socketId : string;
+export class Player {
+    public username: string;
+    public id: number;
+    public gameRoom: string;
+    public socketId: string;
 
 }
 export class Mesa {
 
-    public gameRoom : string;
+    public gameRoom: string;
 
-    public gamers : string[] = [];
+    public gamers: string[] = [];
 
     public cards: Card[];
 
     constructor() {
         this.gameRoom = '';
+        this.gamers = [];
         this.cards = [];
 
         Mesa.todosOsNaipes().forEach(naipe => {
             Mesa.todosOsSimbolos().forEach(simbolo => {
                 let c: Card = null;
-                let img = '../../cards-1/'+ naipe+simbolo+".png"
-                switch (simbolo){
-                    case 1 : c = new Card(naipe, simbolo, 11,img);
+                let img = '../../cards-1/' + naipe + simbolo + ".png"
+                switch (simbolo) {
+                    case 1: c = new Card(naipe, simbolo, 11, img);
                         break;
-                    case 7 : c = new Card(naipe, simbolo, 10,img);
+                    case 7: c = new Card(naipe, simbolo, 10, img);
                         break;
-                    case 13 : c = new Card(naipe, simbolo, 4,img);
+                    case 13: c = new Card(naipe, simbolo, 4, img);
                         break;
-                    case 11 : c = new Card(naipe, simbolo, 3,img);
+                    case 11: c = new Card(naipe, simbolo, 3, img);
                         break;
-                    case 12 : c = new Card(naipe, simbolo, 2,img);
+                    case 12: c = new Card(naipe, simbolo, 2, img);
                         break;
-                    default : c = new Card(naipe, simbolo, 0,img);
+                    default: c = new Card(naipe, simbolo, 0, img);
                 }
                 this.cards.push(c);
             });
         });
     }
 
-    public getCard(naipe:string, simbolo: number): Card {
+    public getCard(naipe: string, simbolo: number): Card {
 
         for (let i = 0; i < this.cards.length; i++) {
             if (this.cards[i].tipoCard == naipe && this.cards[i].simbolo == simbolo) {
@@ -115,23 +129,23 @@ export class Mesa {
         return;
     }
 
-    public static todosOsNaipes(): string[]{
-        return ['o','e','p','c'];
+    public static todosOsNaipes(): string[] {
+        return ['o', 'e', 'p', 'c'];
     }
 
-    public static todosOsSimbolos(): number[]{
-        return [1,2,3,4,5,6,7,11,12,13];
+    public static todosOsSimbolos(): number[] {
+        return [1, 2, 3, 4, 5, 6, 7, 11, 12, 13];
     }
 }
 
-export class Card{
+export class Card {
     private _tipoCard: string;
     private _simbolo: number;
     private _isAval: boolean;
     private _ponto: number;
     private _img: string;
 
-    public constructor (tipo: string, id: number, pontos: number, img: string){
+    public constructor(tipo: string, id: number, pontos: number, img: string) {
         this._tipoCard = tipo;
         this._simbolo = id;
         this._isAval = true;
@@ -139,8 +153,8 @@ export class Card{
         this._img = img;
     }
 
-    public toString(){
-        return "Naipe: "+this._tipoCard+ " Simbolo: "+this._simbolo+" Pontos: "+ this._ponto + "\n";
+    public toString() {
+        return "Naipe: " + this._tipoCard + " Simbolo: " + this._simbolo + " Pontos: " + this._ponto + "\n";
     }
 
 

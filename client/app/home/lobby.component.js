@@ -70,7 +70,7 @@ var LobbyComponent = (function () {
             if (resource !== 'No game data') {
                 _this.info = "Game created";
                 _this.webSocketService.createRoom({ room: 'room' + resource._id,
-                    userId: _this.authService.getCurrentUser()._id, username: _this.authService.getCurrentUser()._username });
+                    userId: _this.authService.getCurrentUser()._id, username: _this.authService.getCurrentUser().username });
                 _this.findMyGames();
             }
             else {

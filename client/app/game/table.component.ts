@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { WebSocketService } from '../services/websocket.service';
+
 
 import { Card } from './card';
 import { Mesa } from './mesa';
@@ -13,7 +15,7 @@ import {Game} from "../model/game";
     templateUrl: 'table.component.html',
     styleUrls: ['table.component.css']
 })
-export class TableComponent implements OnInit{
+export class TableComponent implements OnInit {
     public error: string = '';
     public cards: Card[] = [];
     public baralhoJogadores: Card[] = [];
@@ -28,9 +30,17 @@ export class TableComponent implements OnInit{
     public allReady: boolean = false;
     public isMyTurn: boolean = false;
 
-    constructor(private route: ActivatedRoute, private gameService: GameService) { }
+    constructor(private route: Router, private auth: AuthService, private websocketService: WebSocketService) { }
 
     ngOnInit() {
+
+        this.cards = [];
+
+        this.websocketService.getGamePlayers().subscribe((m: any) => console.log(m));
+
+
+        this.getCards();
+        /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
 
         this.route.params.subscribe(params => {
             this.room = params['room'];
@@ -49,18 +59,25 @@ export class TableComponent implements OnInit{
         this.baralharCartas(this.cards);
     }
 
-    addCard(){
+    getCards(){
+        console.log("entrou");
+        this.websocketService.getMyCards({ username: this.auth.getCurrentUser().username }).subscribe((m: any) => console.log(m));
+
+    }
+
+
+    addCard() {
         this.mesa.getCard("o", 2);
     }
 
-    cleanMesa(){
+    cleanMesa() {
         this.mesa = new Mesa();
         this.error = '';
     }
 
-    countCards(): number{
+    countCards(): number {
         let count: number = 0;
-        for(let i = 0; i < this.mesa.cards.length; i++){
+        for (let i = 0; i < this.mesa.cards.length; i++) {
             count += this.mesa.cards[i].ponto;
         }
         console.log(count);
@@ -71,14 +88,12 @@ export class TableComponent implements OnInit{
 
     }
 
-    baralharCartas(cards: Card[])
-    {
-        let j:number, k:Card;
-        for(let i = cards.length; i; i--)
-        {
+    baralharCartas(cards: Card[]) {
+        let j: number, k: Card;
+        for (let i = cards.length; i; i--) {
             j = Math.floor(Math.random() * i);
-            k = cards[i-1];
-            cards[i-1] = cards[j];
+            k = cards[i - 1];
+            cards[i - 1] = cards[j];
             cards[j] = k;
 
         }
