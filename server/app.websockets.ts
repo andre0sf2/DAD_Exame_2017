@@ -4,19 +4,13 @@ export class WebSocketServer {
     public board: number[] = [];
     public io: any;
 
-    public initBoard(){
-        for(let i=0; i<100; i++) {
-            this.board[i]=0;
-        }
-    }
-
     public init = (server: any) => {
-        this.initBoard();
+        //this.initBoard();
         this.io = io.listen(server);            
         this.io.sockets.on('connection', (client: any) => {
             client.emit('players', Date.now() + ': Welcome to Sueca Online');
             client.broadcast.emit('players', Date.now() + ': A new player has arrived');
-            client.on('chat', (data) => this.io.emit('chat', data));
+            client.on('lobby-chat', (data) => this.io.emit('lobby-chat', data));
             
             //Extra Exercise
             client.emit('board', this.board);

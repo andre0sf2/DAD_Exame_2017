@@ -15,13 +15,10 @@ import { Game } from '../model/game';
 
 export class LobbyComponent implements OnInit{
 
-
-
     myGames: Game[] = [];
     otherGames: Game[] = [];
 
     already_join: boolean = false;
-
 
     info: string = "";
 

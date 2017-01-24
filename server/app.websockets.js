@@ -5,12 +5,12 @@ var WebSocketServer = (function () {
         var _this = this;
         this.board = [];
         this.init = function (server) {
-            _this.initBoard();
+            //this.initBoard();
             _this.io = io.listen(server);
             _this.io.sockets.on('connection', function (client) {
                 client.emit('players', Date.now() + ': Welcome to Sueca Online');
                 client.broadcast.emit('players', Date.now() + ': A new player has arrived');
-                client.on('chat', function (data) { return _this.io.emit('chat', data); });
+                client.on('lobby-chat', function (data) { return _this.io.emit('lobby-chat', data); });
                 //Extra Exercise
                 client.emit('board', _this.board);
                 client.on('clickElement', function (indexElement) {
@@ -26,11 +26,6 @@ var WebSocketServer = (function () {
             _this.io.sockets.emit(channel, message);
         };
     }
-    WebSocketServer.prototype.initBoard = function () {
-        for (var i = 0; i < 100; i++) {
-            this.board[i] = 0;
-        }
-    };
     return WebSocketServer;
 }());
 exports.WebSocketServer = WebSocketServer;

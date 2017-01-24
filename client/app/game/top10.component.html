@@ -1,46 +1,43 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Top Ten Stars</h3>
+    </div>
+    <table class="table table-hover" id="table-stars">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Stars</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of playersStars; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.username}}</td>
+            <td>{{item.totalStars}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
-
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">Top Ten Stars</h3>
-					</div>
-					<table class="table table-hover" id="dev-table">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>Username</th>
-                                <th>Stars</th>
-							</tr>
-						</thead>
-						<tbody>
-                            <tr *ngFor="let item of playersStars; let i = index">
-                                <td>{{i+1}}</td>
-                                <td>{{item.username}}</td>
-                                <td>{{item.totalStars}}</td>
-                            </tr>
-        				</tbody>
-					</table>
-				</div>
-
-
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">Top Ten Points</h3>
-					</div>
-					<table class="table table-hover" id="dev-table">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>Username</th>
-                                <th>Points</th>
-							</tr>
-						</thead>
-						<tbody>
-                            <tr *ngFor="let item of playersPoints; let i = index">
-                                <td>{{i+1}}</td>
-                                <td>{{item.username}}</td>
-                                <td>{{item.totalPoints}}</td>
-                            </tr>
-        				</tbody>
-					</table>
-				</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Top Ten Points</h3>
+    </div>
+    <table class="table table-hover" id="table-points">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Points</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of playersPoints; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.username}}</td>
+            <td>{{item.totalPoints}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

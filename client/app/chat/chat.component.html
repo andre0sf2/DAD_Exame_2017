@@ -1,0 +1,16 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Lobby Chat</h3>
+    </div>
+    <div>
+        <div class="message-list">
+            <p *ngFor="let m of chatMessages"> {{ m }} </p>
+        </div>
+        <hr/>
+        <form class="form-inline" style="margin: 0% 1% 1%;" [formGroup]="chatForm">
+            <input type="text" class="form-control" id="chat-message" style="width: 90%;"
+                   [formControl]="chatForm.controls['message']">
+            <button class="btn btn-default" type="submit" (click)="sendMessage()">Send</button>
+        </form>
+    </div>
+</div>

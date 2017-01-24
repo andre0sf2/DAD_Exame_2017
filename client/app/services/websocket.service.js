@@ -14,17 +14,17 @@ var io = require("socket.io-client");
 var WebSocketService = (function () {
     function WebSocketService() {
         if (!this.socket) {
-            this.socket = io("http://" + window.location.hostname + ":7777");
+            this.socket = io("http://localhost:7777");
         }
     }
     WebSocketService.prototype.sendChatMessage = function (message) {
-        this.socket.emit('chat', message);
+        this.socket.emit('lobby-chat', message);
     };
     WebSocketService.prototype.getPlayersMessages = function () {
         return this.listenOnChannel('players');
     };
     WebSocketService.prototype.getChatMessages = function () {
-        return this.listenOnChannel('chat');
+        return this.listenOnChannel('lobby-chat');
     };
     WebSocketService.prototype.getNotes = function () {
         // console.log("entrei auqi ");
