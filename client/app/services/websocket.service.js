@@ -42,14 +42,14 @@ var WebSocketService = (function () {
         // console.log("entrei auqi ");
         return this.listenOnChannel('notes');
     };
-    WebSocketService.prototype.sendChatMessageOnRoom = function (message) {
-        this.socket.emit('roomChat', message);
+    WebSocketService.prototype.sendChatMessageToRoom = function (room, message) {
+        this.socket.emit('r' + room, message);
+    };
+    WebSocketService.prototype.getChatMessagesFromRoom = function (room) {
+        return this.listenOnChannel('r' + room);
     };
     WebSocketService.prototype.sendNote = function (message) {
         this.socket.emit('notes', message);
-    };
-    WebSocketService.prototype.getChatMessagesOnRoom = function () {
-        return this.listenOnChannel('roomChat');
     };
     WebSocketService.prototype.getDerrotado = function () {
         return this.listenOnChannel('derrotado');

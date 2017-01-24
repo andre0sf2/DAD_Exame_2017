@@ -8,16 +8,18 @@ import {AuthService} from "../services/auth.service";
 
 @Component({
     moduleId: module.id,
-    selector: 'chat',
+    selector: 'chat-lobby',
     templateUrl: 'chat.component.html',
     styleUrls: ['chat.component.css']
 })
-export class ChatComponent implements OnInit{
-    private chatForm: FormGroup;
+export class ChatLobbyComponent implements OnInit{
+    chatForm: FormGroup;
+
+    private type = "Lobby";
 
     protected chatMessages: string[] = [];
 
-    constructor(private formBuilder: FormBuilder, private webSocket: WebSocketService, private auth: AuthService) {
+    constructor(private formBuilder: FormBuilder, public webSocket: WebSocketService, public auth: AuthService) {
         this.chatForm = this.formBuilder.group({
             'message': [null, Validators.minLength(1)]
         });
@@ -29,9 +31,8 @@ export class ChatComponent implements OnInit{
     }
 
     sendMessage() {
-        this.webSocket.sendChatMessage(this.auth.getCurrentUser().username + ': ' + this.chatForm.controls['message'].value);
+        let message = this.auth.getCurrentUser().username + '(' + Date.now() + '): ' + this.chatForm.controls['message'].value
+        this.webSocket.sendChatMessage(message);
         this.chatForm.controls['message'].setValue("");
     }
-
-
 }

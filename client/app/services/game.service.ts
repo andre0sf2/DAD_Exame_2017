@@ -138,4 +138,17 @@ export class GameService{
         });
     }
 
+    getGame(room: any): Observable<Game>{
+        let publicHeaders = new Headers({'Content-Type': 'application/json'});
+        let game : Game;
+
+        return this.http.get('http://localhost:7777/api/v1/games/'+room, publicHeaders)
+            .map (response => {
+                return response.json();
+            })
+            .catch(error=>{
+                return Observable.throw(error);
+            });
+    }
+
 }

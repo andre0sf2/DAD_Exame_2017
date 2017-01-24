@@ -116,6 +116,14 @@ var LobbyComponent = (function () {
             });
         }
     };
+    LobbyComponent.prototype.startGame = function (i) {
+        var room = 'room' + this.myGames[i]._id;
+        //notifyAll
+        this.myGames[i].status = 'playing';
+        this.gameService.updateGame(this.myGames[i], this.authService.getCurrentUser()).subscribe(function (r) { return console.log(r); });
+        this.router.navigateByUrl('/game/' + this.myGames[i]._id);
+        //this.websocketService.notifyAllPlayerGameStarted({ message: 'Game Start!', room: room });
+    };
     return LobbyComponent;
 }());
 LobbyComponent = __decorate([

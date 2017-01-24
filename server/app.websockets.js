@@ -1,3 +1,4 @@
+"use strict";
 var io = require('socket.io');
 var WebSocketServer = (function () {
     function WebSocketServer() {
@@ -10,6 +11,7 @@ var WebSocketServer = (function () {
                 client.emit('players', Date.now() + ': Welcome to Sueca Online');
                 client.broadcast.emit('players', Date.now() + ': A new player has arrived');
                 client.on('lobby-chat', function (data) { return _this.io.emit('lobby-chat', data); });
+                client.on('room-chat', function (data) { return _this.io.to(server.user.room).emit('room-chat', data); });
                 client.on('room', function (data) {
                     console.log("One room was created" + data.room);
                     client.join(data.room); // o utilizador junta-se ao room que criou
@@ -34,6 +36,7 @@ var WebSocketServer = (function () {
                     _this.io.to(client.player.gameRoom).emit('game-start', client.player.gameRoom);
                     console.log('GAME WILL START ->' + client.player.gameRoom);
                     _this.io.emit(client.player.gameRoom).emit('game-start', client.player.gameRoom);
+<<<<<<< HEAD
                     _this.games[data.room].gamers.forEach(function (player) {
                         console.log(player);
                     });
@@ -42,6 +45,8 @@ var WebSocketServer = (function () {
                     _this.games[client.player.gameRoom].gamers.forEach(function (player) {
                         _this.io.to(client.player.gameRoom).emit('players-on-game', player);
                     });
+=======
+>>>>>>> bfab6e58240fb456247dcdf3daf48f47f74af1d4
                 });
 
             });
@@ -51,21 +56,24 @@ var WebSocketServer = (function () {
         };
     }
     return WebSocketServer;
-})();
+}());
 exports.WebSocketServer = WebSocketServer;
 ;
 var Player = (function () {
     function Player() {
     }
     return Player;
-})();
+}());
 exports.Player = Player;
 var Mesa = (function () {
     function Mesa() {
         var _this = this;
         this.gamers = [];
         this.gameRoom = '';
+<<<<<<< HEAD
         this.gamers = [];
+=======
+>>>>>>> bfab6e58240fb456247dcdf3daf48f47f74af1d4
         this.cards = [];
         Mesa.todosOsNaipes().forEach(function (naipe) {
             Mesa.todosOsSimbolos().forEach(function (simbolo) {
@@ -108,7 +116,7 @@ var Mesa = (function () {
         return [1, 2, 3, 4, 5, 6, 7, 11, 12, 13];
     };
     return Mesa;
-})();
+}());
 exports.Mesa = Mesa;
 var Card = (function () {
     function Card(tipo, id, pontos, img) {
@@ -162,5 +170,5 @@ var Card = (function () {
         configurable: true
     });
     return Card;
-})();
+}());
 exports.Card = Card;

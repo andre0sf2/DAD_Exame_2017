@@ -1,4 +1,5 @@
-import { Card } from './card';
+"use strict";
+var card_1 = require('./card');
 var Mesa = (function () {
     function Mesa() {
         var _this = this;
@@ -10,21 +11,21 @@ var Mesa = (function () {
                 var img = '../../cards-1/' + naipe + simbolo + ".png";
                 switch (simbolo) {
                     case 1:
-                        c = new Card(naipe, simbolo, 11, img);
+                        c = new card_1.Card(naipe, simbolo, 11, img);
                         break;
                     case 7:
-                        c = new Card(naipe, simbolo, 10, img);
+                        c = new card_1.Card(naipe, simbolo, 10, img);
                         break;
                     case 13:
-                        c = new Card(naipe, simbolo, 4, img);
+                        c = new card_1.Card(naipe, simbolo, 4, img);
                         break;
                     case 11:
-                        c = new Card(naipe, simbolo, 3, img);
+                        c = new card_1.Card(naipe, simbolo, 3, img);
                         break;
                     case 12:
-                        c = new Card(naipe, simbolo, 2, img);
+                        c = new card_1.Card(naipe, simbolo, 2, img);
                         break;
-                    default: c = new Card(naipe, simbolo, 0, img);
+                    default: c = new card_1.Card(naipe, simbolo, 0, img);
                 }
                 _this.cards.push(c);
             });
@@ -45,5 +46,5 @@ var Mesa = (function () {
         return [1, 2, 3, 4, 5, 6, 7, 11, 12, 13];
     };
     return Mesa;
-})();
-Mesa = Mesa;
+}());
+exports.Mesa = Mesa;

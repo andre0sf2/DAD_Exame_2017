@@ -23,7 +23,7 @@
             <td>{{item.nplayers}}</td>
             <td>
                 <button class="btn btn-danger" (click)="deleteGame(i)">Delete</button>
-                <button class="btn btn-success" type="button" [disabled]="item.players.length!=4"
+                <button class="btn btn-success" type="button" [disabled]="item.players.length!=1"
                         (click)="startGame(i)">Start
                 </button>
             </td>

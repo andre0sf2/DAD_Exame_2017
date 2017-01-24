@@ -37,29 +37,11 @@ var TableComponent = (function () {
             this.room = params['room'];
         });
 
-        this.websocketService.getAllPlayersReady().subscribe((r: any) => {
-            console.log(r);
-            this.allReady = true;
-        });
-
-        this.websocketService.getTurn().subscribe((r: string) => {
-            //r = username
-            if (r === this.auth.getCurrentUser().username) {
-                this.error = 'My turn!';
-                this.isMyTurn = true;
-            } else {
-                this.isMyTurn = false;
-                this.error = 'Player turn!: ' + r;
-            }
-        });
-
-        this.websocketService.getDerrotado().subscribe((r: any) => {
-            if (this.auth.getCurrentUser().username == r.usernameAlvo) {
-                console.log("Derrotado");
-                this.error = 'Fui derrotado';
-            }
-        });
-*/
+        console.log(this.room);
+/*        this.route.params
+            .switchMap((params: Params) => this.gameService.getGame(params['room']))
+            .subscribe((game: Game) => this.game = game);*/
+        this.cards = [];
         this.mesa = new mesa_1.Mesa();
         this.cards = this.mesa.cards;
         this.baralharCartas(this.cards);
@@ -100,7 +82,7 @@ var TableComponent = (function () {
 TableComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        selector: 'table-game',
+        selector: 'game',
         templateUrl: 'table.component.html',
         styleUrls: ['table.component.css']
     }),

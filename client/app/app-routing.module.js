@@ -20,7 +20,7 @@ var routes = [
     { path: 'home', component: home_component_1.HomeComponent },
     { path: 'login', component: login_component_1.LoginComponent },
     { path: 'register', component: register_component_1.RegisterComponent },
-    { path: 'table-game/:room', component: table_component_1.TableComponent },
+    { path: 'game/:room', component: table_component_1.TableComponent },
     { path: 'history', component: history_component_1.HistoryComponent }
 ];
 var AppRoutingModule = (function () {

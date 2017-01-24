@@ -126,6 +126,17 @@ var GameService = (function () {
             return Rx_1.Observable.throw(error);
         });
     };
+    GameService.prototype.getGame = function (room) {
+        var publicHeaders = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var game;
+        return this.http.get('http://localhost:7777/api/v1/games/' + room, publicHeaders)
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(function (error) {
+            return Rx_1.Observable.throw(error);
+        });
+    };
     return GameService;
 }());
 GameService = __decorate([

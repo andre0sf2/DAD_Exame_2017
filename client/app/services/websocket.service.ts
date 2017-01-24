@@ -45,16 +45,16 @@ export class WebSocketService {
         return this.listenOnChannel('notes');
     }
 
-    sendChatMessageOnRoom(message: any) {
-        this.socket.emit('roomChat', message);
+    sendChatMessageToRoom(room: any, message: any) {
+        this.socket.emit('r'+room, message);
+    }
+
+    getChatMessagesFromRoom(room: any): Observable<any> {
+        return this.listenOnChannel('r'+room);
     }
 
     sendNote(message: any) {
         this.socket.emit('notes', message);
-    }
-
-    getChatMessagesOnRoom(): Observable<any> {
-        return this.listenOnChannel('roomChat');
     }
 
      getDerrotado(): Observable<any> {

@@ -13,8 +13,13 @@ export class WebSocketServer {
             client.player = new Player();
 
             client.emit('players', Date.now() + ': Welcome to Sueca Online');
+
             client.broadcast.emit('players', Date.now() + ': A new player has arrived');
+
             client.on('lobby-chat', (data) => this.io.emit('lobby-chat', data));
+            client.on('room-chat', (data) => this.io.to(server.user.room).emit('room-chat', data));
+
+
 
             client.on('room', (data) => {
                 console.log("One room was created" + data.room);
