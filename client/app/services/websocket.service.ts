@@ -14,6 +14,16 @@ export class WebSocketService {
         }
     }
 
+    getGamePlayers(){
+        this.socket.emit('players-on-game');
+        return this.listenOnChannel('players-on-game');
+    }
+
+    getMyCards(message:any){
+        this.socket.emit('my-cards', message);
+        return this.listenOnChannel('my-cards');
+    }
+
     sendStartGame(message:any){
         this.socket.emit('start-game', message);
         console.log("sendStartGame");

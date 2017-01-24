@@ -11,11 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("../services/auth.service");
+var websocket_service_1 = require("../services/websocket.service");
 var mesa_1 = require("./mesa");
 var TableComponent = (function () {
-    function TableComponent(route, auth) {
+    function TableComponent(route, auth, websocketService) {
         this.route = route;
         this.auth = auth;
+        this.websocketService = websocketService;
         this.error = '';
         this.cards = [];
         this.baralhoJogadores = [];
@@ -27,6 +29,8 @@ var TableComponent = (function () {
     }
     TableComponent.prototype.ngOnInit = function () {
         this.cards = [];
+        this.websocketService.getGamePlayers().subscribe(function (m) { return console.log(m); });
+        this.getCards();
         /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
 
         this.route.params.subscribe(params => {
@@ -59,6 +63,10 @@ var TableComponent = (function () {
         this.mesa = new mesa_1.Mesa();
         this.cards = this.mesa.cards;
         this.baralharCartas(this.cards);
+    };
+    TableComponent.prototype.getCards = function () {
+        console.log("entrou");
+        this.websocketService.getMyCards({ username: this.auth.getCurrentUser().username }).subscribe(function (m) { return console.log(m); });
     };
     TableComponent.prototype.addCard = function () {
         this.mesa.getCard("o", 2);
@@ -96,7 +104,7 @@ TableComponent = __decorate([
         templateUrl: 'table.component.html',
         styleUrls: ['table.component.css']
     }),
-    __metadata("design:paramtypes", [router_1.ActivatedRoute, auth_service_1.AuthService])
+    __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService, websocket_service_1.WebSocketService])
 ], TableComponent);
 exports.TableComponent = TableComponent;
 //# sourceMappingURL=table.component.js.map

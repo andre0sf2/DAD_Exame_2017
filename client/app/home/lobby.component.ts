@@ -76,7 +76,7 @@ export class LobbyComponent implements OnInit{
             if(resource!== 'No game data'){
                 this.info="Game created";
                 this.webSocketService.createRoom({room:'room' + resource._id, 
-                    userId: this.authService.getCurrentUser()._id,username:this.authService.getCurrentUser()._username});
+                    userId: this.authService.getCurrentUser()._id, username : this.authService.getCurrentUser().username});
                 this.findMyGames();  
             }else{
                 this.info="Error creating game";

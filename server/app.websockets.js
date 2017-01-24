@@ -1,6 +1,4 @@
 var io = require('socket.io');
-//import { Card } from './card';
-//import { Mesa } from './mesa';
 var WebSocketServer = (function () {
     function WebSocketServer() {
         var _this = this;
@@ -24,20 +22,28 @@ var WebSocketServer = (function () {
                     _this.games[data.room].gamers.push(data.username);
                 });
                 client.on('join', function (data) {
-                    console.log("One player joined the room" + data.room);
+                    console.log("One player joined the room " + data.room);
                     client.player.gameRoom = data.room;
                     client.player.socketId = data.id;
                     client.player.username = data.username;
                     client.join(client.player.gameRoom);
-                    _this.games[data.room].gamers.push(data.user);
+                    _this.games[data.room].gamers.push(data.username);
                 });
                 client.on('start-game', function (data) {
-                    console.log("Game will start" + data.room + "sdad " + client.player.gameRoom);
+                    console.log("Game will start" + data.room + " sdad " + client.player.gameRoom);
                     _this.io.to(client.player.gameRoom).emit('game-start', client.player.gameRoom);
-                        console.log('GAME WILL START ->' + client.player.gameRoom);
-                        _this.io.emit(client.player.gameRoom).emit('game-start', client.player.gameRoom);
-
+                    console.log('GAME WILL START ->' + client.player.gameRoom);
+                    _this.io.emit(client.player.gameRoom).emit('game-start', client.player.gameRoom);
+                    _this.games[data.room].gamers.forEach(function (player) {
+                        console.log(player);
+                    });
                 });
+                client.on('players-on-game', function (data) {
+                    _this.games[client.player.gameRoom].gamers.forEach(function (player) {
+                        _this.io.to(client.player.gameRoom).emit('players-on-game', player);
+                    });
+                });
+
             });
         };
         this.notifyAll = function (channel, message) {
@@ -57,6 +63,8 @@ exports.Player = Player;
 var Mesa = (function () {
     function Mesa() {
         var _this = this;
+        this.gamers = [];
+        this.gameRoom = '';
         this.gamers = [];
         this.cards = [];
         Mesa.todosOsNaipes().forEach(function (naipe) {
