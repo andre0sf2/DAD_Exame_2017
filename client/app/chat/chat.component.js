@@ -33,16 +33,16 @@ var ChatComponent = (function () {
         this.webSocket.sendChatMessage(this.auth.getCurrentUser().username + ': ' + this.chatForm.controls['message'].value);
         this.chatForm.controls['message'].setValue("");
     };
-    ChatComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'chat',
-            templateUrl: 'chat.component.html',
-            styleUrls: ['chat.component.css']
-        }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder, websocket_service_1.WebSocketService, auth_service_1.AuthService])
-    ], ChatComponent);
     return ChatComponent;
 }());
+ChatComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'chat',
+        templateUrl: 'chat.component.html',
+        styleUrls: ['chat.component.css']
+    }),
+    __metadata("design:paramtypes", [forms_1.FormBuilder, websocket_service_1.WebSocketService, auth_service_1.AuthService])
+], ChatComponent);
 exports.ChatComponent = ChatComponent;
 //# sourceMappingURL=chat.component.js.map

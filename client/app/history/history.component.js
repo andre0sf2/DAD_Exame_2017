@@ -9,18 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var auth_service_1 = require("../services/auth.service");
 var game_service_1 = require("../services/game.service");
 var HistoryComponent = (function () {
-    function HistoryComponent(gameService) {
+    function HistoryComponent(gameService, authService) {
         this.gameService = gameService;
+        this.authService = authService;
         this.allGames = [];
+        this.myGames = [];
     }
     HistoryComponent.prototype.ngOnInit = function () {
         this.getAllGames();
+        this.getMyGames();
     };
     HistoryComponent.prototype.getAllGames = function () {
         var _this = this;
         this.gameService.getAllGames().subscribe(function (games) { return console.log(_this.allGames = games); });
+    };
+    HistoryComponent.prototype.getMyGames = function () {
+        var _this = this;
+        this.gameService.getMyGames(this.authService.getCurrentUser()).subscribe(function (games) { return console.log(_this.myGames = games); });
     };
     return HistoryComponent;
 }());
@@ -30,7 +38,7 @@ HistoryComponent = __decorate([
         selector: 'history',
         templateUrl: 'history.component.html',
     }),
-    __metadata("design:paramtypes", [game_service_1.GameService])
+    __metadata("design:paramtypes", [game_service_1.GameService, auth_service_1.AuthService])
 ], HistoryComponent);
 exports.HistoryComponent = HistoryComponent;
 //# sourceMappingURL=history.component.js.map

@@ -116,4 +116,26 @@ export class GameService{
         });
     }
 
+    getMyGames(user: User): Observable<Game[]>{
+        let publicHeaders = new Headers({'Content-Type': 'application/json'});
+        let games : Game[] = [];
+
+        return this.http.get('http://localhost:7777/api/v1/allgames', publicHeaders)
+        .map (response => {
+            response.json().forEach((game:Game)=>{
+                game.players.forEach((p: User)=> {
+                    //console.log(p.username + "SADKDS");
+                    //console.log(user.username);
+                    if(p.username == user.username){
+                        games.push(game);
+                    }                    
+                });
+            });
+            return games;
+        })
+        .catch(error=>{
+            return Observable.throw(error);
+        });
+    }
+
 }
