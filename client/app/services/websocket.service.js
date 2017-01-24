@@ -17,6 +17,10 @@ var WebSocketService = (function () {
             this.socket = io("http://localhost:7777");
         }
     }
+    WebSocketService.prototype.sendStartGame = function (message) {
+        this.socket.emit('start-game', message);
+        console.log("sendStartGame");
+    };
     WebSocketService.prototype.sendChatMessage = function (message) {
         this.socket.emit('lobby-chat', message);
     };
@@ -48,14 +52,15 @@ var WebSocketService = (function () {
     WebSocketService.prototype.getBoardMessages = function () {
         return this.listenOnChannel('board');
     };
-    WebSocketService.prototype.newRoom = function (message) {
-        this.socket.emit('room', message); //room15651456146514
+    WebSocketService.prototype.createRoom = function (message) {
+        this.socket.emit('room', message);
+        console.log("room created");
     };
-    WebSocketService.prototype.getNewRoom = function () {
+    WebSocketService.prototype.getCreateRoom = function () {
         return this.listenOnChannel('room');
     };
     WebSocketService.prototype.roomDeleted = function (message) {
-        this.socket.emit('roomDeleted', message); //room15651456146514
+        this.socket.emit('roomDeleted', message);
     };
     WebSocketService.prototype.getRoomDeleted = function () {
         return this.listenOnChannel('roomDeleted');
@@ -67,10 +72,10 @@ var WebSocketService = (function () {
         return this.listenOnChannel('join');
     };
     WebSocketService.prototype.notifyAllPlayerGameStarted = function (message) {
-        this.socket.emit('game_start', message);
+        this.socket.emit('game-start', message);
     };
     WebSocketService.prototype.getGameStart = function () {
-        return this.listenOnChannel('game_start');
+        return this.listenOnChannel('game-start');
     };
     WebSocketService.prototype.notifyAllPlayersImReady = function (message) {
         this.socket.emit('ready', message);

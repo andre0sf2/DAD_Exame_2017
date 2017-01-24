@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../services/auth.service';
 import { GameService } from '../services/game.service'; 
+import { WebSocketService} from '../services/websocket.service';
 
 import { User } from '../model/user';
 import { Game } from '../model/game';
@@ -22,33 +23,36 @@ export class LobbyComponent implements OnInit{
 
     info: string = "";
 
-    constructor(private authService: AuthService, private gameService : GameService, private router: Router){};
+    constructor(private authService: AuthService, private gameService : GameService, private router: Router,
+                private webSocketService: WebSocketService){};
 
     ngOnInit(){
         this.findMyGames();
         this.findOtherGames();
 
-        /*this.websocketService.getNewRoom().subscribe((m: any) => {
+        this.webSocketService.getCreateRoom().subscribe((m: any) => {
+            console.log("ROOOM CREATEDEE");
             this.findOtherGames();
             this.findMyGames();
         });
 
-        this.websocketService.getJoinOnRoom().subscribe((m: any) => {
+        this.webSocketService.getJoinOnRoom().subscribe((m: any) => {
             console.log("Join Player: " + m);
             this.findMyGames();
             this.findOtherGames();
         });
 
-        this.websocketService.getGameStart().subscribe((m: any) => {
+        this.webSocketService.getGameStart().subscribe((m: any) => {
             console.log("Jogo vai começar: " + m);
+            console.log("SADSAD");
             this.router.navigateByUrl('/table-game/' + m);
         });
 
-        this.websocketService.getRoomDeleted().subscribe((m: any) => {
+        this.webSocketService.getRoomDeleted().subscribe((m: any) => {
             console.log("Apaguei jogo");
             this.findOtherGames();
             this.findMyGames();
-        });*/
+        });
 
     }
 
@@ -71,7 +75,8 @@ export class LobbyComponent implements OnInit{
         {
             if(resource!== 'No game data'){
                 this.info="Game created";
- //               this.websocketService.newRoom({room:'Room' + /*roomName+*/ resource._id, userId: })
+                this.webSocketService.createRoom({room:'room' + resource._id, 
+                    userId: this.authService.getCurrentUser()._id,username:this.authService.getCurrentUser()._username});
                 this.findMyGames();  
             }else{
                 this.info="Error creating game";
@@ -104,16 +109,23 @@ export class LobbyComponent implements OnInit{
 
         if(!this.already_join){
 
+            this.webSocketService.joinRoom({userId:this.authService.getCurrentUser()._id, username : this.authService.getCurrentUser().username, room : 'room'+ this.otherGames[i]._id});
+            
+
             this.otherGames[i].players.push({player:this.authService.getCurrentUser()._id, points:0});
             this.otherGames[i].nplayers = this.otherGames[i].nplayers + 1;
 
             this.gameService.updateGame(this.otherGames[i], this.authService.getCurrentUser()).subscribe(response => {
                 /*console.log(response)*/
-                if(response.nplayers == 4){
+                if(response.nplayers == 2){
                     console.log('game will start');
                     
-                    response.status = 'on play';
+                    response.status = 'on going';
                     this.gameService.updateGame(response, this.authService.getCurrentUser()).subscribe(res => console.log('1'+ res));
+                
+                    this.webSocketService.sendStartGame({room:'room' + this.otherGames[i]._id, 
+                    userId: this.authService.getCurrentUser()._id,username:this.authService.getCurrentUser()._username});
+                    console.log("pedido efectuado");    
                 } 
             });
             
@@ -128,4 +140,5 @@ export class LobbyComponent implements OnInit{
         this.router.navigateByUrl('/game/' + this.myGames[i]._id);
         //this.websocketService.notifyAllPlayerGameStarted({ message: 'Game Start!', room: room });
     }
+
 }
