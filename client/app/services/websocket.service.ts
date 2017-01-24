@@ -36,11 +36,11 @@ export class WebSocketService {
     }
 
     sendChatMessageToRoom(room: any, message: any) {
-        this.socket.emit('r'+room, message);
+        this.socket.emit('room-chat', message);
     }
 
     getChatMessagesFromRoom(room: any): Observable<any> {
-        return this.listenOnChannel('r'+room);
+        return this.listenOnChannel('room-chat');
     }
 
     sendNote(message: any) {

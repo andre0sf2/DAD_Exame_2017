@@ -30,11 +30,16 @@ var ChatRoomComponent = (function () {
     }
     ChatRoomComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.webSocket.getChatMessagesFromRoom(this.route.params['room']).subscribe(function (m) { return _this.chatMessages.push(m); });
+        this.route.params.subscribe(function (params) {
+            _this.roomId = params['room'];
+        });
+        this.webSocket.getChatMessagesFromRoom(this.roomId).subscribe(function (m) { return _this.chatMessages.push(m); });
     };
     ChatRoomComponent.prototype.sendMessage = function () {
-        var message = this.auth.getCurrentUser().username + ' (' + Date.now() + '): ' + this.chatForm.controls['message'].value;
-        this.webSocket.sendChatMessageToRoom(this.route.params['room'], message);
+        var now = new Date(Date.now());
+        var time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+        var message = this.auth.getCurrentUser().username + ' (' + time + '): ' + this.chatForm.controls['message'].value;
+        this.webSocket.sendChatMessageToRoom(this.roomId, message);
         this.chatForm.controls['message'].setValue("");
     };
     return ChatRoomComponent;

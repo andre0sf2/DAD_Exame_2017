@@ -11,7 +11,9 @@ var WebSocketServer = (function () {
                 client.emit('players', Date.now() + ': Welcome to Sueca Online');
                 client.broadcast.emit('players', Date.now() + ': A new player has arrived');
                 client.on('lobby-chat', function (data) { return _this.io.emit('lobby-chat', data); });
-                client.on('room-chat', function (data) { return _this.io.to(server.user.room).emit('room-chat', data); });
+                client.on('room-chat', function (data) {
+                    _this.io.to(client.player.gameRoom).emit('room-chat', data);
+                });
                 client.on('room', function (data) {
                     console.log("One room was created" + data.room);
                     client.join(data.room); // o utilizador junta-se ao room que criou

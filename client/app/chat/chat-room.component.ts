@@ -17,6 +17,7 @@ export class ChatRoomComponent implements OnInit{
     chatForm: FormGroup;
 
     private type = "Room";
+    private roomId: string;
 
     protected chatMessages: string[] = [];
 
@@ -28,12 +29,19 @@ export class ChatRoomComponent implements OnInit{
     }
 
     ngOnInit() {
-        this.webSocket.getChatMessagesFromRoom(this.route.params['room']).subscribe((m:any) => this.chatMessages.push(<string>m));
+        this.route.params.subscribe(params => {
+            this.roomId = params['room'];
+        })
+        this.webSocket.getChatMessagesFromRoom(this.roomId).subscribe((m:any) => this.chatMessages.push(<string>m));
     }
 
     sendMessage() {
-        let message = this.auth.getCurrentUser().username + ' (' + Date.now() + '): ' + this.chatForm.controls['message'].value
-        this.webSocket.sendChatMessageToRoom(this.route.params['room'], message);
+        let now = new Date(Date.now());
+        let time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+
+
+        let message = this.auth.getCurrentUser().username + ' (' + time + '): ' + this.chatForm.controls['message'].value
+        this.webSocket.sendChatMessageToRoom(this.roomId, message);
         this.chatForm.controls['message'].setValue("");
     }
 }

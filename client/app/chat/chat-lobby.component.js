@@ -31,7 +31,9 @@ var ChatLobbyComponent = (function () {
         this.webSocket.getChatMessages().subscribe(function (m) { return _this.chatMessages.push(m); });
     };
     ChatLobbyComponent.prototype.sendMessage = function () {
-        var message = this.auth.getCurrentUser().username + '(' + Date.now() + '): ' + this.chatForm.controls['message'].value;
+        var now = new Date(Date.now());
+        var time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+        var message = this.auth.getCurrentUser().username + ' (' + time + '): ' + this.chatForm.controls['message'].value;
         this.webSocket.sendChatMessage(message);
         this.chatForm.controls['message'].setValue("");
     };

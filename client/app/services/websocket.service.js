@@ -35,10 +35,10 @@ var WebSocketService = (function () {
         return this.listenOnChannel('notes');
     };
     WebSocketService.prototype.sendChatMessageToRoom = function (room, message) {
-        this.socket.emit('r' + room, message);
+        this.socket.emit('room-chat', message);
     };
     WebSocketService.prototype.getChatMessagesFromRoom = function (room) {
-        return this.listenOnChannel('r' + room);
+        return this.listenOnChannel('room-chat');
     };
     WebSocketService.prototype.sendNote = function (message) {
         this.socket.emit('notes', message);

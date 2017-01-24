@@ -5,6 +5,7 @@ import {Component, OnInit} from "@angular/core";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {WebSocketService} from "../services/websocket.service";
 import {AuthService} from "../services/auth.service";
+import {DateFormatter} from "@angular/common/src/facade/intl";
 
 @Component({
     moduleId: module.id,
@@ -31,7 +32,11 @@ export class ChatLobbyComponent implements OnInit{
     }
 
     sendMessage() {
-        let message = this.auth.getCurrentUser().username + '(' + Date.now() + '): ' + this.chatForm.controls['message'].value
+        let now = new Date(Date.now());
+        let time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+
+
+        let message = this.auth.getCurrentUser().username + ' (' + time + '): ' + this.chatForm.controls['message'].value
         this.webSocket.sendChatMessage(message);
         this.chatForm.controls['message'].setValue("");
     }

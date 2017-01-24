@@ -17,7 +17,9 @@ export class WebSocketServer {
             client.broadcast.emit('players', Date.now() + ': A new player has arrived');
 
             client.on('lobby-chat', (data) => this.io.emit('lobby-chat', data));
-            client.on('room-chat', (data) => this.io.to(server.user.room).emit('room-chat', data));
+            client.on('room-chat', (data) => {
+                this.io.to(client.player.gameRoom).emit('room-chat', data)
+            });
 
 
 

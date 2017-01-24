@@ -2,14 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="14fc78a0-72db-4845-83e6-d9975664c92d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/card.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/card.ts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/mesa.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/mesa.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/home/lobby.component.js" afterPath="$PROJECT_DIR$/client/app/home/lobby.component.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/home/lobby.component.js.map" afterPath="$PROJECT_DIR$/client/app/home/lobby.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/home/lobby.component.ts" afterPath="$PROJECT_DIR$/client/app/home/lobby.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/chat/chat-lobby.component.js" afterPath="$PROJECT_DIR$/client/app/chat/chat-lobby.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/chat/chat-lobby.component.js.map" afterPath="$PROJECT_DIR$/client/app/chat/chat-lobby.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/chat/chat-lobby.component.ts" afterPath="$PROJECT_DIR$/client/app/chat/chat-lobby.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/chat/chat-room.component.js" afterPath="$PROJECT_DIR$/client/app/chat/chat-room.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/chat/chat-room.component.js.map" afterPath="$PROJECT_DIR$/client/app/chat/chat-room.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/chat/chat-room.component.ts" afterPath="$PROJECT_DIR$/client/app/chat/chat-room.component.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/services/websocket.service.js" afterPath="$PROJECT_DIR$/client/app/services/websocket.service.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/services/websocket.service.js.map" afterPath="$PROJECT_DIR$/client/app/services/websocket.service.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/services/websocket.service.ts" afterPath="$PROJECT_DIR$/client/app/services/websocket.service.ts" />
@@ -45,8 +44,8 @@
       <file leaf-file-name="chat-room.component.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/app/chat/chat-room.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="29" column="16" lean-forward="false" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
+            <state relative-caret-position="227">
+              <caret line="43" column="37" lean-forward="true" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
               <folding>
                 <element signature="e#47#95#0" expanded="true" />
               </folding>
@@ -70,8 +69,8 @@
       <file leaf-file-name="websocket.service.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/app/services/websocket.service.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="38" column="27" lean-forward="false" selection-start-line="38" selection-start-column="27" selection-end-line="38" selection-end-column="27" />
+            <state relative-caret-position="161">
+              <caret line="41" column="29" lean-forward="false" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
               </folding>
@@ -82,8 +81,8 @@
       <file leaf-file-name="chat-lobby.component.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/app/chat/chat-lobby.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="33" column="34" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+            <state relative-caret-position="153">
+              <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="40" selection-end-column="55" />
               <folding>
                 <element signature="e#47#95#0" expanded="true" />
               </folding>
@@ -105,21 +104,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="lobby.component.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/app/home/lobby.component.html">
+      <file leaf-file-name="app.websockets.ts" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/app.websockets.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="26" column="38" lean-forward="false" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
+            <state relative-caret-position="-298">
+              <caret line="20" column="38" lean-forward="false" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.websockets.ts" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/server/app.websockets.ts">
+      <file leaf-file-name="app.users.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/app.users.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+            <state relative-caret-position="1139">
+              <caret line="68" column="23" lean-forward="false" selection-start-line="68" selection-start-column="23" selection-end-line="68" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -130,7 +129,40 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+              <folding>
+                <marker date="1485298551154" expanded="true" signature="80:2525" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="113:2495" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="204:2369" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="312:2357" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="847:1439" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="1492:1881" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="1940:2341" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="2424:2488" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="2601:2653" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="2707:4340" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="2729:3857" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="2890:3849" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="2954:3837" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="3090:3786" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="3913:4139" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="3967:4117" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="4178:4222" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="4263:4320" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="4390:5820" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="4433:4583" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="4626:4742" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="4798:5010" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="4825:4871" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="4903:4950" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="5066:5276" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="5093:5138" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="5170:5216" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="5331:5539" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="5358:5402" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="5434:5479" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="5593:5799" ph="{...}" />
+                <marker date="1485298551154" expanded="true" signature="5620:5663" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -210,12 +242,12 @@
         <option value="$PROJECT_DIR$/client/app/app.module.ts" />
         <option value="$PROJECT_DIR$/client/app/home/lobby.component.html" />
         <option value="$PROJECT_DIR$/client/app/chat/chat.component.html" />
-        <option value="$PROJECT_DIR$/client/app/services/websocket.service.ts" />
-        <option value="$PROJECT_DIR$/client/app/chat/chat-lobby.component.ts" />
-        <option value="$PROJECT_DIR$/client/app/chat/chat-room.component.ts" />
         <option value="$PROJECT_DIR$/client/app/game/table.component.ts" />
         <option value="$PROJECT_DIR$/client/app/services/websocket.service.js.map" />
         <option value="$PROJECT_DIR$/client/app/home/lobby.component.ts" />
+        <option value="$PROJECT_DIR$/client/app/chat/chat-lobby.component.ts" />
+        <option value="$PROJECT_DIR$/client/app/chat/chat-room.component.ts" />
+        <option value="$PROJECT_DIR$/client/app/services/websocket.service.ts" />
         <option value="$PROJECT_DIR$/server/app.websockets.ts" />
       </list>
     </option>
@@ -647,7 +679,7 @@
       <workItem from="1484927323096" duration="2353000" />
       <workItem from="1485039605568" duration="4023000" />
       <workItem from="1485185542961" duration="12799000" />
-      <workItem from="1485271515981" duration="13694000" />
+      <workItem from="1485271515981" duration="15645000" />
     </task>
     <task id="LOCAL-00001" summary="Logout working. Still have validations to make in login and register&#10;">
       <created>1484878273632</created>
@@ -667,7 +699,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58108000" />
+    <option name="totallyTimeSpent" value="60059000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -786,14 +818,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/app.users.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="68" column="23" lean-forward="false" selection-start-line="68" selection-start-column="23" selection-end-line="68" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1100,32 +1124,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/app/chat/chat-lobby.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="33" column="34" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-          <folding>
-            <element signature="e#47#95#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/app/game/table.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="38" column="29" lean-forward="false" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
           <folding>
             <element signature="e#0#50#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/app/chat/chat-room.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="29" column="16" lean-forward="false" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
-          <folding>
-            <element signature="e#47#95#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1141,16 +1145,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/app/services/websocket.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="38" column="27" lean-forward="false" selection-start-line="38" selection-start-column="27" selection-end-line="38" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/app/home/lobby.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="129">
@@ -1163,14 +1157,85 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1485298551154" expanded="true" signature="80:2525" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="113:2495" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="204:2369" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="312:2357" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="847:1439" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="1492:1881" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="1940:2341" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="2424:2488" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="2601:2653" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="2707:4340" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="2729:3857" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="2890:3849" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="2954:3837" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="3090:3786" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="3913:4139" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="3967:4117" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="4178:4222" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="4263:4320" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="4390:5820" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="4433:4583" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="4626:4742" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="4798:5010" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="4825:4871" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="4903:4950" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="5066:5276" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="5093:5138" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="5170:5216" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="5331:5539" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="5358:5402" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="5434:5479" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="5593:5799" ph="{...}" />
+            <marker date="1485298551154" expanded="true" signature="5620:5663" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/chat/chat-lobby.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="40" selection-end-column="55" />
+          <folding>
+            <element signature="e#47#95#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/chat/chat-room.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="43" column="37" lean-forward="true" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
+          <folding>
+            <element signature="e#47#95#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/services/websocket.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="41" column="29" lean-forward="false" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/app.users.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1139">
+          <caret line="68" column="23" lean-forward="false" selection-start-line="68" selection-start-column="23" selection-end-line="68" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/app.websockets.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+        <state relative-caret-position="-298">
+          <caret line="20" column="38" lean-forward="false" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="38" />
           <folding />
         </state>
       </provider>
