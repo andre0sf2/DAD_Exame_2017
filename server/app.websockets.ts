@@ -16,14 +16,14 @@ export class WebSocketServer {
 
             client.broadcast.emit('players', Date.now() + ': A new player has arrived');
 
-            client.on('lobby-chat', (data) => this.io.emit('lobby-chat', data));
-            client.on('room-chat', (data) => {
+            client.on('lobby-chat', (data: any) => this.io.emit('lobby-chat', data));
+            client.on('room-chat', (data: any) => {
                 this.io.to(client.player.gameRoom).emit('room-chat', data)
             });
 
 
 
-            client.on('room', (data) => {
+            client.on('room', (data: any) => {
                 console.log("One room was created" + data.room);
                 client.join(data.room); // o utilizador junta-se ao room que criou
 
@@ -37,7 +37,7 @@ export class WebSocketServer {
                 this.games[data.room].gamers.push(data.username);
             })
 
-            client.on('join', (data) => {
+            client.on('join', (data: any) => {
                 console.log("One player joined the room " + data.room);
                 client.player.gameRoom = data.room;
                 client.player.socketId = data.id;
@@ -47,7 +47,7 @@ export class WebSocketServer {
                 this.games[data.room].gamers.push(data.username);
             })
 
-            client.on('start-game', (data) => {
+            client.on('start-game', (data: any) => {
                 console.log("Game will start" + data.room + " sdad " + client.player.gameRoom);
                 this.io.to(client.player.gameRoom).emit('game-start', client.player.gameRoom);
                 console.log('GAME WILL START ->' + client.player.gameRoom)
@@ -57,7 +57,7 @@ export class WebSocketServer {
                 });
             });
 
-            client.on('players-on-game', (data) => {
+            client.on('players-on-game', (data: any) => {
                 this.games[data.room].gamers.forEach((player: any) => {
                     this.io.to(client.player.gameRoom).emit('players-on-game', player);
                 });
