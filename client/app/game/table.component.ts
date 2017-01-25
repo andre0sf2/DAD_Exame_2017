@@ -31,6 +31,7 @@ export class TableComponent implements OnInit {
     public isMyTurn: boolean = false;
 
     public suit: string = "";
+    public user: string = this.auth.getCurrentUser().username;
 
     constructor(private route: Router, private auth: AuthService, private websocketService: WebSocketService,
             private activeRoute: ActivatedRoute) { }
@@ -38,6 +39,7 @@ export class TableComponent implements OnInit {
     ngOnInit() {
 
         this.cards = [];
+        this.baralhoJogadores = [];
 
         this.activeRoute.params.subscribe(params => {
             this.room = params['room'];
@@ -48,7 +50,7 @@ export class TableComponent implements OnInit {
         this.addCard();
 
         this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe((card:any) => {
-            console.log(card);
+            console.log(card.toString());
         });
 
         this.getSuit();
@@ -61,30 +63,30 @@ export class TableComponent implements OnInit {
             .switchMap((params: Params) => this.gameService.getGame(params['room']))
             .subscribe((game: Game) => this.game = game);*/
 
-
-        this.cards = [];
-
         this.mesa = new Mesa();
         this.cards = this.mesa.cards;
         this.baralharCartas(this.cards);
     }
 
     getMyCards(){
-        this.websocketService.getMyCards().subscribe((m: any) => console.log("MINHAS CARTAS: v2" + m.card.toString()));
+        this.websocketService.getMyCards().subscribe((m: any) => {
+            //console.log("MINHAS CARTAS: v2" + m.card);
+            this.baralhoJogadores.push(m.card);
+        });
 
     }
 
-
     addCard() {
         this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe((m: any) => {
-            console.log(m.card)
+            console.log(m._img);
         });
+
     }
 
     getSuit(){
         console.log("get trunfo");
         this.websocketService.getSuit({room: this.room}).subscribe((m:any) => {
-            console.log("Trunfo é: " + m.toString());
+            //console.log("Trunfo é: " + m.toString());
             this.suit = m;
         });
     }
@@ -108,7 +110,7 @@ export class TableComponent implements OnInit {
         for (let i = 0; i < this.mesa.cards.length; i++) {
             count += this.mesa.cards[i].ponto;
         }
-        console.log(count);
+        //console.log(count);
         return count;
     }
 

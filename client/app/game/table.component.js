@@ -28,10 +28,12 @@ var TableComponent = (function () {
         this.allReady = false;
         this.isMyTurn = false;
         this.suit = "";
+        this.user = this.auth.getCurrentUser().username;
     }
     TableComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.cards = [];
+        this.baralhoJogadores = [];
         this.activeRoute.params.subscribe(function (params) {
             _this.room = params['room'];
         });
@@ -39,7 +41,7 @@ var TableComponent = (function () {
         this.getMyCards();
         this.addCard();
         this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe(function (card) {
-            console.log(card);
+            console.log(card.toString());
         });
         this.getSuit();
         /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
@@ -50,24 +52,27 @@ var TableComponent = (function () {
 /*        this.route.params
             .switchMap((params: Params) => this.gameService.getGame(params['room']))
             .subscribe((game: Game) => this.game = game);*/
-        this.cards = [];
         this.mesa = new mesa_1.Mesa();
         this.cards = this.mesa.cards;
         this.baralharCartas(this.cards);
     };
     TableComponent.prototype.getMyCards = function () {
-        this.websocketService.getMyCards().subscribe(function (m) { return console.log("MINHAS CARTAS: v2" + m.card.toString()); });
+        var _this = this;
+        this.websocketService.getMyCards().subscribe(function (m) {
+            //console.log("MINHAS CARTAS: v2" + m.card);
+            _this.baralhoJogadores.push(m.card);
+        });
     };
     TableComponent.prototype.addCard = function () {
         this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe(function (m) {
-            console.log(m.card);
+            console.log(m._img);
         });
     };
     TableComponent.prototype.getSuit = function () {
         var _this = this;
         console.log("get trunfo");
         this.websocketService.getSuit({ room: this.room }).subscribe(function (m) {
-            console.log("Trunfo é: " + m.toString());
+            //console.log("Trunfo é: " + m.toString());
             _this.suit = m;
         });
     };
@@ -87,7 +92,7 @@ var TableComponent = (function () {
         for (var i = 0; i < this.mesa.cards.length; i++) {
             count += this.mesa.cards[i].ponto;
         }
-        console.log(count);
+        //console.log(count);
         return count;
     };
     TableComponent.prototype.checkCheating = function () {
