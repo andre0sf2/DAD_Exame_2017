@@ -1,3 +1,4 @@
+"use strict";
 var io = require('socket.io');
 var WebSocketServer = (function () {
     function WebSocketServer() {
@@ -41,7 +42,7 @@ var WebSocketServer = (function () {
                         console.log(player);
                     });
                     console.log(_this.games[data.room].getSuit().toString());
-                    _this.io.to(client.player.gameRoom).emit('suit', _this.games[data.room].getSuit().toString());
+                    _this.io.to(client.player.gameRoom).emit('suit', _this.games[data.room].getSuit().img);
                 });
                 /*      client.on('suit',(data)=>{
                           console.log(this.games[data.room].getSuit().toString());
@@ -54,7 +55,8 @@ var WebSocketServer = (function () {
                     });
                 });
                 client.on('card', function (data) {
-                    _this.io.to(client.player.gameRoom).emit('card', data);
+                    console.log(data.card);
+                    _this.io.to(client.player.gameRoom).emit('card', data.card);
                 });
             });
         };
@@ -63,14 +65,14 @@ var WebSocketServer = (function () {
         };
     }
     return WebSocketServer;
-})();
+}());
 exports.WebSocketServer = WebSocketServer;
 ;
 var Player = (function () {
     function Player() {
     }
     return Player;
-})();
+}());
 exports.Player = Player;
 var Mesa = (function () {
     function Mesa() {
@@ -107,7 +109,7 @@ var Mesa = (function () {
         this.baralharCartas();
     }
     Mesa.prototype.getSuit = function () {
-        return this.cards[0];
+        return this.cards[this.cards.length - 1];
     };
     Mesa.prototype.baralharCartas = function () {
         var j, k;
@@ -134,7 +136,7 @@ var Mesa = (function () {
         return [1, 2, 3, 4, 5, 6, 7, 11, 12, 13];
     };
     return Mesa;
-})();
+}());
 exports.Mesa = Mesa;
 var Card = (function () {
     function Card(tipo, id, pontos, img) {
@@ -187,7 +189,17 @@ var Card = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(Card.prototype, "img", {
+        get: function () {
+            return this._img;
+        },
+        set: function (value) {
+            this._img = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     return Card;
-})();
+}());
 exports.Card = Card;
 //# sourceMappingURL=app.websockets.js.map

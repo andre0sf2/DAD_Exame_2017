@@ -27,6 +27,7 @@ var TableComponent = (function () {
         this.chatChannel = [];
         this.allReady = false;
         this.isMyTurn = false;
+        this.suit = "";
     }
     TableComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -35,7 +36,10 @@ var TableComponent = (function () {
             _this.room = params['room'];
         });
         this.websocketService.getGamePlayers(this.room).subscribe(function (m) { return console.log(m); });
-        //        this.getCards();
+        this.getCards();
+        this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe(function (card) {
+            console.log(card.toString());
+        });
         this.getSuit();
         /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
 
@@ -51,20 +55,21 @@ var TableComponent = (function () {
         this.baralharCartas(this.cards);
     };
     TableComponent.prototype.getCards = function () {
-<<<<<<< HEAD
-        console.log("entrou");
-        this.websocketService.getMyCards({ room: this.room, username: this.auth.getCurrentUser().username }).subscribe(function (m) { return console.log("CARTAS:" + m); });
-    };
-    TableComponent.prototype.getSuit = function () {
-        console.log("get trunfo");
-        this.websocketService.getSuit({ room: this.room }).subscribe(function (m) { return console.log("TRUNFO É : " + m); });
-=======
         console.log("tenho uma carta");
         this.websocketService.getMyCards({ username: this.auth.getCurrentUser().username }).subscribe(function (m) { return console.log(m); });
->>>>>>> cc2ed6f8ecd2ceef1eb4062b33b2a7d44968e683
     };
     TableComponent.prototype.addCard = function () {
-        this.mesa.getCard("o", 2);
+        this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe(function (m) {
+            console.log(m.card);
+        });
+    };
+    TableComponent.prototype.getSuit = function () {
+        var _this = this;
+        console.log("get trunfo");
+        this.websocketService.getSuit({ room: this.room }).subscribe(function (m) {
+            console.log("Trunfo é: " + m.toString());
+            _this.suit = m;
+        });
     };
     TableComponent.prototype.cleanMesa = function () {
         this.mesa = new mesa_1.Mesa();
@@ -73,11 +78,9 @@ var TableComponent = (function () {
     TableComponent.prototype.getCardBaralho = function (card) {
         for (var i = 0; i < this.cards.length; i++) {
             if (this.cards[i].tipoCard == card.tipoCard && this.cards[i].simbolo == card.simbolo) {
-                console.log(this.cards[i]);
-                return this.cards[i];
+                this.websocketService.sendCard({ username: this.auth.getCurrentUser().username, card: this.cards[i] });
             }
         }
-        return;
     };
     TableComponent.prototype.countCards = function () {
         var count = 0;

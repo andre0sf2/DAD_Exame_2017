@@ -30,6 +30,8 @@ export class TableComponent implements OnInit {
     public allReady: boolean = false;
     public isMyTurn: boolean = false;
 
+    public suit: string = "";
+
     constructor(private route: Router, private auth: AuthService, private websocketService: WebSocketService,
             private activeRoute: ActivatedRoute) { }
 
@@ -42,8 +44,12 @@ export class TableComponent implements OnInit {
         });
         this.websocketService.getGamePlayers(this.room).subscribe((m: any) => console.log(m));
 
+        this.getCards();
 
-//        this.getCards();
+        this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe((card:any) => {
+            console.log(card.toString());
+        });
+
         this.getSuit();
         /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
 
@@ -63,21 +69,24 @@ export class TableComponent implements OnInit {
     }
 
     getCards(){
-//        console.log("entrou");
-//        this.websocketService.getMyCards({ room : this.room, username: this.auth.getCurrentUser().username }).subscribe((m: any) => console.log("CARTAS:" + m));
         console.log("tenho uma carta");
         this.websocketService.getMyCards({ username: this.auth.getCurrentUser().username }).subscribe((m: any) => console.log(m));
 
     }
 
-    getSuit(){
-        console.log("get trunfo");
-        this.websocketService.getSuit({room: this.room}).subscribe((m:any) => console.log("TRUNFO É : " + m));
-    }
-
 
     addCard() {
-        this.mesa.getCard("o", 2);
+        this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe((m: any) => {
+            console.log(m.card)
+        });
+    }
+
+    getSuit(){
+        console.log("get trunfo");
+        this.websocketService.getSuit({room: this.room}).subscribe((m:any) => {
+            console.log("Trunfo é: " + m.toString());
+            this.suit = m;
+        });
     }
 
     cleanMesa() {
@@ -89,12 +98,9 @@ export class TableComponent implements OnInit {
 
         for (let i = 0; i < this.cards.length; i++) {
             if (this.cards[i].tipoCard == card.tipoCard && this.cards[i].simbolo == card.simbolo) {
-                console.log(this.cards[i]);
-                return this.cards[i];
+                this.websocketService.sendCard({username: this.auth.getCurrentUser().username, card: this.cards[i]});
             }
         }
-
-        return;
     }
 
     countCards(): number {
