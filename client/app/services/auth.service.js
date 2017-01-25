@@ -37,7 +37,7 @@ var AuthService = (function () {
     };
     AuthService.prototype.logout = function () {
         var options = this.buildHeadersWithAuthorization();
-        return this.http.post('http://localhost:7777/api/v1/logout', null, { headers: options })
+        return this.http.post(url + 'logout', null, { headers: options })
             .map(function (res) {
             res.json();
             localStorage.removeItem('user');
@@ -77,6 +77,20 @@ var AuthService = (function () {
     AuthService.prototype.facebook = function () {
         return this.http
             .get(url + 'auth/facebook')
+            .toPromise()
+            .then(function (r) { return Promise.resolve(r.json()); })
+            .catch(function (r) { return Promise.resolve({ error: true, message: 'Internal error, try again later.' }); });
+    };
+    AuthService.prototype.twitter = function () {
+        return this.http
+            .get(url + 'auth/twitter')
+            .toPromise()
+            .then(function (r) { return Promise.resolve(r.json()); })
+            .catch(function (r) { return Promise.resolve({ error: true, message: 'Internal error, try again later.' }); });
+    };
+    AuthService.prototype.google = function () {
+        return this.http
+            .get(url + 'auth/google')
             .toPromise()
             .then(function (r) { return Promise.resolve(r.json()); })
             .catch(function (r) { return Promise.resolve({ error: true, message: 'Internal error, try again later.' }); });

@@ -13,26 +13,9 @@ var Authentication = (function () {
             response.json({ msg: 'Logout' });
             return next();
         };
-        this.facebookSuccess = function (request, response, next) {
-            //request.logout();
-            console.log("FB WORKING");
-            response.json({ msg: 'Facebook Auth' });
-            return next();
-        };
-        this.facebookFailure = function (request, response, next) {
-            //request.logout();
-            console.log("FB NOT WORKING");
-            response.json({ msg: 'Facebook Auth Failure' });
-            return next();
-        };
         this.init = function (server, settings) {
             server.post(settings.prefix + 'login', settings.security.passport.authenticate('local', { 'session': false }), _this.login);
             server.post(settings.prefix + 'logout', settings.security.authorize, _this.logout);
-            server.get('/auth/facebook', settings.security.passport.authenticate('facebook', { scope: 'email' }));
-            server.get('/auth/facebook/callback', settings.security.passport.authenticate('facebook', {
-                successRedirect: _this.facebookSuccess,
-                failureRedirect: _this.facebookFailure
-            }));
             console.log("Authentication routes registered");
         };
     }

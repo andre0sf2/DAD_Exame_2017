@@ -32,8 +32,12 @@ export class TableComponent implements OnInit {
 
     public suit: string = "";
 
-    constructor(private route: Router, private auth: AuthService, private websocketService: WebSocketService,
+    constructor(private router: Router, private auth: AuthService, private websocketService: WebSocketService,
             private activeRoute: ActivatedRoute) { }
+
+    gotoLobby() {
+        this.router.navigateByUrl('');
+    }
 
     ngOnInit() {
 

@@ -1,6 +1,10 @@
 <div class="container">
-    <h1>Room {{ room }}</h1>
-    <h2 style="color:red">{{this.error}}</h2>
+    <div class="row">
+            <h1>Room {{ room }}</h1>
+            <h2 style="color:red">{{this.error}}</h2>
+            <button style="float: right;" class="btn btn-sm btn-default" (click)="gotoLobby()">Back to Lobby</button>
+    </div>
+
 
     <!--
         baralha-se
@@ -49,7 +53,7 @@
 
     <div>
         <div *ngFor="let card of cards;  let i=index"> <!-- Baralho do Jogador!-->
-                <a (click)="getCardBaralho(card)"><img class="cartas alignLeft effect" src="{{card._img}}"></a>
+            <a (click)="getCardBaralho(card)"><img class="cartas alignLeft effect" src="{{card._img}}"></a>
         </div>
     </div>
 
