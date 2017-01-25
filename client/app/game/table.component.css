@@ -2,6 +2,11 @@
     width: 10%;
 }
 
+.trunfo{
+    width: 50%;
+}
+
+
 .cartasMesa{
     width: 15%;
 }
@@ -66,5 +71,6 @@
 }
 
 .effect:hover{
-    border: 2px solid black;
+    border: 1px solid black;
+    border-radius: 4px;
 }
