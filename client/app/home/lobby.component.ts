@@ -18,6 +18,7 @@ export class LobbyComponent implements OnInit{
 
     myGames: Game[] = [];
     otherGames: Game[] = [];
+    ongoingGames: Game[] = [];
 
     already_join: boolean = false;
 
@@ -29,6 +30,7 @@ export class LobbyComponent implements OnInit{
     ngOnInit(){
         this.findMyGames();
         this.findOtherGames();
+        this.findPlayingGames();
 
         this.webSocketService.getCreateRoom().subscribe((m: any) => {
             console.log("ROOOM CREATEDEE");
@@ -61,7 +63,13 @@ export class LobbyComponent implements OnInit{
         this.gameService.findMyGames(JSON.parse(localStorage.getItem('user'))).subscribe(games=>{
             this.myGames = games;
         })
-        //console.log(this.myGames);
+    }
+
+    findPlayingGames(){
+        //console.log(JSON.parse(localStorage.getItem('user'));
+        this.gameService.findPlayingGames(this.authService.getCurrentUser()).subscribe(games=>{
+            this.ongoingGames = games;
+        })
     }
 
     findOtherGames(){
@@ -132,5 +140,8 @@ export class LobbyComponent implements OnInit{
         }
     }
 
+    openGame(i:number):void{
+        this.router.navigateByUrl('/game/room'+this.ongoingGames[i]._id);
+    }
 
 }

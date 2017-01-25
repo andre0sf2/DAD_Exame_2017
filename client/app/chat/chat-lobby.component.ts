@@ -32,12 +32,14 @@ export class ChatLobbyComponent implements OnInit{
     }
 
     sendMessage() {
-        let now = new Date(Date.now());
-        let time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+        if (this.chatForm.controls['message'].value !== null) {
+            let now = new Date(Date.now());
+            let time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
 
 
-        let message = this.auth.getCurrentUser().username + ' (' + time + '): ' + this.chatForm.controls['message'].value
-        this.webSocket.sendChatMessage(message);
-        this.chatForm.controls['message'].setValue("");
+            let message = this.auth.getCurrentUser().username + ' (' + time + '): ' + this.chatForm.controls['message'].value;
+            this.webSocket.sendChatMessage(message);
+            this.chatForm.controls['message'].setValue("");
+        }
     }
 }

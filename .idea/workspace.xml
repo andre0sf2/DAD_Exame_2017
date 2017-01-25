@@ -3,10 +3,24 @@
   <component name="ChangeListManager">
     <list default="true" id="14fc78a0-72db-4845-83e6-d9975664c92d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+<<<<<<< HEAD
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/game/table.component.html" afterPath="$PROJECT_DIR$/client/app/game/table.component.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/game/table.component.js" afterPath="$PROJECT_DIR$/client/app/game/table.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/game/table.component.js.map" afterPath="$PROJECT_DIR$/client/app/game/table.component.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/game/table.component.ts" afterPath="$PROJECT_DIR$/client/app/game/table.component.ts" />
+=======
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/chat/chat-lobby.component.js" afterPath="$PROJECT_DIR$/client/app/chat/chat-lobby.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/chat/chat-lobby.component.js.map" afterPath="$PROJECT_DIR$/client/app/chat/chat-lobby.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/game/table.component.html" afterPath="$PROJECT_DIR$/client/app/game/table.component.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/home/lobby.component.html" afterPath="$PROJECT_DIR$/client/app/home/lobby.component.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/home/lobby.component.js" afterPath="$PROJECT_DIR$/client/app/home/lobby.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/home/lobby.component.js.map" afterPath="$PROJECT_DIR$/client/app/home/lobby.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/home/lobby.component.ts" afterPath="$PROJECT_DIR$/client/app/home/lobby.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/services/game.service.js" afterPath="$PROJECT_DIR$/client/app/services/game.service.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/services/game.service.js.map" afterPath="$PROJECT_DIR$/client/app/services/game.service.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/services/game.service.ts" afterPath="$PROJECT_DIR$/client/app/services/game.service.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/app.websockets.js" afterPath="$PROJECT_DIR$/server/app.websockets.js" />
+>>>>>>> 3acc6092249f7ec8e07d5a204c16bb2ba67b430b
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,6 +38,7 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+<<<<<<< HEAD
       <file leaf-file-name="table.component.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/app/game/table.component.ts">
           <provider selected="true" editor-type-id="text-editor">
@@ -32,6 +47,13 @@
               <folding>
                 <element signature="e#0#50#0" expanded="true" />
               </folding>
+=======
+      <file leaf-file-name="lobby.component.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/app/home/lobby.component.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="69" column="29" lean-forward="false" selection-start-line="69" selection-start-column="29" selection-end-line="69" selection-end-column="29" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -39,13 +61,114 @@
       <file leaf-file-name="table.component.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/app/game/table.component.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="42" column="44" lean-forward="false" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
+            <state relative-caret-position="102">
+              <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="table.component.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/app/game/table.component.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="40" column="28" lean-forward="false" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
+              <folding>
+                <element signature="e#0#50#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="game.service.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/app/services/game.service.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.games.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/app.games.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="127">
+              <caret line="28" column="11" lean-forward="false" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="11" />
+              <folding />
+>>>>>>> 3acc6092249f7ec8e07d5a204c16bb2ba67b430b
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< HEAD
+      <file leaf-file-name="table.component.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/app/game/table.component.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="630">
+              <caret line="42" column="44" lean-forward="false" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
+              <folding />
+=======
+      <file leaf-file-name="lobby.component.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/app/home/lobby.component.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="714">
+              <caret line="42" column="17" lean-forward="true" selection-start-line="42" selection-start-column="17" selection-end-line="42" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="home.component.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/app/home/home.component.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="31" lean-forward="true" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="chat.component.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/app/chat/chat.component.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="12" column="115" lean-forward="false" selection-start-line="12" selection-start-column="115" selection-end-line="12" selection-end-column="115" />
+              <folding>
+                <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="chat-lobby.component.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/app/chat/chat-lobby.component.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="194">
+              <caret line="34" column="60" lean-forward="false" selection-start-line="34" selection-start-column="60" selection-end-line="34" selection-end-column="60" />
+              <folding>
+                <element signature="e#47#95#0" expanded="true" />
+              </folding>
+>>>>>>> 3acc6092249f7ec8e07d5a204c16bb2ba67b430b
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< HEAD
+=======
+      <file leaf-file-name="register.component.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/app/auth/register.component.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="117">
+              <caret line="87" column="65" lean-forward="false" selection-start-line="87" selection-start-column="20" selection-end-line="87" selection-end-column="65" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+>>>>>>> 3acc6092249f7ec8e07d5a204c16bb2ba67b430b
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -104,15 +227,20 @@
         <option value="$PROJECT_DIR$/client/app/chat/chat.component.ts" />
         <option value="$PROJECT_DIR$/client/app/chat/chat.module.ts" />
         <option value="$PROJECT_DIR$/client/app/app-routing.module.ts" />
-        <option value="$PROJECT_DIR$/client/app/services/game.service.ts" />
         <option value="$PROJECT_DIR$/client/app/app.module.ts" />
-        <option value="$PROJECT_DIR$/client/app/chat/chat.component.html" />
         <option value="$PROJECT_DIR$/client/app/services/websocket.service.js.map" />
-        <option value="$PROJECT_DIR$/client/app/chat/chat-lobby.component.ts" />
         <option value="$PROJECT_DIR$/client/app/chat/chat-room.component.ts" />
         <option value="$PROJECT_DIR$/server/app.websockets.ts" />
         <option value="$PROJECT_DIR$/client/app/services/websocket.service.ts" />
+<<<<<<< HEAD
+=======
+        <option value="$PROJECT_DIR$/client/app/game/table.component.ts" />
+        <option value="$PROJECT_DIR$/client/app/chat/chat-lobby.component.ts" />
+        <option value="$PROJECT_DIR$/client/app/chat/chat.component.html" />
+        <option value="$PROJECT_DIR$/client/app/game/table.component.html" />
+>>>>>>> 3acc6092249f7ec8e07d5a204c16bb2ba67b430b
         <option value="$PROJECT_DIR$/client/app/home/lobby.component.ts" />
+        <option value="$PROJECT_DIR$/client/app/services/game.service.ts" />
         <option value="$PROJECT_DIR$/client/app/home/lobby.component.html" />
         <option value="$PROJECT_DIR$/client/app/game/table.component.ts" />
         <option value="$PROJECT_DIR$/client/app/game/table.component.html" />
@@ -396,8 +524,12 @@
       <workItem from="1484927323096" duration="2353000" />
       <workItem from="1485039605568" duration="4023000" />
       <workItem from="1485185542961" duration="12799000" />
+<<<<<<< HEAD
       <workItem from="1485271515981" duration="18808000" />
       <workItem from="1485302486257" duration="491000" />
+=======
+      <workItem from="1485271515981" duration="24167000" />
+>>>>>>> 3acc6092249f7ec8e07d5a204c16bb2ba67b430b
     </task>
     <task id="LOCAL-00001" summary="Logout working. Still have validations to make in login and register&#10;">
       <created>1484878273632</created>
@@ -417,17 +549,29 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="63713000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1919" y="0" width="1922" height="1081" extended-state="6" />
     <editor active="true" />
+=======
+    <option name="totallyTimeSpent" value="68581000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <editor active="false" />
+>>>>>>> 3acc6092249f7ec8e07d5a204c16bb2ba67b430b
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.246875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34138486" sideWeight="0.5089286" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
+=======
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34138486" sideWeight="0.49107143" order="2" side_tool="false" content_ui="tabs" />
+>>>>>>> 3acc6092249f7ec8e07d5a204c16bb2ba67b430b
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.49702382" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -477,6 +621,7 @@
         <option value="$PROJECT_DIR$/server/handler.settings.js.map" />
         <option value="$PROJECT_DIR$/server/card.js" />
         <option value="$PROJECT_DIR$/server/mesa.js" />
+        <option value="$PROJECT_DIR$/server/app.websockets.js.map" />
       </list>
     </option>
   </component>
@@ -629,6 +774,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/client/app/auth/register.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="748">
@@ -640,6 +786,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="14" column="68" lean-forward="false" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="68" />
+=======
+    <entry file="file://$PROJECT_DIR$/client/node_modules/socket.io-client/socket.io.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/node_modules/socket.io-client/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-714">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+>>>>>>> 3acc6092249f7ec8e07d5a204c16bb2ba67b430b
         </state>
       </provider>
     </entry>
@@ -675,10 +836,34 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/client/app/home/home.component.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="30" lean-forward="false" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
+=======
+    <entry file="file://$PROJECT_DIR$/client/app/chat/chatRoom.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="19" column="14" lean-forward="false" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/chat/chatLobby.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="16" column="9" lean-forward="false" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/chat/chat.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="14" column="63" lean-forward="false" selection-start-line="14" selection-start-column="63" selection-end-line="14" selection-end-column="63" />
+          <folding />
+>>>>>>> 3acc6092249f7ec8e07d5a204c16bb2ba67b430b
         </state>
       </provider>
     </entry>
@@ -692,6 +877,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/client/app/services/game.service.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="449">
@@ -700,6 +886,8 @@
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> 3acc6092249f7ec8e07d5a204c16bb2ba67b430b
     <entry file="file://$PROJECT_DIR$/client/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -712,6 +900,7 @@
         <state relative-caret-position="255">
           <caret line="32" column="25" lean-forward="false" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="25" />
           <folding>
+<<<<<<< HEAD
             <element signature="e#0#44#0" expanded="true" />
           </folding>
         </state>
@@ -721,6 +910,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="34" lean-forward="false" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
+=======
+            <element signature="e#0#44#0" expanded="false" />
+          </folding>
+>>>>>>> 3acc6092249f7ec8e07d5a204c16bb2ba67b430b
         </state>
       </provider>
     </entry>
@@ -734,54 +927,118 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/app/chat/chat-lobby.component.ts">
+    <entry file="file://$PROJECT_DIR$/server/app.users.ts">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="420">
           <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="40" selection-end-column="55" />
-          <folding>
-            <element signature="e#47#95#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/app/chat/chat-room.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="43" column="37" lean-forward="false" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
-          <folding>
-            <element signature="e#47#95#0" expanded="true" />
-          </folding>
+=======
+        <state relative-caret-position="1139">
+          <caret line="68" column="23" lean-forward="false" selection-start-line="68" selection-start-column="23" selection-end-line="68" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/app.websockets.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
+        <state relative-caret-position="127">
           <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/app.games.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="39" column="11" lean-forward="false" selection-start-line="39" selection-start-column="11" selection-end-line="39" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/app/services/websocket.service.ts">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-901">
+          <caret line="16" column="12" lean-forward="true" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
+>>>>>>> 3acc6092249f7ec8e07d5a204c16bb2ba67b430b
+          <folding>
+            <element signature="e#0#43#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/client/app/chat/chat-room.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="43" column="37" lean-forward="false" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
+=======
+    <entry file="file://$PROJECT_DIR$/server/app.websockets.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="62" column="16" lean-forward="true" selection-start-line="62" selection-start-column="16" selection-end-line="62" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/chat/chat-room.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="431">
+          <caret line="43" column="55" lean-forward="false" selection-start-line="43" selection-start-column="55" selection-end-line="43" selection-end-column="55" />
+>>>>>>> 3acc6092249f7ec8e07d5a204c16bb2ba67b430b
+          <folding>
+            <element signature="e#47#95#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/auth/register.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="675">
+          <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+=======
+        <state relative-caret-position="347">
+          <caret line="62" column="49" lean-forward="false" selection-start-line="62" selection-start-column="49" selection-end-line="62" selection-end-column="49" />
+>>>>>>> 3acc6092249f7ec8e07d5a204c16bb2ba67b430b
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/chat/chat-lobby.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="570">
+          <caret line="39" column="11" lean-forward="false" selection-start-line="39" selection-start-column="11" selection-end-line="39" selection-end-column="11" />
+=======
+        <state relative-caret-position="194">
+          <caret line="34" column="60" lean-forward="false" selection-start-line="34" selection-start-column="60" selection-end-line="34" selection-end-column="60" />
+          <folding>
+            <element signature="e#47#95#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/auth/register.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="87" column="65" lean-forward="false" selection-start-line="87" selection-start-column="20" selection-end-line="87" selection-end-column="65" />
+>>>>>>> 3acc6092249f7ec8e07d5a204c16bb2ba67b430b
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/chat/chat.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="195">
           <caret line="16" column="12" lean-forward="false" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
+=======
+        <state relative-caret-position="204">
+          <caret line="12" column="115" lean-forward="false" selection-start-line="12" selection-start-column="115" selection-end-line="12" selection-end-column="115" />
+>>>>>>> 3acc6092249f7ec8e07d5a204c16bb2ba67b430b
           <folding>
-            <element signature="e#0#43#0" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/app.websockets.ts">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="930">
           <caret line="62" column="16" lean-forward="false" selection-start-line="62" selection-start-column="16" selection-end-line="62" selection-end-column="16" />
           <folding />
@@ -792,6 +1049,44 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
+        <state relative-caret-position="425">
+          <caret line="40" column="28" lean-forward="false" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/game/table.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/app.games.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="28" column="11" lean-forward="false" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/services/game.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/home/home.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="31" lean-forward="true" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
+>>>>>>> 3acc6092249f7ec8e07d5a204c16bb2ba67b430b
           <folding />
         </state>
       </provider>
@@ -806,6 +1101,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/app/game/top10.component.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="315">
           <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding />
@@ -816,14 +1112,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
+        <state relative-caret-position="68">
+          <caret line="69" column="29" lean-forward="false" selection-start-line="69" selection-start-column="29" selection-end-line="69" selection-end-column="29" />
+>>>>>>> 3acc6092249f7ec8e07d5a204c16bb2ba67b430b
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/app/home/lobby.component.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="750">
           <caret line="50" column="69" lean-forward="false" selection-start-line="50" selection-start-column="48" selection-end-line="50" selection-end-column="69" />
+=======
+        <state relative-caret-position="714">
+          <caret line="42" column="17" lean-forward="true" selection-start-line="42" selection-start-column="17" selection-end-line="42" selection-end-column="17" />
+>>>>>>> 3acc6092249f7ec8e07d5a204c16bb2ba67b430b
           <folding />
         </state>
       </provider>

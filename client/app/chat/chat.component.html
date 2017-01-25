@@ -10,7 +10,7 @@
         <form class="form-inline" style="margin: 0% 1% 1%;" [formGroup]="chatForm">
             <input type="text" class="form-control" id="chat-message" style="width: 90%;"
                    [formControl]="chatForm.controls['message']">
-            <button class="btn btn-default" type="submit" (click)="sendMessage()">Send</button>
+            <button class="btn btn-default" type="submit" [disabled]="!chatForm.valid || chatForm.controls['message'].value == ''" (click)="sendMessage()">Send</button>
         </form>
     </div>
 </div>
