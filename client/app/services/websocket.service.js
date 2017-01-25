@@ -21,6 +21,10 @@ var WebSocketService = (function () {
         this.socket.emit('players-on-game', { room: roomID });
         return this.listenOnChannel('players-on-game');
     };
+    WebSocketService.prototype.getSuit = function (room) {
+        //       this.socket.emit('suit', room);
+        return this.listenOnChannel('suit');
+    };
     WebSocketService.prototype.getMyCards = function (message) {
         this.socket.emit('my-cards', message);
         return this.listenOnChannel('my-cards');

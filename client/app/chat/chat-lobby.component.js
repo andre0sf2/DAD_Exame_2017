@@ -39,16 +39,16 @@ var ChatLobbyComponent = (function () {
             this.chatForm.controls['message'].setValue("");
         }
     };
-    ChatLobbyComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'chat-lobby',
-            templateUrl: 'chat.component.html',
-            styleUrls: ['chat.component.css']
-        }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder, websocket_service_1.WebSocketService, auth_service_1.AuthService])
-    ], ChatLobbyComponent);
     return ChatLobbyComponent;
 }());
+ChatLobbyComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'chat-lobby',
+        templateUrl: 'chat.component.html',
+        styleUrls: ['chat.component.css']
+    }),
+    __metadata("design:paramtypes", [forms_1.FormBuilder, websocket_service_1.WebSocketService, auth_service_1.AuthService])
+], ChatLobbyComponent);
 exports.ChatLobbyComponent = ChatLobbyComponent;
 //# sourceMappingURL=chat-lobby.component.js.map

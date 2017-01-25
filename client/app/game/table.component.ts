@@ -43,7 +43,8 @@ export class TableComponent implements OnInit {
         this.websocketService.getGamePlayers(this.room).subscribe((m: any) => console.log(m));
 
 
-        this.getCards();
+//        this.getCards();
+        this.getSuit();
         /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
 
 
@@ -63,8 +64,13 @@ export class TableComponent implements OnInit {
 
     getCards(){
         console.log("entrou");
-        this.websocketService.getMyCards({ username: this.auth.getCurrentUser().username }).subscribe((m: any) => console.log(m));
+        this.websocketService.getMyCards({ room : this.room, username: this.auth.getCurrentUser().username }).subscribe((m: any) => console.log("CARTAS:" + m));
 
+    }
+
+    getSuit(){
+        console.log("get trunfo");
+        this.websocketService.getSuit({room: this.room}).subscribe((m:any) => console.log("TRUNFO É : " + m));
     }
 
 

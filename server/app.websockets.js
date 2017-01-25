@@ -1,4 +1,3 @@
-"use strict";
 var io = require('socket.io');
 var WebSocketServer = (function () {
     function WebSocketServer() {
@@ -41,7 +40,14 @@ var WebSocketServer = (function () {
                     _this.games[data.room].gamers.forEach(function (player) {
                         console.log(player);
                     });
+                    console.log(_this.games[data.room].getSuit().toString());
+                    _this.io.to(client.player.gameRoom).emit('suit', _this.games[data.room].getSuit().toString());
                 });
+                /*      client.on('suit',(data)=>{
+                          console.log(this.games[data.room].getSuit().toString());
+                          this.io.to(client.player.gameRoom).emit('suit', this.games[data.room].getSuit().toString());
+                      })
+          */
                 client.on('players-on-game', function (data) {
                     _this.games[data.room].gamers.forEach(function (player) {
                         _this.io.to(client.player.gameRoom).emit('players-on-game', player);
@@ -54,14 +60,14 @@ var WebSocketServer = (function () {
         };
     }
     return WebSocketServer;
-}());
+})();
 exports.WebSocketServer = WebSocketServer;
 ;
 var Player = (function () {
     function Player() {
     }
     return Player;
-}());
+})();
 exports.Player = Player;
 var Mesa = (function () {
     function Mesa() {
@@ -95,7 +101,21 @@ var Mesa = (function () {
                 _this.cards.push(c);
             });
         });
+        this.baralharCartas();
     }
+    Mesa.prototype.getSuit = function () {
+        return this.cards[0];
+    };
+    Mesa.prototype.baralharCartas = function () {
+        var j, k;
+        for (var i = this.cards.length; i; i--) {
+            j = Math.floor(Math.random() * i);
+            k = this.cards[i - 1];
+            this.cards[i - 1] = this.cards[j];
+            this.cards[j] = k;
+        }
+        console.log(this.cards);
+    };
     Mesa.prototype.getCard = function (naipe, simbolo) {
         for (var i = 0; i < this.cards.length; i++) {
             if (this.cards[i].tipoCard == naipe && this.cards[i].simbolo == simbolo) {
@@ -111,7 +131,7 @@ var Mesa = (function () {
         return [1, 2, 3, 4, 5, 6, 7, 11, 12, 13];
     };
     return Mesa;
-}());
+})();
 exports.Mesa = Mesa;
 var Card = (function () {
     function Card(tipo, id, pontos, img) {
@@ -165,5 +185,5 @@ var Card = (function () {
         configurable: true
     });
     return Card;
-}());
+})();
 exports.Card = Card;

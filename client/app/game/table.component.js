@@ -35,7 +35,8 @@ var TableComponent = (function () {
             _this.room = params['room'];
         });
         this.websocketService.getGamePlayers(this.room).subscribe(function (m) { return console.log(m); });
-        this.getCards();
+        //        this.getCards();
+        this.getSuit();
         /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
 
 
@@ -51,7 +52,11 @@ var TableComponent = (function () {
     };
     TableComponent.prototype.getCards = function () {
         console.log("entrou");
-        this.websocketService.getMyCards({ username: this.auth.getCurrentUser().username }).subscribe(function (m) { return console.log(m); });
+        this.websocketService.getMyCards({ room: this.room, username: this.auth.getCurrentUser().username }).subscribe(function (m) { return console.log("CARTAS:" + m); });
+    };
+    TableComponent.prototype.getSuit = function () {
+        console.log("get trunfo");
+        this.websocketService.getSuit({ room: this.room }).subscribe(function (m) { return console.log("TRUNFO É : " + m); });
     };
     TableComponent.prototype.addCard = function () {
         this.mesa.getCard("o", 2);
