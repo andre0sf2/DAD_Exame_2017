@@ -31,22 +31,24 @@ var ChatLobbyComponent = (function () {
         this.webSocket.getChatMessages().subscribe(function (m) { return _this.chatMessages.push(m); });
     };
     ChatLobbyComponent.prototype.sendMessage = function () {
-        var now = new Date(Date.now());
-        var time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-        var message = this.auth.getCurrentUser().username + ' (' + time + '): ' + this.chatForm.controls['message'].value;
-        this.webSocket.sendChatMessage(message);
-        this.chatForm.controls['message'].setValue("");
+        if (this.chatForm.controls['message'].value !== null) {
+            var now = new Date(Date.now());
+            var time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var message = this.auth.getCurrentUser().username + ' (' + time + '): ' + this.chatForm.controls['message'].value;
+            this.webSocket.sendChatMessage(message);
+            this.chatForm.controls['message'].setValue("");
+        }
     };
+    ChatLobbyComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'chat-lobby',
+            templateUrl: 'chat.component.html',
+            styleUrls: ['chat.component.css']
+        }), 
+        __metadata('design:paramtypes', [forms_1.FormBuilder, websocket_service_1.WebSocketService, auth_service_1.AuthService])
+    ], ChatLobbyComponent);
     return ChatLobbyComponent;
 }());
-ChatLobbyComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'chat-lobby',
-        templateUrl: 'chat.component.html',
-        styleUrls: ['chat.component.css']
-    }),
-    __metadata("design:paramtypes", [forms_1.FormBuilder, websocket_service_1.WebSocketService, auth_service_1.AuthService])
-], ChatLobbyComponent);
 exports.ChatLobbyComponent = ChatLobbyComponent;
 //# sourceMappingURL=chat-lobby.component.js.map
