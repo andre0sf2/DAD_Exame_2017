@@ -35,6 +35,7 @@ export class WebSocketServer {
                 this.games[data.room] = new Mesa();
                 this.games[data.room].gameRoom = data.room;
                 this.games[data.room].gamers.push(data.username);
+                this.games[data.room].sockets.push(client.id);
             })
 
             client.on('join', (data: any) => {
@@ -45,6 +46,7 @@ export class WebSocketServer {
                 client.join(client.player.gameRoom);
 
                 this.games[data.room].gamers.push(data.username);
+                this.games[data.room].sockets.push(client.id);
             })
 
             client.on('start-game', (data: any) => {
@@ -59,14 +61,25 @@ export class WebSocketServer {
                 console.log(this.games[data.room].getSuit().toString());
                 this.io.to(client.player.gameRoom).emit('suit', this.games[data.room].getSuit().img);
 
+
+                ///this.games[data.room].gamers.forEach((player:any) => {
+
+                let index = 0;
+                this.games[data.room].sockets.forEach((client: string) => {
+                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[0 + index].toString() });
+                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[1 + index].toString() });
+                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[2 + index].toString() });
+                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[3 + index].toString() });
+                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[4 + index].toString() });
+                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[5 + index].toString() });
+                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[6 + index].toString() });
+                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[7 + index].toString() });
+                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[8 + index].toString() });
+                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[9 + index].toString() });
+                    index = + 10;
+                });
             });
-
-
-      /*      client.on('suit',(data)=>{
-                console.log(this.games[data.room].getSuit().toString());
-                this.io.to(client.player.gameRoom).emit('suit', this.games[data.room].getSuit().toString());
-            })
-*/
+            
             client.on('players-on-game', (data: any) => {
                 this.games[data.room].gamers.forEach((player: any) => {
                     this.io.to(client.player.gameRoom).emit('players-on-game', player);
@@ -100,12 +113,14 @@ export class Mesa {
     public gameRoom: string;
 
     public gamers: string[] = [];
+    public sockets: string[] = [];
 
     public cards: Card[];
 
     constructor() {
         this.gameRoom = '';
         this.gamers = [];
+        this.sockets = [];
         this.cards = [];
 
         Mesa.todosOsNaipes().forEach(naipe => {
@@ -132,8 +147,8 @@ export class Mesa {
         this.baralharCartas();
     }
 
-    public getSuit() : Card{
-        return this.cards[this.cards.length-1];
+    public getSuit(): Card {
+        return this.cards[this.cards.length - 1];
     }
 
     public baralharCartas() {

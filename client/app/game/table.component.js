@@ -36,7 +36,7 @@ var TableComponent = (function () {
             _this.room = params['room'];
         });
         this.websocketService.getGamePlayers(this.room).subscribe(function (m) { return console.log(m); });
-        this.getCards();
+        //this.getMyCards();
         this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe(function (card) {
             console.log(card);
         });
@@ -54,9 +54,8 @@ var TableComponent = (function () {
         this.cards = this.mesa.cards;
         this.baralharCartas(this.cards);
     };
-    TableComponent.prototype.getCards = function () {
-        console.log("tenho uma carta");
-        this.websocketService.getMyCards({ username: this.auth.getCurrentUser().username }).subscribe(function (m) { return console.log(m); });
+    TableComponent.prototype.getMyCards = function () {
+        this.websocketService.getMyCards().subscribe(function (m) { return console.log("MINHAS CARTAS: v2" + m.card.toString()); });
     };
     TableComponent.prototype.addCard = function () {
         this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe(function (m) {

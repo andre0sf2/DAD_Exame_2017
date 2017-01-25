@@ -44,7 +44,7 @@ export class TableComponent implements OnInit {
         });
         this.websocketService.getGamePlayers(this.room).subscribe((m: any) => console.log(m));
 
-        this.getCards();
+        //this.getMyCards();
 
         this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe((card:any) => {
             console.log(card);
@@ -68,9 +68,8 @@ export class TableComponent implements OnInit {
         this.baralharCartas(this.cards);
     }
 
-    getCards(){
-        console.log("tenho uma carta");
-        this.websocketService.getMyCards({ username: this.auth.getCurrentUser().username }).subscribe((m: any) => console.log(m));
+    getMyCards(){
+        this.websocketService.getMyCards().subscribe((m: any) => console.log("MINHAS CARTAS: v2" + m.card.toString()));
 
     }
 
