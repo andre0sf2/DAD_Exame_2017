@@ -63,7 +63,7 @@ export class WebSocketServer {
                 });
             });
 
-            client.on('card', (data) => {
+            client.on('card', (data:any) => {
                 this.io.to(client.player.gameRoom).emit('card', data);
             });
 

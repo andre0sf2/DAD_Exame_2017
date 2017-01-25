@@ -57,21 +57,7 @@ export class RegisterComponent {
                     if (this._user.password !== this._user.passwordConfirmation) {
                         this.registerForm.setErrors({'passwordMissmatch': 'Password and Password Confirmation must match.'})
                     } else {
-                        this.auth
-                            .register(this._user)
-                            .then(res => {
-                                console.log(res);
-                                if (res['msg'] == "Username already exists") {
-                                    throw new Error("Username already exists");
-                                }
-                                console.log("REGISTOU: " + res);
-                                this.gotoLogin();
-                            })
-                            .catch(e => {
-                                this.registerForm.controls['username'].setErrors({'taken': 'Username already taken'});
-                                console.log("ERRO: " + e);
-
-                            });
+                        this.auth.login({username: this._user.username, password: this._user.password});
                     }
 
                 }

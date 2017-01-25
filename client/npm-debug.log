@@ -1,7 +1,6 @@
 0 info it worked if it ends with ok
 1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
 1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
-1 verbose cli   'run',
 1 verbose cli   'start' ]
 2 info using npm@4.0.5
 3 info using node@v7.4.0
@@ -28,7 +27,7 @@
 15 verbose pkgid angular-quickstart@1.0.0
 16 verbose cwd C:\Users\magalhaes\Documents\sueca-proj\client
 17 error Windows_NT 10.0.14393
-18 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "run" "start"
+18 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "start"
 19 error node v7.4.0
 20 error npm  v4.0.5
 21 error code ELIFECYCLE
