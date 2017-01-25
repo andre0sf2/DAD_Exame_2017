@@ -64,3 +64,7 @@
 .jogardor2{
     float: right;
 }
+
+.effect:hover{
+    border: 2px solid black;
+}

@@ -53,6 +53,9 @@ var WebSocketServer = (function () {
                         _this.io.to(client.player.gameRoom).emit('players-on-game', player);
                     });
                 });
+                client.on('card', function (data) {
+                    _this.io.to(client.player.gameRoom).emit('card', data);
+                });
             });
         };
         this.notifyAll = function (channel, message) {
@@ -187,3 +190,4 @@ var Card = (function () {
     return Card;
 })();
 exports.Card = Card;
+//# sourceMappingURL=app.websockets.js.map

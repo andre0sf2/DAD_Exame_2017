@@ -104,10 +104,10 @@ var WebSocketService = (function () {
     WebSocketService.prototype.getTurn = function () {
         return this.listenOnChannel('yourTurn');
     };
-    WebSocketService.prototype.sendCard = function (message) {
+    WebSocketService.prototype.sendCard = function (room, message) {
         this.socket.emit('card', message);
     };
-    WebSocketService.prototype.getCard = function () {
+    WebSocketService.prototype.getCard = function (room) {
         return this.listenOnChannel('card');
     };
     WebSocketService.prototype.listenOnChannel = function (channel) {
