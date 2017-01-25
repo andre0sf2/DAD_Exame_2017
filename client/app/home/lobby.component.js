@@ -21,6 +21,7 @@ var LobbyComponent = (function () {
         this.webSocketService = webSocketService;
         this.myGames = [];
         this.otherGames = [];
+        this.ongoingGames = [];
         this.already_join = false;
         this.info = "";
     }
@@ -29,6 +30,7 @@ var LobbyComponent = (function () {
         var _this = this;
         this.findMyGames();
         this.findOtherGames();
+        this.findPlayingGames();
         this.webSocketService.getCreateRoom().subscribe(function (m) {
             console.log("ROOOM CREATEDEE");
             _this.findOtherGames();
@@ -56,7 +58,13 @@ var LobbyComponent = (function () {
         this.gameService.findMyGames(JSON.parse(localStorage.getItem('user'))).subscribe(function (games) {
             _this.myGames = games;
         });
-        //console.log(this.myGames);
+    };
+    LobbyComponent.prototype.findPlayingGames = function () {
+        var _this = this;
+        //console.log(JSON.parse(localStorage.getItem('user'));
+        this.gameService.findPlayingGames(this.authService.getCurrentUser()).subscribe(function (games) {
+            _this.ongoingGames = games;
+        });
     };
     LobbyComponent.prototype.findOtherGames = function () {
         var _this = this;
@@ -115,6 +123,9 @@ var LobbyComponent = (function () {
                 }
             });
         }
+    };
+    LobbyComponent.prototype.openGame = function (i) {
+        this.router.navigateByUrl('/game/room' + this.ongoingGames[i]._id);
     };
     return LobbyComponent;
 }());

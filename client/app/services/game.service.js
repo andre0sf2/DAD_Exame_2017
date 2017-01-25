@@ -33,6 +33,26 @@ var GameService = (function () {
             return Rx_1.Observable.throw(error);
         });
     };
+    GameService.prototype.findPlayingGames = function (user) {
+        var headers = this.createHeaders(user.token);
+        var ongoingGames = [];
+        return this.http.get('http://localhost:7777/api/v1/games', headers)
+            .map(function (resource) {
+            resource.json().forEach(function (game) {
+                var i;
+                for (i = 0; i < game.players.length; i++) {
+                    if (game.players[i].player == user._id) {
+                        ongoingGames.push(game);
+                        console.log(ongoingGames);
+                    }
+                }
+            });
+            return ongoingGames;
+        })
+            .catch(function (error) {
+            return Rx_1.Observable.throw(error);
+        });
+    };
     GameService.prototype.findOtherGames = function (user) {
         var headers = this.createHeaders(user.token);
         var otherGames = [];

@@ -8,6 +8,7 @@ import 'rxjs/add/operator/catch';
 
 import { Game } from '../model/game';
 import { User } from '../model/user';
+import {Player} from "../../../server/app.websockets";
 
 @Injectable()
 export class GameService{
@@ -31,6 +32,31 @@ export class GameService{
                 return Observable.throw(error);
             });
 
+    }
+
+
+    findPlayingGames(user: User): Observable<Game[]> {
+        let headers = this.createHeaders(user.token);
+        let ongoingGames: Game[] = [];
+
+        return this.http.get('http://localhost:7777/api/v1/games', headers)
+            .map(resource => {
+                resource.json().forEach((game:Game)=>{
+                    let i:number;
+                    for (i = 0; i<game.players.length; i++) {
+                        if (game.players[i].player == user._id) {
+                            ongoingGames.push(game);
+                            console.log(ongoingGames);
+                        }
+                    }
+
+                });
+
+                return ongoingGames;
+            })
+            .catch(error => {
+                return Observable.throw(error);
+            });
     }
 
     findOtherGames(user : User): Observable<Game[]>{

@@ -1,3 +1,27 @@
+<div *ngIf="ongoingGames.length != 0" class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">OnGoing Games</h3>
+    </div>
+    <table class="table table-hover" id="playing-games">
+        <thead>
+        <tr>
+            <th>Game ID</th>
+            <th>Number of Players</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of ongoingGames; let i = index">
+            <td>{{item._id}}</td>
+            <td>{{item.nplayers}}</td>
+            <td>
+                <button class="btn btn-default" (click)="openGame(i)">Open</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 <div class="panel panel-primary">
     <div class="panel-heading">
         <h3 class="panel-title">Your Games</h3>
