@@ -42,7 +42,7 @@ var WebSocketServer = (function () {
                         console.log(player);
                     });
                     console.log(_this.games[data.room].getSuit().toString());
-                    _this.io.to(client.player.gameRoom).emit('suit', _this.games[data.room].getSuit().toString());
+                    _this.io.to(client.player.gameRoom).emit('suit', _this.games[data.room].getSuit().img);
                 });
                 /*      client.on('suit',(data)=>{
                           console.log(this.games[data.room].getSuit().toString());
@@ -55,7 +55,8 @@ var WebSocketServer = (function () {
                     });
                 });
                 client.on('card', function (data) {
-                    _this.io.to(client.player.gameRoom).emit('card', data);
+                    console.log(data.card);
+                    _this.io.to(client.player.gameRoom).emit('card', data.card);
                 });
             });
         };
@@ -108,7 +109,7 @@ var Mesa = (function () {
         this.baralharCartas();
     }
     Mesa.prototype.getSuit = function () {
-        return this.cards[0];
+        return this.cards[this.cards.length - 1];
     };
     Mesa.prototype.baralharCartas = function () {
         var j, k;
@@ -184,6 +185,16 @@ var Card = (function () {
         },
         set: function (value) {
             this._ponto = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Card.prototype, "img", {
+        get: function () {
+            return this._img;
+        },
+        set: function (value) {
+            this._img = value;
         },
         enumerable: true,
         configurable: true

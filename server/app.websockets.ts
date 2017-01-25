@@ -57,7 +57,7 @@ export class WebSocketServer {
                 });
 
                 console.log(this.games[data.room].getSuit().toString());
-                this.io.to(client.player.gameRoom).emit('suit', this.games[data.room].getSuit().toString());
+                this.io.to(client.player.gameRoom).emit('suit', this.games[data.room].getSuit().img);
 
             });
 
@@ -73,8 +73,11 @@ export class WebSocketServer {
                 });
             });
 
-            client.on('card', (data:any) => {
-                this.io.to(client.player.gameRoom).emit('card', data);
+
+            client.on('card', (data: any) => {
+                console.log(data.card);
+                this.io.to(client.player.gameRoom).emit('card', data.card);
+
             });
 
         });
@@ -130,7 +133,7 @@ export class Mesa {
     }
 
     public getSuit() : Card{
-        return this.cards[0];
+        return this.cards[this.cards.length-1];
     }
 
     public baralharCartas() {
@@ -215,5 +218,14 @@ export class Card {
 
     set ponto(value: number) {
         this._ponto = value;
+    }
+
+
+    get img(): string {
+        return this._img;
+    }
+
+    set img(value: string) {
+        this._img = value;
     }
 }

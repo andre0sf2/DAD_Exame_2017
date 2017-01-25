@@ -129,11 +129,12 @@ export class WebSocketService {
         return this.listenOnChannel('yourTurn');
     }
 
-    sendCard(room: string,message: any){
+    sendCard(message: any){
+        console.log(message);
         this.socket.emit('card', message);
     }
 
-    getCard(room: string): Observable<any> {
+    getCard(message: any): Observable<any> {
         return this.listenOnChannel('card');
     }
 
