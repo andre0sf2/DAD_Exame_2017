@@ -40,7 +40,7 @@ export class AuthService {
 
         let options = this.buildHeadersWithAuthorization();
 
-        return this.http.post('http://localhost:7777/api/v1/logout', null, {headers: options})
+        return this.http.post(url + 'logout', null, {headers: options})
             .map(res => {
                 res.json();
                 localStorage.removeItem('user');
@@ -91,6 +91,22 @@ export class AuthService {
     facebook() {
         return this.http
             .get(url + 'auth/facebook')
+            .toPromise()
+            .then(r => Promise.resolve(r.json()))
+            .catch(r => Promise.resolve({error: true, message: 'Internal error, try again later.'}));
+    }
+
+    twitter() {
+        return this.http
+            .get(url + 'auth/twitter')
+            .toPromise()
+            .then(r => Promise.resolve(r.json()))
+            .catch(r => Promise.resolve({error: true, message: 'Internal error, try again later.'}));
+    }
+
+    google() {
+        return this.http
+            .get(url + 'auth/google')
             .toPromise()
             .then(r => Promise.resolve(r.json()))
             .catch(r => Promise.resolve({error: true, message: 'Internal error, try again later.'}));

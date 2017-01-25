@@ -14,8 +14,8 @@ var auth_service_1 = require("../services/auth.service");
 var websocket_service_1 = require("../services/websocket.service");
 var mesa_1 = require("./mesa");
 var TableComponent = (function () {
-    function TableComponent(route, auth, websocketService, activeRoute) {
-        this.route = route;
+    function TableComponent(router, auth, websocketService, activeRoute) {
+        this.router = router;
         this.auth = auth;
         this.websocketService = websocketService;
         this.activeRoute = activeRoute;
@@ -30,6 +30,9 @@ var TableComponent = (function () {
         this.suit = "";
         this.user = this.auth.getCurrentUser().username;
     }
+    TableComponent.prototype.gotoLobby = function () {
+        this.router.navigateByUrl('');
+    };
     TableComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.cards = [];

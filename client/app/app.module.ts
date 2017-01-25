@@ -24,11 +24,12 @@ import {AuthService} from "./services/auth.service";
 import {ChatLobbyComponent} from "./chat/chat-lobby.component";
 import {WebSocketService} from "./services/websocket.service";
 import {ChatRoomComponent} from "./chat/chat-room.component";
+import {AuthComponent} from "./auth/auth.component";
 
 @NgModule({
     imports: [BrowserModule, RouterModule, AppRoutingModule, HttpModule, FormsModule, ReactiveFormsModule],
     declarations: [AppComponent, HomeComponent, ChatLobbyComponent, ChatRoomComponent, HistoryComponent, LoginComponent,
-        RegisterComponent, Top10Component, LobbyComponent, TableComponent],
+        RegisterComponent, Top10Component, LobbyComponent, TableComponent, AuthComponent],
     providers: [WebSocketService, Top10Service, AuthService, GameService, UserService, {
         provide: APP_BASE_HREF,
         useValue: '/'

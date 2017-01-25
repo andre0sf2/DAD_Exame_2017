@@ -3,6 +3,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var BearerStrategy = require('passport-http-bearer').Strategy;
 var FacebookStrategy = require("passport-facebook").Strategy;
+var GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 var sha1 = require('sha1');
 var app_database_1 = require('./app.database');
 var Security = (function () {
@@ -46,15 +47,4 @@ passport.use(new BearerStrategy(function (token, done) {
         .findOne({ token: token })
         .then(function (user) { return user ? done(null, user, { scope: 'all' }) : done(null, false); })
         .catch(function (err) { return done(err); });
-}));
-var FacebookID = '944505412318401';
-var FacebookSecret = 'ad3de579cd766e02ef9afc98ee3e259c';
-passport.use(new FacebookStrategy({
-    clientID: FacebookID,
-    clientSecret: FacebookSecret,
-    callbackURL: "http://localhost:7777/auth/facebook/callback"
-}, function (accessToken, refreshToken, profile, done) {
-    // you email, name, id, and so on is on profile
-    var result = profile;
-    console.log("FB " + profile.emails[0].value);
 }));

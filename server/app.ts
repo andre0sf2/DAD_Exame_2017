@@ -13,31 +13,35 @@ const restifyServer = restify.createServer();
 const socketServer = new WebSocketServer();
 
 // Prepare and configure Restify Server
-restify.CORS.ALLOW_HEADERS.push("Access-Control-Allow-Origin");
 restify.CORS.ALLOW_HEADERS.push("Content-Type");
 restify.CORS.ALLOW_HEADERS.push("Authorization");
+restify.CORS.ALLOW_HEADERS.push("Access-Control-Allow-Origin");
 restifyServer.use(restify.bodyParser());
 restifyServer.use(restify.queryParser());
 restifyServer.use(restify.CORS());
 restifyServer.use(restify.fullResponse());
 
-function unknownMethodHandler(req, res) {
-    if (req.method.toLowerCase() === 'options') {
+function checkMethodNotAllowedIsOptions(req, res) {
+    if (req.method.toUpperCase() === 'OPTIONS') {
         var allowHeaders = ['Accept', 'Accept-Version', 'Content-Type', 'Api-Version', 'Access-Control-Allow-Origin', 'Content-Type', 'Authorization'];
 
-        if (res.methods.indexOf('OPTIONS') === -1) res.methods.push('OPTIONS');
+        if (res.methods.indexOf('OPTIONS') === -1) {
+            res.methods.push('OPTIONS');
+        }
 
         res.header('Access-Control-Allow-Headers', allowHeaders.join(', '));
         res.header('Access-Control-Allow-Methods', res.methods.join(', '));
-        res.header('Access-Control-Allow-Origin', req.headers.origin);
+        res.header('Access-Control-Allow-Origin', '*');
 
         return res.send(204);
     }
-    else
+    else {
         return res.send(new restify.MethodNotAllowedError());
+    }
 }
 
-restifyServer.on('MethodNotAllowed', unknownMethodHandler);
+
+restifyServer.on('MethodNotAllowed', checkMethodNotAllowedIsOptions);
 
 
 // Prepare and configure Passport based security
