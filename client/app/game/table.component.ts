@@ -47,7 +47,7 @@ export class TableComponent implements OnInit {
         this.getCards();
 
         this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe((card:any) => {
-            console.log(card.toString());
+            console.log(card);
         });
 
         this.getSuit();

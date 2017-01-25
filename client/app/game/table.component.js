@@ -38,7 +38,7 @@ var TableComponent = (function () {
         this.websocketService.getGamePlayers(this.room).subscribe(function (m) { return console.log(m); });
         this.getCards();
         this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe(function (card) {
-            console.log(card.toString());
+            console.log(card);
         });
         this.getSuit();
         /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
