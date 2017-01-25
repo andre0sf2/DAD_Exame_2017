@@ -50,7 +50,7 @@ var TableComponent = (function () {
         this.baralharCartas(this.cards);
     };
     TableComponent.prototype.getCards = function () {
-        console.log("entrou");
+        console.log("tenho uma carta");
         this.websocketService.getMyCards({ username: this.auth.getCurrentUser().username }).subscribe(function (m) { return console.log(m); });
     };
     TableComponent.prototype.addCard = function () {
@@ -59,6 +59,15 @@ var TableComponent = (function () {
     TableComponent.prototype.cleanMesa = function () {
         this.mesa = new mesa_1.Mesa();
         this.error = '';
+    };
+    TableComponent.prototype.getCardBaralho = function (card) {
+        for (var i = 0; i < this.cards.length; i++) {
+            if (this.cards[i].tipoCard == card.tipoCard && this.cards[i].simbolo == card.simbolo) {
+                console.log(this.cards[i]);
+                return this.cards[i];
+            }
+        }
+        return;
     };
     TableComponent.prototype.countCards = function () {
         var count = 0;
@@ -78,7 +87,6 @@ var TableComponent = (function () {
             cards[i - 1] = cards[j];
             cards[j] = k;
         }
-        console.log(this.cards);
     };
     return TableComponent;
 }());

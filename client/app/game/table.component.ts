@@ -62,7 +62,7 @@ export class TableComponent implements OnInit {
     }
 
     getCards(){
-        console.log("entrou");
+        console.log("tenho uma carta");
         this.websocketService.getMyCards({ username: this.auth.getCurrentUser().username }).subscribe((m: any) => console.log(m));
 
     }
@@ -75,6 +75,18 @@ export class TableComponent implements OnInit {
     cleanMesa() {
         this.mesa = new Mesa();
         this.error = '';
+    }
+
+    getCardBaralho(card: Card){
+
+        for (let i = 0; i < this.cards.length; i++) {
+            if (this.cards[i].tipoCard == card.tipoCard && this.cards[i].simbolo == card.simbolo) {
+                console.log(this.cards[i]);
+                return this.cards[i];
+            }
+        }
+
+        return;
     }
 
     countCards(): number {
@@ -99,6 +111,5 @@ export class TableComponent implements OnInit {
             cards[j] = k;
 
         }
-        console.log(this.cards);
     }
 }
