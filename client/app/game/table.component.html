@@ -40,7 +40,7 @@
 
     <div *ngFor="let card of cards;  let i=index" > <!-- Baralho do Jogador!-->
         <template [ngIf]="i<10">
-            <a (click)="getCardBaralho(card)"><img class="cartas alignLeft effect" src="{{card._img}}" style="padding-right: 10px"></a>
+            <a (click)="getCardBaralho(card)"><img class="cartas alignLeft effect" src="{{card._img}}"></a>
         </template>
     </div>
 
