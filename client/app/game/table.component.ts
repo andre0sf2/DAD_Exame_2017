@@ -45,6 +45,7 @@ export class TableComponent implements OnInit {
         this.websocketService.getGamePlayers(this.room).subscribe((m: any) => console.log(m));
 
         this.getCards();
+        this.addCard();
 
         this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe((card:any) => {
             console.log(card);
