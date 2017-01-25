@@ -53,7 +53,7 @@ var RegisterComponent = (function () {
                     _this.registerForm.setErrors({ 'passwordMissmatch': 'Password and Password Confirmation must match.' });
                 }
                 else {
-                    _this.auth.login({ username: _this._user.username, password: _this._user.password });
+                    _this.gotoLogin();
                 }
             }
         });

@@ -57,7 +57,7 @@ export class RegisterComponent {
                     if (this._user.password !== this._user.passwordConfirmation) {
                         this.registerForm.setErrors({'passwordMissmatch': 'Password and Password Confirmation must match.'})
                     } else {
-                        this.auth.login({username: this._user.username, password: this._user.password});
+                        this.gotoLogin();
                     }
 
                 }

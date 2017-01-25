@@ -1,3 +1,4 @@
+"use strict";
 var io = require('socket.io');
 var WebSocketServer = (function () {
     function WebSocketServer() {
@@ -63,14 +64,14 @@ var WebSocketServer = (function () {
         };
     }
     return WebSocketServer;
-})();
+}());
 exports.WebSocketServer = WebSocketServer;
 ;
 var Player = (function () {
     function Player() {
     }
     return Player;
-})();
+}());
 exports.Player = Player;
 var Mesa = (function () {
     function Mesa() {
@@ -134,7 +135,7 @@ var Mesa = (function () {
         return [1, 2, 3, 4, 5, 6, 7, 11, 12, 13];
     };
     return Mesa;
-})();
+}());
 exports.Mesa = Mesa;
 var Card = (function () {
     function Card(tipo, id, pontos, img) {
@@ -188,6 +189,6 @@ var Card = (function () {
         configurable: true
     });
     return Card;
-})();
+}());
 exports.Card = Card;
 //# sourceMappingURL=app.websockets.js.map

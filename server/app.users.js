@@ -80,6 +80,11 @@ var User = (function () {
                     user_1.email = request.body.email;
                     delete user_1.password;
                     delete user_1.passwordConfirmation;
+                    delete user_1._username;
+                    delete user_1._email;
+                    delete user_1._token;
+                    delete user_1._password;
+                    delete user_1._passwordConfirmation;
                     console.log("DEBUG: insert user... " + user_1);
                     app_database_1.databaseConnection.db.collection('users')
                         .insertOne(user_1)
