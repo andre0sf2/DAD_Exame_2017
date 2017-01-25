@@ -63,6 +63,10 @@ export class WebSocketServer {
                 });
             });
 
+            client.on('card', (data) => {
+                this.io.to(client.player.gameRoom).emit('card', data);
+            });
+
         });
     };
 
