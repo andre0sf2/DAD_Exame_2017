@@ -19,6 +19,11 @@ export class WebSocketService {
         return this.listenOnChannel('players-on-game');
     }
 
+    getSuit(room : any){
+ //       this.socket.emit('suit', room);
+        return this.listenOnChannel('suit');
+    }
+
     getMyCards(message:any){
         this.socket.emit('my-cards', message);
         return this.listenOnChannel('my-cards');

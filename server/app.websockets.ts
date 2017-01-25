@@ -55,8 +55,18 @@ export class WebSocketServer {
                 this.games[data.room].gamers.forEach((player: any) => {
                     console.log(player);
                 });
+
+                console.log(this.games[data.room].getSuit().toString());
+                this.io.to(client.player.gameRoom).emit('suit', this.games[data.room].getSuit().toString());
+
             });
 
+
+      /*      client.on('suit',(data)=>{
+                console.log(this.games[data.room].getSuit().toString());
+                this.io.to(client.player.gameRoom).emit('suit', this.games[data.room].getSuit().toString());
+            })
+*/
             client.on('players-on-game', (data: any) => {
                 this.games[data.room].gamers.forEach((player: any) => {
                     this.io.to(client.player.gameRoom).emit('players-on-game', player);
@@ -115,6 +125,24 @@ export class Mesa {
                 this.cards.push(c);
             });
         });
+
+        this.baralharCartas();
+    }
+
+    public getSuit() : Card{
+        return this.cards[0];
+    }
+
+    public baralharCartas() {
+        let j: number, k: Card;
+        for (let i = this.cards.length; i; i--) {
+            j = Math.floor(Math.random() * i);
+            k = this.cards[i - 1];
+            this.cards[i - 1] = this.cards[j];
+            this.cards[j] = k;
+
+        }
+        console.log(this.cards);
     }
 
     public getCard(naipe: string, simbolo: number): Card {
