@@ -63,7 +63,6 @@ var User = (function () {
                 .findOne({ username: request.body.username })
                 .then(function (user) {
                 console.log("User is: " + request.body.username);
-                console.log("USer found is: " + user.username);
                 if (user !== null) {
                     console.log("User already exists so...");
                     response.json({
@@ -81,6 +80,12 @@ var User = (function () {
                     user_1.email = request.body.email;
                     delete user_1.password;
                     delete user_1.passwordConfirmation;
+                    delete user_1._username;
+                    delete user_1._email;
+                    delete user_1._token;
+                    delete user_1._password;
+                    delete user_1._passwordConfirmation;
+                    console.log("DEBUG: insert user... " + user_1);
                     app_database_1.databaseConnection.db.collection('users')
                         .insertOne(user_1)
                         .then(function (result) { return _this.returnUser(result.insertedId, response, next); })
@@ -89,7 +94,10 @@ var User = (function () {
                     });
                 }
             })
-                .catch(function (err) { return _this.handleError(err, response, next); });
+                .catch(function (err) {
+                console.log(err);
+                _this.handleError(err, response, next);
+            });
         };
         this.deleteUser = function (request, response, next) {
             var id = new mongodb.ObjectID(request.params.id);

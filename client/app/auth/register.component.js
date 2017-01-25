@@ -53,20 +53,7 @@ var RegisterComponent = (function () {
                     _this.registerForm.setErrors({ 'passwordMissmatch': 'Password and Password Confirmation must match.' });
                 }
                 else {
-                    _this.auth
-                        .register(_this._user)
-                        .then(function (res) {
-                        console.log(res);
-                        if (res['msg'] == "Username already exists") {
-                            throw new Error("Username already exists");
-                        }
-                        console.log("REGISTOU: " + res);
-                        _this.gotoLogin();
-                    })
-                        .catch(function (e) {
-                        _this.registerForm.controls['username'].setErrors({ 'taken': 'Username already taken' });
-                        console.log("ERRO: " + e);
-                    });
+                    _this.gotoLogin();
                 }
             }
         });

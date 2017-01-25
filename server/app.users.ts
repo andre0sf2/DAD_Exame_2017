@@ -70,7 +70,6 @@ export class User {
             .findOne({username: request.body.username})
             .then((user) => {
                 console.log("User is: " + request.body.username);
-                console.log("USer found is: " + user.username);
                 if (user !== null) {
                     console.log("User already exists so...");
                     response.json({
@@ -89,6 +88,13 @@ export class User {
 
                     delete user.password;
                     delete user.passwordConfirmation;
+                    delete user._username;
+                    delete user._email;
+                    delete user._token;
+                    delete user._password;
+                    delete user._passwordConfirmation;
+
+                    console.log("DEBUG: insert user... " + user);
 
                     database.db.collection('users')
                         .insertOne(user)
@@ -98,7 +104,10 @@ export class User {
                         );
                 }
             })
-            .catch(err => this.handleError(err, response, next));
+            .catch(err => {
+                console.log(err);
+                this.handleError(err, response, next);
+            });
 
     };
 
