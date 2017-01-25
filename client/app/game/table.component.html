@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div style="clear: both"></div>
-            <div class=""><p style="text-align:center">Jogador <img src="../../cards-1/semFace.png"
+            <div class=""><p style="text-align:center">{{this.user}} <img src="../../cards-1/semFace.png"
                                                                     class="cartasMesa centrar"></div>
         </div>
     </div>
@@ -52,7 +52,7 @@
     <hr>
 
     <div>
-        <div *ngFor="let card of cards;  let i=index"> <!-- Baralho do Jogador!-->
+        <div *ngFor="let card of baralhoJogadores;  let i=index"> <!-- Baralho do Jogador!-->
             <a (click)="getCardBaralho(card)"><img class="cartas alignLeft effect" src="{{card._img}}"></a>
         </div>
     </div>

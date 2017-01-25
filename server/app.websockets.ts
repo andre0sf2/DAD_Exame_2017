@@ -66,16 +66,16 @@ export class WebSocketServer {
 
                 let index = 0;
                 this.games[data.room].sockets.forEach((client: string) => {
-                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[0 + index].toString() });
-                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[1 + index].toString() });
-                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[2 + index].toString() });
-                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[3 + index].toString() });
-                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[4 + index].toString() });
-                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[5 + index].toString() });
-                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[6 + index].toString() });
-                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[7 + index].toString() });
-                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[8 + index].toString() });
-                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[9 + index].toString() });
+                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[0 + index]});
+                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[1 + index]});
+                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[2 + index]});
+                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[3 + index]});
+                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[4 + index]});
+                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[5 + index]});
+                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[6 + index]});
+                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[7 + index]});
+                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[8 + index]});
+                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[9 + index]});
                     index = + 10;
                 });
             });
