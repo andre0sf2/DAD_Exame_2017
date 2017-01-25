@@ -14,6 +14,11 @@ export class WebSocketService {
         }
     }
 
+
+    getMyCards(): Observable<any>{
+        return this.listenOnChannel('my-cards');
+    }
+
     getGamePlayers(roomID: string){
         this.socket.emit('players-on-game', {room: roomID});
         return this.listenOnChannel('players-on-game');
@@ -22,11 +27,6 @@ export class WebSocketService {
     getSuit(room : any){
  //       this.socket.emit('suit', room);
         return this.listenOnChannel('suit');
-    }
-
-    getMyCards(message:any){
-        this.socket.emit('my-cards', message);
-        return this.listenOnChannel('my-cards');
     }
 
     sendStartGame(message:any){

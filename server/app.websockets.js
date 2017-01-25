@@ -24,6 +24,7 @@ var WebSocketServer = (function () {
                     _this.games[data.room] = new Mesa();
                     _this.games[data.room].gameRoom = data.room;
                     _this.games[data.room].gamers.push(data.username);
+                    _this.games[data.room].sockets.push(client.id);
                 });
                 client.on('join', function (data) {
                     console.log("One player joined the room " + data.room);
@@ -32,6 +33,7 @@ var WebSocketServer = (function () {
                     client.player.username = data.username;
                     client.join(client.player.gameRoom);
                     _this.games[data.room].gamers.push(data.username);
+                    _this.games[data.room].sockets.push(client.id);
                 });
                 client.on('start-game', function (data) {
                     console.log("Game will start" + data.room + " sdad " + client.player.gameRoom);
@@ -43,12 +45,22 @@ var WebSocketServer = (function () {
                     });
                     console.log(_this.games[data.room].getSuit().toString());
                     _this.io.to(client.player.gameRoom).emit('suit', _this.games[data.room].getSuit().img);
+                    ///this.games[data.room].gamers.forEach((player:any) => {
+                    var index = 0;
+                    _this.games[data.room].sockets.forEach(function (client) {
+                        _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[0 + index].toString() });
+                        _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[1 + index].toString() });
+                        _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[2 + index].toString() });
+                        _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[3 + index].toString() });
+                        _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[4 + index].toString() });
+                        _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[5 + index].toString() });
+                        _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[6 + index].toString() });
+                        _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[7 + index].toString() });
+                        _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[8 + index].toString() });
+                        _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[9 + index].toString() });
+                        index = +10;
+                    });
                 });
-                /*      client.on('suit',(data)=>{
-                          console.log(this.games[data.room].getSuit().toString());
-                          this.io.to(client.player.gameRoom).emit('suit', this.games[data.room].getSuit().toString());
-                      })
-          */
                 client.on('players-on-game', function (data) {
                     _this.games[data.room].gamers.forEach(function (player) {
                         _this.io.to(client.player.gameRoom).emit('players-on-game', player);
@@ -78,8 +90,10 @@ var Mesa = (function () {
     function Mesa() {
         var _this = this;
         this.gamers = [];
+        this.sockets = [];
         this.gameRoom = '';
         this.gamers = [];
+        this.sockets = [];
         this.cards = [];
         Mesa.todosOsNaipes().forEach(function (naipe) {
             Mesa.todosOsSimbolos().forEach(function (simbolo) {
