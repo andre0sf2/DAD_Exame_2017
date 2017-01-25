@@ -28,6 +28,7 @@ var TableComponent = (function () {
         this.allReady = false;
         this.isMyTurn = false;
         this.suit = "";
+        this.getSuit();
     }
     TableComponent.prototype.gotoLobby = function () {
         this.router.navigateByUrl('');

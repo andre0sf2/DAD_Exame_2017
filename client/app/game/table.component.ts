@@ -33,7 +33,9 @@ export class TableComponent implements OnInit {
     public suit: string = "";
 
     constructor(private router: Router, private auth: AuthService, private websocketService: WebSocketService,
-            private activeRoute: ActivatedRoute) { }
+            private activeRoute: ActivatedRoute) {
+        this.getSuit();
+    }
 
     gotoLobby() {
         this.router.navigateByUrl('');
