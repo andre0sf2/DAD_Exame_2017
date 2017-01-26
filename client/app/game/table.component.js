@@ -25,11 +25,9 @@ var TableComponent = (function () {
         this.baralhoJogadores = [];
         this.jogadores = [];
         this.chatChannel = [];
-        this.allReady = false;
         this.isMyTurn = false;
         this.suitImg = "";
         this.suitName = "";
-        this.cartaJogada = "../../cards-1/semFace.png";
         this.user = this.auth.getCurrentUser().username;
         this.getSuit();
     }
@@ -69,6 +67,7 @@ var TableComponent = (function () {
             //console.log("MINHAS CARTAS: v2" + m.card);
             var c = new card_1.Card(m.card._tipoCard, m.card._simbolo, m.card._ponto, m.card._img);
             _this.baralhoJogadores.push(c);
+            _this.baralhoJogadores.sort();
         });
     };
     TableComponent.prototype.addCard = function () {
@@ -76,7 +75,10 @@ var TableComponent = (function () {
         this.websocketService.getCard({ username: this.auth.getCurrentUser().username }).subscribe(function (m) {
             //console.log("Carta: "+m.card._tipoCard+m.card._simbolo+"\n"+"User: "+ m.username);
             if (_this.user == m.username) {
-                _this.cartaJogada = m.card._img;
+                //this.cartaJogada = m.card._img;
+                var img = document.getElementById(m.username);
+                img.setAttribute("src", m.card._img);
+                console.log(img);
             }
         });
     };

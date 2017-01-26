@@ -48,6 +48,7 @@ var WebSocketServer = (function () {
                     ///this.games[data.room].gamers.forEach((player:any) => {
                     var index = 0;
                     _this.games[data.room].sockets.forEach(function (client) {
+                        console.log(index);
                         _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[0 + index] });
                         _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[1 + index] });
                         _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[2 + index] });
@@ -58,7 +59,7 @@ var WebSocketServer = (function () {
                         _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[7 + index] });
                         _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[8 + index] });
                         _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[9 + index] });
-                        index = +10;
+                        index += 10;
                     });
                     _this.games[data.room].gamers.forEach(function (player) {
                         console.log("PLayers: " + player);

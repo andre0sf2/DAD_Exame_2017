@@ -130,7 +130,7 @@ export class WebSocketService {
     }
 
     sendCard(message: any){
-        console.log(message);
+        //console.log(message);
         this.socket.emit('card', message);
     }
 

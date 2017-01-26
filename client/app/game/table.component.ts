@@ -8,6 +8,7 @@ import { Card } from '../model/card';
 import { Mesa } from '../model/mesa';
 import {GameService} from "../services/game.service";
 import {Game} from "../model/game";
+import {sanitizeSrcset} from "@angular/platform-browser/src/security/url_sanitizer";
 
 @Component({
     moduleId: module.id,
@@ -26,12 +27,10 @@ export class TableComponent implements OnInit {
 
     public jogadores: string[] = [];
     chatChannel: string[] = [];
-    public allReady: boolean = false;
     public isMyTurn: boolean = false;
 
     public suitImg: string = "";
     public suitName: string = "";
-    public cartaJogada: string = "../../cards-1/semFace.png";
     public user: string = this.auth.getCurrentUser().username;
 
     constructor(private router: Router, private auth: AuthService, private websocketService: WebSocketService,
@@ -81,6 +80,7 @@ export class TableComponent implements OnInit {
             //console.log("MINHAS CARTAS: v2" + m.card);
             let c = new Card(m.card._tipoCard, m.card._simbolo, m.card._ponto, m.card._img);
             this.baralhoJogadores.push(c);
+            this.baralhoJogadores.sort();
         });
 
     }
@@ -88,9 +88,17 @@ export class TableComponent implements OnInit {
     addCard() {
         this.websocketService.getCard({username: this.auth.getCurrentUser().username}).subscribe((m: any) => {
             //console.log("Carta: "+m.card._tipoCard+m.card._simbolo+"\n"+"User: "+ m.username);
+
+
             if(this.user == m.username){
-                this.cartaJogada = m.card._img;
+                //this.cartaJogada = m.card._img;
+                let img = document.getElementById(m.username);
+                img.setAttribute("src", m.card._img)
+                console.log(img);
             }
+
+
+
         });
 
     }

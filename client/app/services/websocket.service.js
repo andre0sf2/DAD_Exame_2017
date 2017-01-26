@@ -104,7 +104,7 @@ var WebSocketService = (function () {
         return this.listenOnChannel('yourTurn');
     };
     WebSocketService.prototype.sendCard = function (message) {
-        console.log(message);
+        //console.log(message);
         this.socket.emit('card', message);
     };
     WebSocketService.prototype.getCard = function (message) {
