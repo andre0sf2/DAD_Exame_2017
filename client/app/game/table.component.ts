@@ -4,8 +4,8 @@ import { AuthService } from '../services/auth.service';
 import { WebSocketService } from '../services/websocket.service';
 
 
-import { Card } from './card';
-import { Mesa } from './mesa';
+import { Card } from '../model/card';
+import { Mesa } from '../model/mesa';
 import {GameService} from "../services/game.service";
 import {Game} from "../model/game";
 

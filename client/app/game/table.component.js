@@ -12,7 +12,7 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("../services/auth.service");
 var websocket_service_1 = require("../services/websocket.service");
-var mesa_1 = require("./mesa");
+var mesa_1 = require("../model/mesa");
 var TableComponent = (function () {
     function TableComponent(router, auth, websocketService, activeRoute) {
         this.router = router;

@@ -51,3 +51,45 @@ passport.use(new BearerStrategy((token, done) => {
         .then((user) => user ? done(null, user, {scope: 'all'}) : done(null, false))
         .catch(err => done(err));
 }));
+
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+    done(null, user);
+});
+
+/* Facebook Auth */
+let facebookAuth = {
+    'clientID': '944505412318401', // facebook App ID
+    'clientSecret': 'ad3de579cd766e02ef9afc98ee3e259c', // facebook App Secret
+    'callbackURL': 'http://localhost:7777/api/v1/auth/facebook/callback'
+};
+passport.use(new FacebookStrategy({
+        "clientID": facebookAuth.clientID,
+        "clientSecret": facebookAuth.clientSecret,
+        "callbackURL": facebookAuth.callbackURL
+    },
+    function (token, refreshToken, profile, done) {
+        database.db.collection('users').findOne({
+            fbID: profile.id
+        }).then(user => {
+            if (user === null) {
+                // INSERT ONE
+                let user = new User(profile.displayName, profile.email === undefined ? "" : profile.email, token, '', '');
+                user.fbID = profile.id;
+
+                database.db.collection('users')
+                    .insertOne(user)
+                    .then(r => r.modifiedCount !== 1 ? done(null, false) : done(null, user))
+                    .catch(err => done(err));
+
+            }
+
+            database.db.collection('users')
+                .updateOne({fbID: user.fbID}, {$set: {token: token}})
+                .then(r => r.modifiedCount !== 1 ? done(null, false) : done(null, user))
+                .catch(err => done(err));
+        }).catch(err => done(err));
+    }));

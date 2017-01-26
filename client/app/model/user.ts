@@ -4,6 +4,7 @@
 
 export class User {
     _id: string;
+    fbID: number;
     username: string;
     email: string;
     passwordHash: string;

@@ -1,4 +1,5 @@
 "use strict";
+var user_1 = require("../client/app/model/user");
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var BearerStrategy = require('passport-http-bearer').Strategy;
@@ -47,4 +48,39 @@ passport.use(new BearerStrategy(function (token, done) {
         .findOne({ token: token })
         .then(function (user) { return user ? done(null, user, { scope: 'all' }) : done(null, false); })
         .catch(function (err) { return done(err); });
+}));
+passport.serializeUser(function (user, done) {
+    done(null, user);
+});
+passport.deserializeUser(function (user, done) {
+    done(null, user);
+});
+/* Facebook Auth */
+var facebookAuth = {
+    'clientID': '944505412318401',
+    'clientSecret': 'ad3de579cd766e02ef9afc98ee3e259c',
+    'callbackURL': 'http://localhost:7777/api/v1/auth/facebook/callback'
+};
+passport.use(new FacebookStrategy({
+    "clientID": facebookAuth.clientID,
+    "clientSecret": facebookAuth.clientSecret,
+    "callbackURL": facebookAuth.callbackURL
+}, function (token, refreshToken, profile, done) {
+    app_database_1.databaseConnection.db.collection('users').findOne({
+        fbID: profile.id
+    }).then(function (user) {
+        if (user === null) {
+            // INSERT ONE
+            var user_2 = new user_1.User(profile.displayName, profile.email === undefined ? "" : profile.email, token, '', '');
+            user_2.fbID = profile.id;
+            app_database_1.databaseConnection.db.collection('users')
+                .insertOne(user_2)
+                .then(function (r) { return r.modifiedCount !== 1 ? done(null, false) : done(null, user_2); })
+                .catch(function (err) { return done(err); });
+        }
+        app_database_1.databaseConnection.db.collection('users')
+            .updateOne({ fbID: user.fbID }, { $set: { token: token } })
+            .then(function (r) { return r.modifiedCount !== 1 ? done(null, false) : done(null, user); })
+            .catch(function (err) { return done(err); });
+    }).catch(function (err) { return done(err); });
 }));
