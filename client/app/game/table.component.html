@@ -27,11 +27,11 @@
     !-->
     <div class="row">
         <div class="col-md-3">
-            <img class="trunfo centrar" src="{{this.suit}}">
-            <p style="text-align: center">Trunfo</p>
+            <img class="trunfo centrar" src="{{this.suitImg}}">
+            <p style="text-align: center">Trunfo is {{this.suitName}}</p>
         </div>
         <div class="baralho col-md-9">
-            <div class=""><p style="text-align:center">Jogador </p><img src="../../cards-1/semFace.png"
+            <div class=""><p style="text-align:center">{{this.jogadores[0]}} </p><img src="../../cards-1/semFace.png"
                                                                         class="cartasMesa centrar"></div>
             <div class="row">
                 <div class="col-md-6">
@@ -43,16 +43,19 @@
                     <img src="../../cards-1/semFace.png" class="cartasMesa2 alignRight">
                 </div>
             </div>
+
             <div style="clear: both"></div>
-            <div class=""><p style="text-align:center">{{this.user}} <img src="../../cards-1/semFace.png"
-                                                                    class="cartasMesa centrar"></div>
+
+            <div class=""><p style="text-align:center">{{this.user}}</p>
+                <img src="{{this.cartaJogada}}" class="cartasMesa centrar">
+            </div>
         </div>
     </div>
 
     <hr>
 
     <div>
-        <div *ngFor="let card of baralhoJogadores;  let i=index"> <!-- Baralho do Jogador!-->
+        <div *ngFor="let card of baralhoJogadores"> <!-- Baralho do Jogador!-->
             <a (click)="getCardBaralho(card)"><img class="cartas alignLeft effect" src="{{card._img}}"></a>
         </div>
     </div>

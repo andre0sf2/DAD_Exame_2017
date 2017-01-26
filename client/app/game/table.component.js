@@ -12,6 +12,7 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("../services/auth.service");
 var websocket_service_1 = require("../services/websocket.service");
+var card_1 = require("../model/card");
 var mesa_1 = require("../model/mesa");
 var TableComponent = (function () {
     function TableComponent(router, auth, websocketService, activeRoute) {
@@ -22,12 +23,13 @@ var TableComponent = (function () {
         this.error = '';
         this.cards = [];
         this.baralhoJogadores = [];
-        this.adversarios = [];
-        this.temAdversario = false;
+        this.jogadores = [];
         this.chatChannel = [];
         this.allReady = false;
         this.isMyTurn = false;
-        this.suit = "";
+        this.suitImg = "";
+        this.suitName = "";
+        this.cartaJogada = "../../cards-1/semFace.png";
         this.user = this.auth.getCurrentUser().username;
         this.getSuit();
     }
@@ -38,14 +40,15 @@ var TableComponent = (function () {
         var _this = this;
         this.cards = [];
         this.baralhoJogadores = [];
+        this.jogadores = [];
         this.activeRoute.params.subscribe(function (params) {
             _this.room = params['room'];
         });
-        this.websocketService.getGamePlayers(this.room).subscribe(function (m) { return console.log(m); });
+        this.getGamePlayers();
         this.getMyCards();
         this.addCard();
-        this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe(function (card) {
-            console.log(card.toString());
+        this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe(function (m) {
+            console.log(m);
         });
         this.getSuit();
         /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
@@ -64,20 +67,46 @@ var TableComponent = (function () {
         var _this = this;
         this.websocketService.getMyCards().subscribe(function (m) {
             //console.log("MINHAS CARTAS: v2" + m.card);
-            _this.baralhoJogadores.push(m.card);
+            var c = new card_1.Card(m.card._tipoCard, m.card._simbolo, m.card._ponto, m.card._img);
+            _this.baralhoJogadores.push(c);
         });
     };
     TableComponent.prototype.addCard = function () {
-        this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe(function (m) {
-            console.log(m._img);
+        var _this = this;
+        this.websocketService.getCard({ username: this.auth.getCurrentUser().username }).subscribe(function (m) {
+            //console.log("Carta: "+m.card._tipoCard+m.card._simbolo+"\n"+"User: "+ m.username);
+            if (_this.user == m.username) {
+                _this.cartaJogada = m.card._img;
+            }
+        });
+    };
+    TableComponent.prototype.getGamePlayers = function () {
+        var _this = this;
+        this.websocketService.getGamePlayers(this.room).subscribe(function (m) {
+            _this.jogadores.push(m);
+            console.log(_this.jogadores);
         });
     };
     TableComponent.prototype.getSuit = function () {
         var _this = this;
         console.log("get trunfo");
         this.websocketService.getSuit({ room: this.room }).subscribe(function (m) {
-            //console.log("Trunfo é: " + m.toString());
-            _this.suit = m;
+            //console.log("Trunfo é: " + m._tipoCard);
+            _this.suitImg = m._img;
+            switch (m._tipoCard) {
+                case "o":
+                    _this.suitName = "Ouros";
+                    break;
+                case "p":
+                    _this.suitName = "Paus";
+                    break;
+                case "e":
+                    _this.suitName = "Espadas";
+                    break;
+                case "c":
+                    _this.suitName = "Copas";
+                    break;
+            }
         });
     };
     TableComponent.prototype.cleanMesa = function () {
@@ -85,9 +114,12 @@ var TableComponent = (function () {
         this.error = '';
     };
     TableComponent.prototype.getCardBaralho = function (card) {
+        card_1.Card;
         for (var i = 0; i < this.cards.length; i++) {
             if (this.cards[i].tipoCard == card.tipoCard && this.cards[i].simbolo == card.simbolo) {
+                //console.log(this.cards[i].toString());
                 this.websocketService.sendCard({ username: this.auth.getCurrentUser().username, card: this.cards[i] });
+                this.removeCard(this.cards[i]);
             }
         }
     };
@@ -100,6 +132,13 @@ var TableComponent = (function () {
         return count;
     };
     TableComponent.prototype.checkCheating = function () {
+    };
+    TableComponent.prototype.removeCard = function (card) {
+        for (var i = 0; i < this.baralhoJogadores.length; i++) {
+            if (this.baralhoJogadores[i].tipoCard == card.tipoCard && this.baralhoJogadores[i].simbolo == card.simbolo) {
+                this.baralhoJogadores.splice(i, 1);
+            }
+        }
     };
     TableComponent.prototype.baralharCartas = function (cards) {
         var j, k;

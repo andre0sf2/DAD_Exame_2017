@@ -43,8 +43,8 @@ var WebSocketServer = (function () {
                     _this.games[data.room].gamers.forEach(function (player) {
                         console.log(player);
                     });
-                    console.log(_this.games[data.room].getSuit().toString());
-                    _this.io.to(client.player.gameRoom).emit('suit', _this.games[data.room].getSuit().img);
+                    console.log(_this.games[data.room].getSuit());
+                    _this.io.to(client.player.gameRoom).emit('suit', _this.games[data.room].getSuit());
                     ///this.games[data.room].gamers.forEach((player:any) => {
                     var index = 0;
                     _this.games[data.room].sockets.forEach(function (client) {
@@ -60,6 +60,10 @@ var WebSocketServer = (function () {
                         _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[9 + index] });
                         index = +10;
                     });
+                    _this.games[data.room].gamers.forEach(function (player) {
+                        console.log("PLayers: " + player);
+                        _this.io.to(client.player.gameRoom).emit('players-on-game', player);
+                    });
                 });
                 client.on('players-on-game', function (data) {
                     _this.games[data.room].gamers.forEach(function (player) {
@@ -67,8 +71,8 @@ var WebSocketServer = (function () {
                     });
                 });
                 client.on('card', function (data) {
-                    console.log(data.card);
-                    _this.io.to(client.player.gameRoom).emit('card', data.card);
+                    console.log(data.card, "User " + data.username);
+                    _this.io.to(client.player.gameRoom).emit('card', { username: data.username, card: data.card });
                 });
             });
         };

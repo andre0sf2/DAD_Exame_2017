@@ -20,7 +20,7 @@ export class WebSocketService {
     }
 
     getGamePlayers(roomID: string){
-        this.socket.emit('players-on-game', {room: roomID});
+        //this.socket.emit('players-on-game', {room: roomID});
         return this.listenOnChannel('players-on-game');
     }
 

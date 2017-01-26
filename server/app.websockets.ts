@@ -58,9 +58,8 @@ export class WebSocketServer {
                     console.log(player);
                 });
 
-                console.log(this.games[data.room].getSuit().toString());
-                this.io.to(client.player.gameRoom).emit('suit', this.games[data.room].getSuit().img);
-
+                console.log(this.games[data.room].getSuit());
+                this.io.to(client.player.gameRoom).emit('suit', this.games[data.room].getSuit());
 
                 ///this.games[data.room].gamers.forEach((player:any) => {
 
@@ -78,6 +77,11 @@ export class WebSocketServer {
                     this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[9 + index]});
                     index = + 10;
                 });
+
+                this.games[data.room].gamers.forEach((player: any) => {
+                    console.log("PLayers: "+ player);
+                    this.io.to(client.player.gameRoom).emit('players-on-game', player);
+                });
             });
             
             client.on('players-on-game', (data: any) => {
@@ -88,8 +92,8 @@ export class WebSocketServer {
 
 
             client.on('card', (data: any) => {
-                console.log(data.card);
-                this.io.to(client.player.gameRoom).emit('card', data.card);
+                console.log(data.card, "User "+ data.username);
+                this.io.to(client.player.gameRoom).emit('card', {username: data.username, card: data.card});
 
             });
 
