@@ -2,7 +2,7 @@
     <div class="container">
         <a class="navbar-brand" routerLink="/home">[DAD] Sueca Game</a>
         <ul class="nav navbar-nav">
-            <a class="navbar-brand" *ngIf="auth.isLogged()"> Welcome, {{ auth.getCurrentUser().username }}</a>
+            <a class="navbar-brand" (click)="profile()" *ngIf="auth.isLogged()"> Welcome, {{ auth.getCurrentUser().username }}</a>
         </ul>
         <ul class="nav navbar-nav navbar-right">
 

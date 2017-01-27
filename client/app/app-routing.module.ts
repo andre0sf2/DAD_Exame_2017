@@ -12,6 +12,7 @@ import {AppComponent} from "./app.component";
 import {AuthService} from "./services/auth.service";
 import {TableComponent} from './game/table.component';
 import { HistoryComponent } from './history/history.component';
+import {ProfileComponent} from "./profile/profile.component";
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -19,7 +20,8 @@ const routes: Routes = [
     { path: 'login',  component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'game/:room', component: TableComponent },
-    { path: 'history', component: HistoryComponent}
+    { path: 'history', component: HistoryComponent},
+    { path: 'profile/:username', component: ProfileComponent}
 ];
 
 @NgModule({

@@ -22,22 +22,35 @@ var ChatLobbyComponent = (function () {
         this.auth = auth;
         this.type = "Lobby";
         this.chatMessages = [];
+        this.images = [];
+        this.arrAux = [];
         this.chatForm = this.formBuilder.group({
             'message': [null, forms_1.Validators.minLength(1)]
         });
     }
     ChatLobbyComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.webSocket.getChatMessages().subscribe(function (m) { return _this.chatMessages.push(m); });
+        this.webSocket.getChatMessages().subscribe(function (m) {
+            _this.images.push(m.image);
+            _this.chatMessages.push(m.username);
+            _this.arrAux = _this.transform(_this.images, _this.chatMessages);
+        });
     };
     ChatLobbyComponent.prototype.sendMessage = function () {
         if (this.chatForm.controls['message'].value !== null) {
             var now = new Date(Date.now());
             var time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-            var message = this.auth.getCurrentUser().username + ' (' + time + '): ' + this.chatForm.controls['message'].value;
+            var message = { image: this.auth.getCurrentUser().profilePic, username: this.auth.getCurrentUser().username + ' (' + time + '): ' + this.chatForm.controls['message'].value };
             this.webSocket.sendChatMessage(message);
             this.chatForm.controls['message'].setValue("");
         }
+    };
+    ChatLobbyComponent.prototype.transform = function (arr1, arr2) {
+        var arr = [];
+        arr1.forEach(function (m, i) {
+            arr.push({ image: m, message: arr2[i] });
+        });
+        return arr;
     };
     return ChatLobbyComponent;
 }());

@@ -30,6 +30,7 @@ var TableComponent = (function () {
         this.suitImg = "";
         this.suitName = "";
         this.user = this.auth.getCurrentUser().username;
+        this.cartasJogadas = [];
         this.getSuit();
     }
     TableComponent.prototype.gotoLobby = function () {
@@ -76,7 +77,7 @@ var TableComponent = (function () {
     TableComponent.prototype.getTurn = function () {
         var _this = this;
         this.websocketService.getTurn().subscribe(function (m) {
-            console.log(m);
+            //console.log(m);
             if (m.username == _this.auth.getCurrentUser().username) {
                 console.log("ITS YOUR TURN");
                 _this.isMyTurn = true;
@@ -85,15 +86,8 @@ var TableComponent = (function () {
         });
     };
     TableComponent.prototype.addCard = function () {
-        var _this = this;
         this.websocketService.getCard({ username: this.auth.getCurrentUser().username }).subscribe(function (m) {
             //console.log("Carta: "+m.card._tipoCard+m.card._simbolo+"\n"+"User: "+ m.username);
-            if (_this.user == m.username) {
-                //this.cartaJogada = m.card._img;
-                var img = document.getElementById(m.username);
-                img.setAttribute("src", m.card._img);
-                console.log(img);
-            }
         });
     };
     TableComponent.prototype.getGamePlayers = function () {
@@ -126,7 +120,9 @@ var TableComponent = (function () {
         });
     };
     TableComponent.prototype.getMoves = function () {
-        this.websocketService.getMoves().subscribe(function (m) { console.log(m); });
+        this.websocketService.getMoves().subscribe(function (m) {
+            console.log(m);
+        });
     };
     TableComponent.prototype.cleanMesa = function () {
         this.mesa = new mesa_1.Mesa();

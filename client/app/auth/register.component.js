@@ -23,13 +23,19 @@ var RegisterComponent = (function () {
         this._user = new user_1.User('', '', '', '', '');
         this._formSubmitted = false;
         this.errorMessage = '';
+        this.src = "";
+        this.resizeOptions = {
+            resizeMaxHeight: 178,
+            resizeMaxWidth: 178
+        };
         var usernameRegex = '^[a-zA-Z0-9]+$';
         var emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
         this.registerForm = formBuilder.group({
             'username': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(3), forms_1.Validators.maxLength(50), forms_1.Validators.pattern(usernameRegex)])],
             'email': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.pattern((emailRegex))])],
             'password': [null, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(3), forms_1.Validators.maxLength(50)])],
-            'passwordConfirmation': [null, forms_1.Validators.compose([forms_1.Validators.required])]
+            'passwordConfirmation': [null, forms_1.Validators.compose([forms_1.Validators.required])],
+            'picture': [null]
         });
     }
     RegisterComponent.prototype.register = function () {
@@ -40,6 +46,10 @@ var RegisterComponent = (function () {
             return;
         }
         this._formSubmitted = true;
+        if (this._user.profilePic != this.src) {
+            this._user.profilePic = '../../img/photo4.png';
+        }
+        console.log(this._user.profilePic);
         this.auth
             .register(this._user)
             .then(function (res) {
@@ -67,13 +77,19 @@ var RegisterComponent = (function () {
     RegisterComponent.prototype.goBack = function () {
         this.router.navigateByUrl('').then();
     };
+    RegisterComponent.prototype.selected = function (imageResult) {
+        this.src = imageResult.resized && imageResult.resized.dataURL || imageResult.dataURL;
+        this._user.profilePic = this.src;
+        console.log("Imagem: " + this.src);
+    };
     return RegisterComponent;
 }());
 RegisterComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'register',
-        templateUrl: 'register.component.html'
+        templateUrl: 'register.component.html',
+        styleUrls: ['auth.component.css']
     }),
     __metadata("design:paramtypes", [forms_1.FormBuilder, router_1.Router, auth_service_1.AuthService])
 ], RegisterComponent);

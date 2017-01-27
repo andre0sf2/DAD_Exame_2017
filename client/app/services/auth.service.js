@@ -11,13 +11,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
-var Rx_1 = require('rxjs/Rx');
-require('rxjs/add/operator/map');
-require('rxjs/add/operator/catch');
-require('rxjs/add/observable/throw');
-var core_2 = require('angular2-cookie/core');
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
+var Rx_1 = require("rxjs/Rx");
+require("rxjs/add/operator/map");
+require("rxjs/add/operator/catch");
+require("rxjs/add/observable/throw");
+var core_2 = require("angular2-cookie/core");
 var user_service_1 = require("./user.service");
 var url = 'http://localhost:7777/api/v1/';
 var AuthService = (function () {
@@ -100,11 +100,11 @@ var AuthService = (function () {
     };
     AuthService.prototype.google = function () {
     };
-    AuthService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, core_2.CookieService, user_service_1.UserService])
-    ], AuthService);
     return AuthService;
 }());
+AuthService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http, core_2.CookieService, user_service_1.UserService])
+], AuthService);
 exports.AuthService = AuthService;
 //# sourceMappingURL=auth.service.js.map
