@@ -51,7 +51,7 @@ export class RegisterComponent {
         this._formSubmitted = true;
 
         if(this._user.profilePic != this.src){
-            this._user.profilePic = '../../img/photo4.png';
+            this._user.profilePic = '../img/photo4.png';
         }
 
         console.log(this._user.profilePic );

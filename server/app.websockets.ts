@@ -187,7 +187,7 @@ export class Mesa {
         Mesa.todosOsNaipes().forEach(naipe => {
             Mesa.todosOsSimbolos().forEach(simbolo => {
                 let c: Card = null;
-                let img = '../../cards/' + naipe + simbolo + ".png"
+                let img = '../img/cards/' + naipe + simbolo + ".png"
                 switch (simbolo) {
                     case 1: c = new Card(naipe, simbolo, 11, img);
                         break;
