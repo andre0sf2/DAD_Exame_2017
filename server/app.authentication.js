@@ -27,6 +27,8 @@ var Authentication = (function () {
         server.get(settings.prefix + "auth/facebook/callback", settings.security.passport.authenticate("facebook", {
             failureRedirect: "/"
         }), function (req, res, next) {
+            console.log(req.user);
+            res.setHeader('Set-Cookie', 'user=' + req.user._id + '#' + req.user.token + ';Path=/');
             res.redirect('http://localhost:3000/home', next);
         });
         console.log("Facebook authentication routes registered");

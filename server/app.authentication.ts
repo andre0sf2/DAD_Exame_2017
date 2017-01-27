@@ -33,7 +33,9 @@ export class Authentication {
                 failureRedirect: "/"
             }),
             function (req, res, next) {
+                console.log(req.user);
 
+                res.setHeader('Set-Cookie', 'user=' + req.user._id + '#' + req.user.token + ';Path=/');
                 res.redirect('http://localhost:3000/home', next);
 
             }

@@ -4,7 +4,7 @@
     </div>
     <div>
         <div class="message-list">
-            <p *ngFor="let m of chatMessages" style="word-break: break-all"> {{ m }} </p>
+            <p *ngFor="let m of arrAux;" style="word-break: break-all"><img width="5%" src="{{m.image}}"> {{ m.message }} </p>
         </div>
         <hr/>
         <form class="form-inline" style="margin: 0% 1% 1%;" [formGroup]="chatForm">

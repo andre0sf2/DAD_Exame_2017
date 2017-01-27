@@ -20,6 +20,9 @@ export class ChatRoomComponent implements OnInit{
     private roomId: string;
 
     protected chatMessages: string[] = [];
+    protected images:string[] = [];
+
+    arrAux:any[] = [];
 
     constructor(private formBuilder: FormBuilder, public webSocket: WebSocketService, public auth: AuthService, private route: ActivatedRoute) {
         this.chatForm = this.formBuilder.group({
@@ -32,7 +35,11 @@ export class ChatRoomComponent implements OnInit{
         this.route.params.subscribe(params => {
             this.roomId = params['room'];
         })
-        this.webSocket.getChatMessagesFromRoom(this.roomId).subscribe((m:any) => this.chatMessages.push(<string>m));
+        this.webSocket.getChatMessagesFromRoom(this.roomId).subscribe((m:any) => {
+            this.images.push(<string>m.image);
+            this.chatMessages.push(<string>m.username);
+            this.arrAux = this.transform(this.images, this.chatMessages);
+        });
     }
 
     sendMessage() {
@@ -40,8 +47,17 @@ export class ChatRoomComponent implements OnInit{
         let time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
 
 
-        let message = this.auth.getCurrentUser().username + ' (' + time + '): ' + this.chatForm.controls['message'].value
+        let message = {image: this.auth.getCurrentUser().profilePic, username: this.auth.getCurrentUser().username + ' (' + time + '): ' + this.chatForm.controls['message'].value};
         this.webSocket.sendChatMessageToRoom(this.roomId, message);
         this.chatForm.controls['message'].setValue("");
+    }
+
+    transform(arr1:any[], arr2:any[]) {
+        let arr:any = [];
+        arr1.forEach((m, i) => {
+            arr.push({ image: m, message: arr2[i] });
+        });
+
+        return arr;
     }
 }

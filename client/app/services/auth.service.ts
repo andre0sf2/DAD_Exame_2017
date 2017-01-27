@@ -5,19 +5,22 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
 
+
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import {User} from '../model/user';
+import { CookieService } from 'angular2-cookie/core';
+import {UserService} from "./user.service";
 
 const url = 'http://localhost:7777/api/v1/';
 
 @Injectable()
 export class AuthService {
 
-    constructor(private http: Http) {
+    constructor(private http: Http, private cookieService: CookieService, private userService: UserService) {
     }
 
     login(user: any): Observable<User> {
@@ -44,6 +47,7 @@ export class AuthService {
             .map(res => {
                 res.json();
                 localStorage.removeItem('user');
+                this.cookieService.remove('user');
             })
             .catch(e => {
                 console.log(e);
@@ -51,6 +55,9 @@ export class AuthService {
             });
     }
 
+    getCookie(cookie: string) {
+        return this.cookieService.get(cookie);
+    }
 
     register(user: User): Promise<User> {
         let options = this.buildHeaders();
@@ -67,6 +74,14 @@ export class AuthService {
     }
 
     getCurrentUser(): User {
+        if(localStorage.getItem('user') === null) {
+            let cookie = decodeURIComponent(this.getCookie('user')).split('#');
+
+            if (cookie[0] !== undefined && cookie[1] !== undefined) {
+                this.userService.getUserToLocalStorage(cookie[0], cookie[1]);
+            }
+        }
+
         return JSON.parse(localStorage.getItem('user'));
     }
 
@@ -97,18 +112,10 @@ export class AuthService {
     }
 
     twitter() {
-        return this.http
-            .get(url + 'auth/twitter')
-            .toPromise()
-            .then(r => Promise.resolve(r.json()))
-            .catch(r => Promise.resolve({error: true, message: 'Internal error, try again later.'}));
+
     }
 
     google() {
-        return this.http
-            .get(url + 'auth/google')
-            .toPromise()
-            .then(r => Promise.resolve(r.json()))
-            .catch(r => Promise.resolve({error: true, message: 'Internal error, try again later.'}));
+
     }
 }

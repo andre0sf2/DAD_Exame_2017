@@ -17,10 +17,14 @@ var Rx_1 = require("rxjs/Rx");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/catch");
 require("rxjs/add/observable/throw");
+var core_2 = require("angular2-cookie/core");
+var user_service_1 = require("./user.service");
 var url = 'http://localhost:7777/api/v1/';
 var AuthService = (function () {
-    function AuthService(http) {
+    function AuthService(http, cookieService, userService) {
         this.http = http;
+        this.cookieService = cookieService;
+        this.userService = userService;
     }
     AuthService.prototype.login = function (user) {
         var _this = this;
@@ -36,16 +40,21 @@ var AuthService = (function () {
         });
     };
     AuthService.prototype.logout = function () {
+        var _this = this;
         var options = this.buildHeadersWithAuthorization();
         return this.http.post(url + 'logout', null, { headers: options })
             .map(function (res) {
             res.json();
             localStorage.removeItem('user');
+            _this.cookieService.remove('user');
         })
             .catch(function (e) {
             console.log(e);
             return Rx_1.Observable.throw(e);
         });
+    };
+    AuthService.prototype.getCookie = function (cookie) {
+        return this.cookieService.get(cookie);
     };
     AuthService.prototype.register = function (user) {
         var options = this.buildHeaders();
@@ -59,6 +68,12 @@ var AuthService = (function () {
         return this.getCurrentUser() != null ? true : false;
     };
     AuthService.prototype.getCurrentUser = function () {
+        if (localStorage.getItem('user') === null) {
+            var cookie = decodeURIComponent(this.getCookie('user')).split('#');
+            if (cookie[0] !== undefined && cookie[1] !== undefined) {
+                this.userService.getUserToLocalStorage(cookie[0], cookie[1]);
+            }
+        }
         return JSON.parse(localStorage.getItem('user'));
     };
     AuthService.prototype.buildHeaders = function () {
@@ -82,24 +97,14 @@ var AuthService = (function () {
             .catch(function (r) { return Promise.resolve({ error: true, message: 'Internal error, try again later.' }); });
     };
     AuthService.prototype.twitter = function () {
-        return this.http
-            .get(url + 'auth/twitter')
-            .toPromise()
-            .then(function (r) { return Promise.resolve(r.json()); })
-            .catch(function (r) { return Promise.resolve({ error: true, message: 'Internal error, try again later.' }); });
     };
     AuthService.prototype.google = function () {
-        return this.http
-            .get(url + 'auth/google')
-            .toPromise()
-            .then(function (r) { return Promise.resolve(r.json()); })
-            .catch(function (r) { return Promise.resolve({ error: true, message: 'Internal error, try again later.' }); });
     };
     return AuthService;
 }());
 AuthService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http, core_2.CookieService, user_service_1.UserService])
 ], AuthService);
 exports.AuthService = AuthService;
 //# sourceMappingURL=auth.service.js.map

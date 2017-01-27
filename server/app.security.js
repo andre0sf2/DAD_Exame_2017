@@ -4,7 +4,6 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var BearerStrategy = require('passport-http-bearer').Strategy;
 var FacebookStrategy = require("passport-facebook").Strategy;
-var GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 var sha1 = require('sha1');
 var app_database_1 = require('./app.database');
 var Security = (function () {
@@ -73,6 +72,14 @@ passport.use(new FacebookStrategy({
             // INSERT ONE
             var user_2 = new user_1.User(profile.displayName, profile.email === undefined ? "" : profile.email, token, '', '');
             user_2.fbID = profile.id;
+            delete user_2.password;
+            delete user_2.passwordConfirmation;
+            delete user_2._username;
+            delete user_2._email;
+            delete user_2._token;
+            delete user_2._password;
+            delete user_2._passwordConfirmation;
+            delete user_2.passwordHash;
             app_database_1.databaseConnection.db.collection('users')
                 .insertOne(user_2)
                 .then(function (r) { return r.modifiedCount !== 1 ? done(null, false) : done(null, user_2); })
@@ -83,4 +90,5 @@ passport.use(new FacebookStrategy({
             .then(function (r) { return r.modifiedCount !== 1 ? done(null, false) : done(null, user); })
             .catch(function (err) { return done(err); });
     }).catch(function (err) { return done(err); });
+    return done;
 }));

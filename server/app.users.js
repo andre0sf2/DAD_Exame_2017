@@ -159,7 +159,7 @@ var User = (function () {
             _this.settings = settings;
             server.get(settings.prefix + 'top/:type', _this.getTop10);
             server.get(settings.prefix + 'users', settings.security.authorize, _this.getUsers);
-            server.get(settings.prefix + 'users/:id', settings.security.authorize, _this.getUser);
+            server.get(settings.prefix + 'users/:id', _this.getUser);
             server.put(settings.prefix + 'users/:id', settings.security.authorize, _this.updateUser);
             server.post(settings.prefix + 'register', _this.createUser);
             server.del(settings.prefix + 'users/:id', settings.security.authorize, _this.deleteUser);

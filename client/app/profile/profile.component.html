@@ -1,0 +1,31 @@
+<h1 style="text-align: center">Profile Information</h1>
+<hr>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <img src="{{this.user.profilePic}}" width="100%">
+        </div>
+        <div class="col-md-8 jumbotron">
+            <h3>Name: {{this.user.username}}</h3>
+            <hr>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Total Stars</th>
+                    <th>Total Points</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{this.user.totalStars}}</td>
+                    <td>{{this.user.totalPoints}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <chat-lobby></chat-lobby>
+</div>

@@ -34,6 +34,8 @@ export class TableComponent implements OnInit {
     public suitName: string = "";
     public user: string = this.auth.getCurrentUser().username;
 
+    public cartasJogadas:any [] = [];
+
     constructor(private router: Router, private auth: AuthService, private websocketService: WebSocketService,
         private activeRoute: ActivatedRoute) {
         this.getSuit();
@@ -90,7 +92,7 @@ export class TableComponent implements OnInit {
 
     getTurn() {
         this.websocketService.getTurn().subscribe((m: any) => {
-            console.log(m);
+            //console.log(m);
             if (m.username == this.auth.getCurrentUser().username) {
                 console.log("ITS YOUR TURN");
                 this.isMyTurn = true;
@@ -103,16 +105,6 @@ export class TableComponent implements OnInit {
 
         this.websocketService.getCard({ username: this.auth.getCurrentUser().username }).subscribe((m: any) => {
             //console.log("Carta: "+m.card._tipoCard+m.card._simbolo+"\n"+"User: "+ m.username);
-
-
-            if (this.user == m.username) {
-                //this.cartaJogada = m.card._img;
-                let img = document.getElementById(m.username);
-                img.setAttribute("src", m.card._img)
-                console.log(img);
-            }
-
-
 
         });
 
@@ -151,7 +143,9 @@ export class TableComponent implements OnInit {
     }
 
     getMoves() {
-        this.websocketService.getMoves().subscribe((m: any) => { console.log(m); });
+        this.websocketService.getMoves().subscribe((m: any) => {
+            console.log(m);
+        });
     }
 
     cleanMesa() {

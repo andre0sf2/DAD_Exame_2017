@@ -9,28 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var auth_service_1 = require("./services/auth.service");
-var router_1 = require("@angular/router");
-var AppComponent = (function () {
-    function AppComponent(auth, router) {
+var auth_service_1 = require("../services/auth.service");
+var ProfileComponent = (function () {
+    function ProfileComponent(auth) {
         this.auth = auth;
-        this.router = router;
+        this.user = this.auth.getCurrentUser();
+        console.log(this.user.profilePic);
     }
-    AppComponent.prototype.logout = function () {
-        this.auth.logout().subscribe();
-    };
-    AppComponent.prototype.profile = function () {
-        this.router.navigateByUrl('/profile/' + this.auth.getCurrentUser()._id);
-    };
-    return AppComponent;
+    return ProfileComponent;
 }());
-AppComponent = __decorate([
+ProfileComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        selector: 'my-app',
-        templateUrl: 'app.component.html'
+        templateUrl: 'profile.component.html'
     }),
-    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
-], AppComponent);
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+    __metadata("design:paramtypes", [auth_service_1.AuthService])
+], ProfileComponent);
+exports.ProfileComponent = ProfileComponent;
+//# sourceMappingURL=profile.component.js.map
