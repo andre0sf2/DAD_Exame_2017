@@ -64,6 +64,7 @@ export class TableComponent implements OnInit {
         });
         this.getTurn();
         this.getMoves();
+        this.getRoundWinners();
         this.getSuit();
         /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
 
@@ -107,6 +108,13 @@ export class TableComponent implements OnInit {
 
         });
 
+    }
+
+    getRoundWinners(){
+        this.websocketService.getRoundWinners().subscribe((m:any)=>{
+            console.log("WINNER OF ROUND");
+            console.log(m);
+        })
     }
     getGamePlayers() {
         this.websocketService.getGamePlayers(this.room).subscribe((m: any) => {
