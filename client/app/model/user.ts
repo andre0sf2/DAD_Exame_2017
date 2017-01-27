@@ -13,13 +13,15 @@ export class User {
     token: string;
     password: string;
     passwordConfirmation: string;
+    profilePic: string;
 
 
     constructor(public _username: string,
                 public _email: string,
                 public _token: string,
-                public _password?: string,
-                public _passwordConfirmation?: string) {
+                private _password?: string,
+                private _passwordConfirmation?: string,
+                public _profilePic?: string,) {
         this.username = _username;
         this.email = _email;
         this.token = _token;
@@ -27,5 +29,6 @@ export class User {
         this.totalPoints = 0;
         this.password = _password;
         this.passwordConfirmation = _passwordConfirmation;
+        this.profilePic = _profilePic;
     }
 }

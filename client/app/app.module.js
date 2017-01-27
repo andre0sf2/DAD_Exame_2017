@@ -15,9 +15,11 @@ var top10_component_1 = require("./game/top10.component");
 var lobby_component_1 = require("./home/lobby.component");
 var table_component_1 = require("./game/table.component");
 var history_component_1 = require("./history/history.component");
+var profile_component_1 = require("./profile/profile.component");
 var router_1 = require("@angular/router");
 var top10_service_1 = require("./services/top10.service");
 var game_service_1 = require("./services/game.service");
+var ng2_imageupload_1 = require("ng2-imageupload");
 var app_routing_module_1 = require("./app-routing.module");
 var common_1 = require("@angular/common");
 var http_1 = require("@angular/http");
@@ -36,9 +38,9 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, router_1.RouterModule, app_routing_module_1.AppRoutingModule, http_1.HttpModule, forms_1.FormsModule, forms_1.ReactiveFormsModule],
+        imports: [platform_browser_1.BrowserModule, router_1.RouterModule, app_routing_module_1.AppRoutingModule, http_1.HttpModule, forms_1.FormsModule, forms_1.ReactiveFormsModule, ng2_imageupload_1.ImageUploadModule],
         declarations: [app_component_1.AppComponent, home_component_1.HomeComponent, chat_lobby_component_1.ChatLobbyComponent, chat_room_component_1.ChatRoomComponent, history_component_1.HistoryComponent, login_component_1.LoginComponent,
-            register_component_1.RegisterComponent, top10_component_1.Top10Component, lobby_component_1.LobbyComponent, table_component_1.TableComponent, auth_component_1.AuthComponent],
+            register_component_1.RegisterComponent, top10_component_1.Top10Component, lobby_component_1.LobbyComponent, table_component_1.TableComponent, auth_component_1.AuthComponent, profile_component_1.ProfileComponent],
         providers: [websocket_service_1.WebSocketService, top10_service_1.Top10Service, auth_service_1.AuthService, game_service_1.GameService, user_service_1.UserService, cookies_service_1.CookieService, {
                 provide: common_1.APP_BASE_HREF,
                 useValue: '/'

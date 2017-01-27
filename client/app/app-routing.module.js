@@ -15,13 +15,15 @@ var home_component_1 = require("./home/home.component");
 var register_component_1 = require("./auth/register.component");
 var table_component_1 = require("./game/table.component");
 var history_component_1 = require("./history/history.component");
+var profile_component_1 = require("./profile/profile.component");
 var routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: home_component_1.HomeComponent },
     { path: 'login', component: login_component_1.LoginComponent },
     { path: 'register', component: register_component_1.RegisterComponent },
     { path: 'game/:room', component: table_component_1.TableComponent },
-    { path: 'history', component: history_component_1.HistoryComponent }
+    { path: 'history', component: history_component_1.HistoryComponent },
+    { path: 'profile/:username', component: profile_component_1.ProfileComponent }
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
