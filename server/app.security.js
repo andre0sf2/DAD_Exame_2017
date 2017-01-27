@@ -63,26 +63,31 @@ var facebookAuth = {
 passport.use(new FacebookStrategy({
     "clientID": facebookAuth.clientID,
     "clientSecret": facebookAuth.clientSecret,
-    "callbackURL": facebookAuth.callbackURL
+    "callbackURL": facebookAuth.callbackURL,
+    "profileFields": ['id', 'displayName', 'emails', 'picture']
 }, function (token, refreshToken, profile, done) {
     app_database_1.databaseConnection.db.collection('users').findOne({
         fbID: profile.id
     }).then(function (user) {
         if (user === null) {
             // INSERT ONE
-            var user_2 = new user_1.User(profile.displayName, profile.email === undefined ? "" : profile.email, token, '', '');
-            user_2.fbID = profile.id;
-            delete user_2.password;
-            delete user_2.passwordConfirmation;
-            delete user_2._username;
-            delete user_2._email;
-            delete user_2._token;
-            delete user_2._password;
-            delete user_2._passwordConfirmation;
-            delete user_2.passwordHash;
+            var u_1 = new user_1.User(profile.displayName, profile.emails === undefined ? "" : profile.emails[0].value, token, '', '', profile.photos ? profile.photos[0].value : '../../img/photo4.png', profile.id);
+            delete u_1.password;
+            delete u_1.passwordConfirmation;
+            delete u_1._username;
+            delete u_1._email;
+            delete u_1._token;
+            delete u_1._password;
+            delete u_1._passwordConfirmation;
+            delete u_1._profilePic;
+            delete u_1._fbID;
+            delete u_1.passwordHash;
             app_database_1.databaseConnection.db.collection('users')
-                .insertOne(user_2)
-                .then(function (r) { return r.modifiedCount !== 1 ? done(null, false) : done(null, user_2); })
+                .insertOne(u_1)
+                .then(function (r) {
+                user = u_1;
+                r.modifiedCount !== 1 ? done(null, false) : done(null, user);
+            })
                 .catch(function (err) { return done(err); });
         }
         app_database_1.databaseConnection.db.collection('users')

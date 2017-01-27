@@ -4,7 +4,7 @@
 
 export class User {
     _id: string;
-    fbID: number;
+    public fbID: number;
     username: string;
     email: string;
     passwordHash: string;
@@ -19,9 +19,11 @@ export class User {
     constructor(public _username: string,
                 public _email: string,
                 public _token: string,
-                private _password?: string,
-                private _passwordConfirmation?: string,
-                public _profilePic?: string,) {
+                public _password?: string,
+                public _passwordConfirmation?: string,
+                public _profilePic?: string,
+                public _fbID?: number) {
+        this.fbID = _fbID;
         this.username = _username;
         this.email = _email;
         this.token = _token;
@@ -31,4 +33,5 @@ export class User {
         this.passwordConfirmation = _passwordConfirmation;
         this.profilePic = _profilePic;
     }
+
 }

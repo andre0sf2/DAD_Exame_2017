@@ -8,7 +8,7 @@ var Mesa = (function () {
         Mesa.todosOsNaipes().forEach(function (naipe) {
             Mesa.todosOsSimbolos().forEach(function (simbolo) {
                 var c = null;
-                var img = '../../cards-1/' + naipe + simbolo + ".png";
+                var img = '../../cards/' + naipe + simbolo + ".png";
                 switch (simbolo) {
                     case 1:
                         c = new card_1.Card(naipe, simbolo, 11, img);

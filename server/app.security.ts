@@ -69,7 +69,8 @@ let facebookAuth = {
 passport.use(new FacebookStrategy({
         "clientID": facebookAuth.clientID,
         "clientSecret": facebookAuth.clientSecret,
-        "callbackURL": facebookAuth.callbackURL
+        "callbackURL": facebookAuth.callbackURL,
+        "profileFields": ['id', 'displayName', 'emails', 'picture']
     },
     function (token, refreshToken, profile, done) {
         database.db.collection('users').findOne({
@@ -77,21 +78,25 @@ passport.use(new FacebookStrategy({
         }).then(user => {
             if (user === null) {
                 // INSERT ONE
-                let user = new User(profile.displayName, profile.email === undefined ? "" : profile.email, token, '', '');
-                user.fbID = profile.id;
+                let u = new User(profile.displayName, profile.emails === undefined ? "" : profile.emails[0].value, token, '', '', profile.photos ? profile.photos[0].value : '../../img/photo4.png', profile.id );
 
-                delete user.password;
-                delete user.passwordConfirmation;
-                delete user._username;
-                delete user._email;
-                delete user._token;
-                delete user._password;
-                delete user._passwordConfirmation;
-                delete user.passwordHash;
+                delete u.password;
+                delete u.passwordConfirmation;
+                delete u._username;
+                delete u._email;
+                delete u._token;
+                delete u._password;
+                delete u._passwordConfirmation;
+                delete u._profilePic;
+                delete u._fbID;
+                delete u.passwordHash;
 
                 database.db.collection('users')
-                    .insertOne(user)
-                    .then(r => r.modifiedCount !== 1 ? done(null, false) : done(null, user))
+                    .insertOne(u)
+                    .then(r => {
+                        user = u;
+                        r.modifiedCount !== 1 ? done(null, false) : done(null, user);
+                    })
                     .catch(err => done(err));
 
             }
