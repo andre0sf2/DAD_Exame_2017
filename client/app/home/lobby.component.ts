@@ -125,7 +125,7 @@ export class LobbyComponent implements OnInit{
 
             this.gameService.updateGame(this.otherGames[i], this.authService.getCurrentUser()).subscribe(response => {
                 /*console.log(response)*/
-                if(response.nplayers == 2){
+                if(response.nplayers == 4){
                     console.log('game will start');
                     
                     response.status = 'on going';

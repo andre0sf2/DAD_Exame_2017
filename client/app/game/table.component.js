@@ -26,6 +26,7 @@ var TableComponent = (function () {
         this.jogadores = [];
         this.chatChannel = [];
         this.isMyTurn = false;
+        this.currentRound = 0;
         this.suitImg = "";
         this.suitName = "";
         this.user = this.auth.getCurrentUser().username;
@@ -48,6 +49,8 @@ var TableComponent = (function () {
         this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe(function (m) {
             console.log(m);
         });
+        this.getTurn();
+        this.getMoves();
         this.getSuit();
         /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
 
@@ -68,6 +71,17 @@ var TableComponent = (function () {
             var c = new card_1.Card(m.card._tipoCard, m.card._simbolo, m.card._ponto, m.card._img);
             _this.baralhoJogadores.push(c);
             _this.baralhoJogadores.sort();
+        });
+    };
+    TableComponent.prototype.getTurn = function () {
+        var _this = this;
+        this.websocketService.getTurn().subscribe(function (m) {
+            console.log(m);
+            if (m.username == _this.auth.getCurrentUser().username) {
+                console.log("ITS YOUR TURN");
+                _this.isMyTurn = true;
+                _this.currentRound = m.round;
+            }
         });
     };
     TableComponent.prototype.addCard = function () {
@@ -111,18 +125,26 @@ var TableComponent = (function () {
             }
         });
     };
+    TableComponent.prototype.getMoves = function () {
+        this.websocketService.getMoves().subscribe(function (m) { console.log(m); });
+    };
     TableComponent.prototype.cleanMesa = function () {
         this.mesa = new mesa_1.Mesa();
         this.error = '';
     };
     TableComponent.prototype.getCardBaralho = function (card) {
-        card_1.Card;
-        for (var i = 0; i < this.cards.length; i++) {
-            if (this.cards[i].tipoCard == card.tipoCard && this.cards[i].simbolo == card.simbolo) {
-                //console.log(this.cards[i].toString());
-                this.websocketService.sendCard({ username: this.auth.getCurrentUser().username, card: this.cards[i] });
-                this.removeCard(this.cards[i]);
+        if (this.isMyTurn) {
+            for (var i = 0; i < this.cards.length; i++) {
+                if (this.cards[i].tipoCard == card.tipoCard && this.cards[i].simbolo == card.simbolo) {
+                    //console.log(this.cards[i].toString());
+                    this.websocketService.sendCard({ room: this.room, round: this.currentRound, username: this.auth.getCurrentUser().username, card: this.cards[i] });
+                    this.removeCard(this.cards[i]);
+                }
             }
+            this.isMyTurn = false;
+        }
+        else {
+            console.log("WARNING - wait for your turn");
         }
     };
     TableComponent.prototype.countCards = function () {

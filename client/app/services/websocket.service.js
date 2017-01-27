@@ -17,6 +17,12 @@ var WebSocketService = (function () {
             this.socket = io("http://localhost:7777");
         }
     }
+    WebSocketService.prototype.getTurn = function () {
+        return this.listenOnChannel('turn');
+    };
+    WebSocketService.prototype.getMoves = function () {
+        return this.listenOnChannel('move');
+    };
     WebSocketService.prototype.getMyCards = function () {
         return this.listenOnChannel('my-cards');
     };
@@ -99,9 +105,6 @@ var WebSocketService = (function () {
     };
     WebSocketService.prototype.sendGetTurn = function (message) {
         this.socket.emit('yourTurn', message);
-    };
-    WebSocketService.prototype.getTurn = function () {
-        return this.listenOnChannel('yourTurn');
     };
     WebSocketService.prototype.sendCard = function (message) {
         //console.log(message);

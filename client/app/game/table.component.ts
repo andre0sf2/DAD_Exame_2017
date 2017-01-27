@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { WebSocketService } from '../services/websocket.service';
 
 
 import { Card } from '../model/card';
 import { Mesa } from '../model/mesa';
-import {GameService} from "../services/game.service";
-import {Game} from "../model/game";
-import {sanitizeSrcset} from "@angular/platform-browser/src/security/url_sanitizer";
+import { GameService } from "../services/game.service";
+import { Game } from "../model/game";
+import { sanitizeSrcset } from "@angular/platform-browser/src/security/url_sanitizer";
 
 @Component({
     moduleId: module.id,
@@ -28,13 +28,14 @@ export class TableComponent implements OnInit {
     public jogadores: string[] = [];
     chatChannel: string[] = [];
     public isMyTurn: boolean = false;
+    public currentRound: number = 0;
 
     public suitImg: string = "";
     public suitName: string = "";
     public user: string = this.auth.getCurrentUser().username;
 
     constructor(private router: Router, private auth: AuthService, private websocketService: WebSocketService,
-            private activeRoute: ActivatedRoute) {
+        private activeRoute: ActivatedRoute) {
         this.getSuit();
     }
 
@@ -56,10 +57,11 @@ export class TableComponent implements OnInit {
         this.getMyCards();
         this.addCard();
 
-        this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe((m:any) => {
+        this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe((m: any) => {
             console.log(m);
         });
-
+        this.getTurn();
+        this.getMoves();
         this.getSuit();
         /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
 
@@ -75,7 +77,7 @@ export class TableComponent implements OnInit {
         this.baralharCartas(this.cards);
     }
 
-    getMyCards(){
+    getMyCards() {
         this.websocketService.getMyCards().subscribe((m: any) => {
             //console.log("MINHAS CARTAS: v2" + m.card);
             let c = new Card(m.card._tipoCard, m.card._simbolo, m.card._ponto, m.card._img);
@@ -85,12 +87,24 @@ export class TableComponent implements OnInit {
 
     }
 
+    getTurn() {
+        this.websocketService.getTurn().subscribe((m: any) => {
+            console.log(m);
+            if (m.username == this.auth.getCurrentUser().username) {
+                console.log("ITS YOUR TURN");
+                this.isMyTurn = true;
+                this.currentRound = m.round;
+            }
+        });
+    }
+
     addCard() {
-        this.websocketService.getCard({username: this.auth.getCurrentUser().username}).subscribe((m: any) => {
+
+        this.websocketService.getCard({ username: this.auth.getCurrentUser().username }).subscribe((m: any) => {
             //console.log("Carta: "+m.card._tipoCard+m.card._simbolo+"\n"+"User: "+ m.username);
 
 
-            if(this.user == m.username){
+            if (this.user == m.username) {
                 //this.cartaJogada = m.card._img;
                 let img = document.getElementById(m.username);
                 img.setAttribute("src", m.card._img)
@@ -102,20 +116,20 @@ export class TableComponent implements OnInit {
         });
 
     }
-    getGamePlayers(){
+    getGamePlayers() {
         this.websocketService.getGamePlayers(this.room).subscribe((m: any) => {
             this.jogadores.push(<string>m);
             console.log(this.jogadores);
         });
     }
 
-    getSuit(){
+    getSuit() {
         console.log("get trunfo");
-        this.websocketService.getSuit({room: this.room}).subscribe((m:any) => {
+        this.websocketService.getSuit({ room: this.room }).subscribe((m: any) => {
             //console.log("Trunfo é: " + m._tipoCard);
             this.suitImg = m._img;
 
-            switch (m._tipoCard){
+            switch (m._tipoCard) {
                 case "o": this.suitName = "Ouros";
                     break;
                 case "p": this.suitName = "Paus";
@@ -128,19 +142,27 @@ export class TableComponent implements OnInit {
         });
     }
 
+    getMoves() {
+        this.websocketService.getMoves().subscribe((m: any) => { console.log(m); });
+    }
+
     cleanMesa() {
         this.mesa = new Mesa();
         this.error = '';
     }
 
-    getCardBaralho(card: Card){Card
-
-        for (let i = 0; i < this.cards.length; i++) {
-            if (this.cards[i].tipoCard == card.tipoCard && this.cards[i].simbolo == card.simbolo) {
-                //console.log(this.cards[i].toString());
-                this.websocketService.sendCard({username: this.auth.getCurrentUser().username, card: this.cards[i]});
-                this.removeCard(this.cards[i]);
+    getCardBaralho(card: Card) {
+        if (this.isMyTurn) {
+            for (let i = 0; i < this.cards.length; i++) {
+                if (this.cards[i].tipoCard == card.tipoCard && this.cards[i].simbolo == card.simbolo) {
+                    //console.log(this.cards[i].toString());
+                    this.websocketService.sendCard({ room: this.room, round: this.currentRound,  username: this.auth.getCurrentUser().username, card: this.cards[i] });
+                    this.removeCard(this.cards[i]);
+                }
             }
+            this.isMyTurn = false;
+        }else{
+            console.log("WARNING - wait for your turn");
         }
     }
 
@@ -157,10 +179,10 @@ export class TableComponent implements OnInit {
 
     }
 
-    removeCard(card: Card){
+    removeCard(card: Card) {
         for (let i = 0; i < this.baralhoJogadores.length; i++) {
-            if (this.baralhoJogadores[i].tipoCard == card.tipoCard && this.baralhoJogadores[i].simbolo == card.simbolo){
-                this.baralhoJogadores.splice(i,1);
+            if (this.baralhoJogadores[i].tipoCard == card.tipoCard && this.baralhoJogadores[i].simbolo == card.simbolo) {
+                this.baralhoJogadores.splice(i, 1);
             }
         }
     }

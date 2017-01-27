@@ -113,7 +113,7 @@ var LobbyComponent = (function () {
             this.otherGames[i].nplayers = this.otherGames[i].nplayers + 1;
             this.gameService.updateGame(this.otherGames[i], this.authService.getCurrentUser()).subscribe(function (response) {
                 /*console.log(response)*/
-                if (response.nplayers == 2) {
+                if (response.nplayers == 4) {
                     console.log('game will start');
                     response.status = 'on going';
                     _this.gameService.updateGame(response, _this.authService.getCurrentUser()).subscribe(function (res) { return console.log('1' + res); });
