@@ -44,6 +44,7 @@
                 main: './dist/socket.io.js'
             },
             'angular2-cookie': {main: 'core.js', defaultExtension: 'js'}
+
         }
     });
 })(this);

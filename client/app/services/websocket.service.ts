@@ -14,22 +14,30 @@ export class WebSocketService {
         }
     }
 
+    getTurn(): Observable<any> {
+        return this.listenOnChannel('turn');
+    }
 
-    getMyCards(): Observable<any>{
+    getMoves() {
+        return this.listenOnChannel('move');
+    }
+
+
+    getMyCards(): Observable<any> {
         return this.listenOnChannel('my-cards');
     }
 
-    getGamePlayers(roomID: string){
-        this.socket.emit('players-on-game', {room: roomID});
+    getGamePlayers(roomID: string) {
+        //this.socket.emit('players-on-game', {room: roomID});
         return this.listenOnChannel('players-on-game');
     }
 
-    getSuit(room : any){
- //       this.socket.emit('suit', room);
+    getSuit(room: any) {
+        //       this.socket.emit('suit', room);
         return this.listenOnChannel('suit');
     }
 
-    sendStartGame(message:any){
+    sendStartGame(message: any) {
         this.socket.emit('start-game', message);
         console.log("sendStartGame");
     }
@@ -46,7 +54,7 @@ export class WebSocketService {
         return this.listenOnChannel('lobby-chat');
     }
     getNotes(): Observable<any> {
-       // console.log("entrei auqi ");
+        // console.log("entrei auqi ");
         return this.listenOnChannel('notes');
     }
 
@@ -62,7 +70,7 @@ export class WebSocketService {
         this.socket.emit('notes', message);
     }
 
-     getDerrotado(): Observable<any> {
+    getDerrotado(): Observable<any> {
         return this.listenOnChannel('derrotado');
     }
 
@@ -125,12 +133,10 @@ export class WebSocketService {
         this.socket.emit('yourTurn', message);
     }
 
-    getTurn(): Observable<any> {
-        return this.listenOnChannel('yourTurn');
-    }
 
-    sendCard(message: any){
-        console.log(message);
+
+    sendCard(message: any) {
+        //console.log(message);
         this.socket.emit('card', message);
     }
 

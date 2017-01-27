@@ -8,20 +8,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var Observable_1 = require("rxjs/Observable");
-var io = require("socket.io-client");
+var core_1 = require('@angular/core');
+var Observable_1 = require('rxjs/Observable');
+var io = require('socket.io-client');
 var WebSocketService = (function () {
     function WebSocketService() {
         if (!this.socket) {
             this.socket = io("http://localhost:7777");
         }
     }
+    WebSocketService.prototype.getTurn = function () {
+        return this.listenOnChannel('turn');
+    };
+    WebSocketService.prototype.getMoves = function () {
+        return this.listenOnChannel('move');
+    };
     WebSocketService.prototype.getMyCards = function () {
         return this.listenOnChannel('my-cards');
     };
     WebSocketService.prototype.getGamePlayers = function (roomID) {
-        this.socket.emit('players-on-game', { room: roomID });
+        //this.socket.emit('players-on-game', {room: roomID});
         return this.listenOnChannel('players-on-game');
     };
     WebSocketService.prototype.getSuit = function (room) {
@@ -100,11 +106,8 @@ var WebSocketService = (function () {
     WebSocketService.prototype.sendGetTurn = function (message) {
         this.socket.emit('yourTurn', message);
     };
-    WebSocketService.prototype.getTurn = function () {
-        return this.listenOnChannel('yourTurn');
-    };
     WebSocketService.prototype.sendCard = function (message) {
-        console.log(message);
+        //console.log(message);
         this.socket.emit('card', message);
     };
     WebSocketService.prototype.getCard = function (message) {
@@ -119,11 +122,11 @@ var WebSocketService = (function () {
             return function () { return _this.socket.disconnect(); };
         });
     };
+    WebSocketService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], WebSocketService);
     return WebSocketService;
 }());
-WebSocketService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [])
-], WebSocketService);
 exports.WebSocketService = WebSocketService;
 //# sourceMappingURL=websocket.service.js.map

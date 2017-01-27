@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { WebSocketService } from '../services/websocket.service';
 
 
 import { Card } from '../model/card';
 import { Mesa } from '../model/mesa';
-import {GameService} from "../services/game.service";
-import {Game} from "../model/game";
+import { GameService } from "../services/game.service";
+import { Game } from "../model/game";
+import { sanitizeSrcset } from "@angular/platform-browser/src/security/url_sanitizer";
 
 @Component({
     moduleId: module.id,
@@ -24,17 +25,17 @@ export class TableComponent implements OnInit {
 
     private room: string;
 
-    public adversarios: string[] = [];
-    public temAdversario: boolean = false;
+    public jogadores: string[] = [];
     chatChannel: string[] = [];
-    public allReady: boolean = false;
     public isMyTurn: boolean = false;
+    public currentRound: number = 0;
 
-    public suit: string = "";
+    public suitImg: string = "";
+    public suitName: string = "";
     public user: string = this.auth.getCurrentUser().username;
 
     constructor(private router: Router, private auth: AuthService, private websocketService: WebSocketService,
-            private activeRoute: ActivatedRoute) {
+        private activeRoute: ActivatedRoute) {
         this.getSuit();
     }
 
@@ -46,19 +47,21 @@ export class TableComponent implements OnInit {
 
         this.cards = [];
         this.baralhoJogadores = [];
+        this.jogadores = [];
 
         this.activeRoute.params.subscribe(params => {
             this.room = params['room'];
         });
-        this.websocketService.getGamePlayers(this.room).subscribe((m: any) => console.log(m));
 
+        this.getGamePlayers();
         this.getMyCards();
         this.addCard();
 
-        this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe((card:any) => {
-            console.log(card.toString());
+        this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe((m: any) => {
+            console.log(m);
         });
-
+        this.getTurn();
+        this.getMoves();
         this.getSuit();
         /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
 
@@ -74,27 +77,73 @@ export class TableComponent implements OnInit {
         this.baralharCartas(this.cards);
     }
 
-    getMyCards(){
+    getMyCards() {
         this.websocketService.getMyCards().subscribe((m: any) => {
             //console.log("MINHAS CARTAS: v2" + m.card);
-            this.baralhoJogadores.push(m.card);
+            let c = new Card(m.card._tipoCard, m.card._simbolo, m.card._ponto, m.card._img);
+            this.baralhoJogadores.push(c);
+            this.baralhoJogadores.sort();
         });
 
+    }
+
+    getTurn() {
+        this.websocketService.getTurn().subscribe((m: any) => {
+            console.log(m);
+            if (m.username == this.auth.getCurrentUser().username) {
+                console.log("ITS YOUR TURN");
+                this.isMyTurn = true;
+                this.currentRound = m.round;
+            }
+        });
     }
 
     addCard() {
-        this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe((m: any) => {
-            console.log(m._img);
+
+        this.websocketService.getCard({ username: this.auth.getCurrentUser().username }).subscribe((m: any) => {
+            //console.log("Carta: "+m.card._tipoCard+m.card._simbolo+"\n"+"User: "+ m.username);
+
+
+            if (this.user == m.username) {
+                //this.cartaJogada = m.card._img;
+                let img = document.getElementById(m.username);
+                img.setAttribute("src", m.card._img)
+                console.log(img);
+            }
+
+
+
         });
 
     }
-
-    getSuit(){
-        console.log("get trunfo");
-        this.websocketService.getSuit({room: this.room}).subscribe((m:any) => {
-            //console.log("Trunfo é: " + m.toString());
-            this.suit = m;
+    getGamePlayers() {
+        this.websocketService.getGamePlayers(this.room).subscribe((m: any) => {
+            this.jogadores.push(<string>m);
+            console.log(this.jogadores);
         });
+    }
+
+    getSuit() {
+        console.log("get trunfo");
+        this.websocketService.getSuit({ room: this.room }).subscribe((m: any) => {
+            //console.log("Trunfo é: " + m._tipoCard);
+            this.suitImg = m._img;
+
+            switch (m._tipoCard) {
+                case "o": this.suitName = "Ouros";
+                    break;
+                case "p": this.suitName = "Paus";
+                    break;
+                case "e": this.suitName = "Espadas";
+                    break;
+                case "c": this.suitName = "Copas";
+                    break;
+            }
+        });
+    }
+
+    getMoves() {
+        this.websocketService.getMoves().subscribe((m: any) => { console.log(m); });
     }
 
     cleanMesa() {
@@ -102,12 +151,18 @@ export class TableComponent implements OnInit {
         this.error = '';
     }
 
-    getCardBaralho(card: Card){
-
-        for (let i = 0; i < this.cards.length; i++) {
-            if (this.cards[i].tipoCard == card.tipoCard && this.cards[i].simbolo == card.simbolo) {
-                this.websocketService.sendCard({username: this.auth.getCurrentUser().username, card: this.cards[i]});
+    getCardBaralho(card: Card) {
+        if (this.isMyTurn) {
+            for (let i = 0; i < this.cards.length; i++) {
+                if (this.cards[i].tipoCard == card.tipoCard && this.cards[i].simbolo == card.simbolo) {
+                    //console.log(this.cards[i].toString());
+                    this.websocketService.sendCard({ room: this.room, round: this.currentRound,  username: this.auth.getCurrentUser().username, card: this.cards[i] });
+                    this.removeCard(this.cards[i]);
+                }
             }
+            this.isMyTurn = false;
+        }else{
+            console.log("WARNING - wait for your turn");
         }
     }
 
@@ -123,6 +178,15 @@ export class TableComponent implements OnInit {
     checkCheating() {
 
     }
+
+    removeCard(card: Card) {
+        for (let i = 0; i < this.baralhoJogadores.length; i++) {
+            if (this.baralhoJogadores[i].tipoCard == card.tipoCard && this.baralhoJogadores[i].simbolo == card.simbolo) {
+                this.baralhoJogadores.splice(i, 1);
+            }
+        }
+    }
+
 
     baralharCartas(cards: Card[]) {
         let j: number, k: Card;

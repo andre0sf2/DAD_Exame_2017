@@ -8,11 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var auth_service_1 = require("../services/auth.service");
-var game_service_1 = require("../services/game.service");
-var websocket_service_1 = require("../services/websocket.service");
+var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
+var auth_service_1 = require('../services/auth.service');
+var game_service_1 = require('../services/game.service');
+var websocket_service_1 = require('../services/websocket.service');
 var LobbyComponent = (function () {
     function LobbyComponent(authService, gameService, router, webSocketService) {
         this.authService = authService;
@@ -113,7 +113,7 @@ var LobbyComponent = (function () {
             this.otherGames[i].nplayers = this.otherGames[i].nplayers + 1;
             this.gameService.updateGame(this.otherGames[i], this.authService.getCurrentUser()).subscribe(function (response) {
                 /*console.log(response)*/
-                if (response.nplayers == 2) {
+                if (response.nplayers == 4) {
                     console.log('game will start');
                     response.status = 'on going';
                     _this.gameService.updateGame(response, _this.authService.getCurrentUser()).subscribe(function (res) { return console.log('1' + res); });
@@ -127,16 +127,15 @@ var LobbyComponent = (function () {
     LobbyComponent.prototype.openGame = function (i) {
         this.router.navigateByUrl('/game/room' + this.ongoingGames[i]._id);
     };
+    LobbyComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'lobby',
+            templateUrl: 'lobby.component.html'
+        }), 
+        __metadata('design:paramtypes', [auth_service_1.AuthService, game_service_1.GameService, router_1.Router, websocket_service_1.WebSocketService])
+    ], LobbyComponent);
     return LobbyComponent;
 }());
-LobbyComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'lobby',
-        templateUrl: 'lobby.component.html'
-    }),
-    __metadata("design:paramtypes", [auth_service_1.AuthService, game_service_1.GameService, router_1.Router,
-        websocket_service_1.WebSocketService])
-], LobbyComponent);
 exports.LobbyComponent = LobbyComponent;
 //# sourceMappingURL=lobby.component.js.map
