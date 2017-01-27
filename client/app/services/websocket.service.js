@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var Observable_1 = require('rxjs/Observable');
-var io = require('socket.io-client');
+var core_1 = require("@angular/core");
+var Observable_1 = require("rxjs/Observable");
+var io = require("socket.io-client");
 var WebSocketService = (function () {
     function WebSocketService() {
         if (!this.socket) {
@@ -122,11 +122,11 @@ var WebSocketService = (function () {
             return function () { return _this.socket.disconnect(); };
         });
     };
-    WebSocketService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], WebSocketService);
     return WebSocketService;
 }());
+WebSocketService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [])
+], WebSocketService);
 exports.WebSocketService = WebSocketService;
 //# sourceMappingURL=websocket.service.js.map
