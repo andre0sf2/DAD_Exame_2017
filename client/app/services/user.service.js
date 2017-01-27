@@ -17,15 +17,20 @@ var UserService = (function () {
     function UserService(http) {
         this.http = http;
         this.url = 'http://localhost:7777/api/v1/';
-        this.headers = new http_1.Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
-        this.options = (new http_1.RequestOptions()).headers = this.headers;
     }
-    UserService.prototype.register = function (user) {
-        return this.http
-            .post(this.url + 'register', user, this.options)
+    UserService.prototype.getUserToLocalStorage = function (id, token) {
+        this.http.get(this.url + 'users/' + id)
             .toPromise()
-            .then(function (r) { return Promise.resolve(r.json()); })
-            .catch(function (r) { return Promise.resolve({ error: true, message: 'internal error' }); });
+            .then(function (user) {
+            localStorage.setItem('user', JSON.stringify(user.json()));
+        })
+            .catch(function (r) { return Promise.resolve({ error: true, message: 'Internal error, try again later.' }); });
+    };
+    UserService.prototype.buildHeadersWithAuthorization = function (token) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + token);
+        return headers;
     };
     return UserService;
 }());

@@ -176,7 +176,7 @@ export class User {
         this.settings = settings;
         server.get(settings.prefix + 'top/:type', this.getTop10);
         server.get(settings.prefix + 'users', settings.security.authorize, this.getUsers);
-        server.get(settings.prefix + 'users/:id', settings.security.authorize, this.getUser);
+        server.get(settings.prefix + 'users/:id', this.getUser);
         server.put(settings.prefix + 'users/:id', settings.security.authorize, this.updateUser);
         server.post(settings.prefix + 'register', this.createUser);
         server.del(settings.prefix + 'users/:id', settings.security.authorize, this.deleteUser);

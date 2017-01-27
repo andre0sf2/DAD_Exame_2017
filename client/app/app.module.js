@@ -28,6 +28,7 @@ var chat_lobby_component_1 = require("./chat/chat-lobby.component");
 var websocket_service_1 = require("./services/websocket.service");
 var chat_room_component_1 = require("./chat/chat-room.component");
 var auth_component_1 = require("./auth/auth.component");
+var cookies_service_1 = require("angular2-cookie/services/cookies.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -38,7 +39,7 @@ AppModule = __decorate([
         imports: [platform_browser_1.BrowserModule, router_1.RouterModule, app_routing_module_1.AppRoutingModule, http_1.HttpModule, forms_1.FormsModule, forms_1.ReactiveFormsModule],
         declarations: [app_component_1.AppComponent, home_component_1.HomeComponent, chat_lobby_component_1.ChatLobbyComponent, chat_room_component_1.ChatRoomComponent, history_component_1.HistoryComponent, login_component_1.LoginComponent,
             register_component_1.RegisterComponent, top10_component_1.Top10Component, lobby_component_1.LobbyComponent, table_component_1.TableComponent, auth_component_1.AuthComponent],
-        providers: [websocket_service_1.WebSocketService, top10_service_1.Top10Service, auth_service_1.AuthService, game_service_1.GameService, user_service_1.UserService, {
+        providers: [websocket_service_1.WebSocketService, top10_service_1.Top10Service, auth_service_1.AuthService, game_service_1.GameService, user_service_1.UserService, cookies_service_1.CookieService, {
                 provide: common_1.APP_BASE_HREF,
                 useValue: '/'
             }],

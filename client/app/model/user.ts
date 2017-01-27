@@ -18,8 +18,8 @@ export class User {
     constructor(public _username: string,
                 public _email: string,
                 public _token: string,
-                private _password?: string,
-                private _passwordConfirmation?: string,) {
+                public _password?: string,
+                public _passwordConfirmation?: string) {
         this.username = _username;
         this.email = _email;
         this.token = _token;

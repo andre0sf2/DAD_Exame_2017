@@ -25,12 +25,13 @@ import {ChatLobbyComponent} from "./chat/chat-lobby.component";
 import {WebSocketService} from "./services/websocket.service";
 import {ChatRoomComponent} from "./chat/chat-room.component";
 import {AuthComponent} from "./auth/auth.component";
+import {CookieService} from 'angular2-cookie/services/cookies.service';
 
 @NgModule({
     imports: [BrowserModule, RouterModule, AppRoutingModule, HttpModule, FormsModule, ReactiveFormsModule],
     declarations: [AppComponent, HomeComponent, ChatLobbyComponent, ChatRoomComponent, HistoryComponent, LoginComponent,
         RegisterComponent, Top10Component, LobbyComponent, TableComponent, AuthComponent],
-    providers: [WebSocketService, Top10Service, AuthService, GameService, UserService, {
+    providers: [WebSocketService, Top10Service, AuthService, GameService, UserService, CookieService, {
         provide: APP_BASE_HREF,
         useValue: '/'
     }],

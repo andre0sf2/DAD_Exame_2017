@@ -3,10 +3,10 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const BearerStrategy = require('passport-http-bearer').Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
-const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 const sha1 = require('sha1');
 
 import {databaseConnection as database} from './app.database';
+import {userInfo} from "os";
 
 export class Security {
     public passport = passport;
@@ -80,6 +80,15 @@ passport.use(new FacebookStrategy({
                 let user = new User(profile.displayName, profile.email === undefined ? "" : profile.email, token, '', '');
                 user.fbID = profile.id;
 
+                delete user.password;
+                delete user.passwordConfirmation;
+                delete user._username;
+                delete user._email;
+                delete user._token;
+                delete user._password;
+                delete user._passwordConfirmation;
+                delete user.passwordHash;
+
                 database.db.collection('users')
                     .insertOne(user)
                     .then(r => r.modifiedCount !== 1 ? done(null, false) : done(null, user))
@@ -92,4 +101,7 @@ passport.use(new FacebookStrategy({
                 .then(r => r.modifiedCount !== 1 ? done(null, false) : done(null, user))
                 .catch(err => done(err));
         }).catch(err => done(err));
+
+        return done;
+
     }));

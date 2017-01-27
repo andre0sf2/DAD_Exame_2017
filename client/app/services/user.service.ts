@@ -10,18 +10,26 @@ import {User} from "../model/user";
 export class UserService {
 
     protected url = 'http://localhost:7777/api/v1/';
-    protected headers = new Headers({'Content-Type':'application/json','Access-Control-Allow-Origin': '*'});
-    protected options = (new RequestOptions()).headers = this.headers;
 
     constructor(private http: Http) {
     }
 
-    register(user: User): Promise<any> {
-        return this.http
-            .post(this.url + 'register', user, this.options)
+    getUserToLocalStorage(id: string, token: string): any {
+        this.http.get(this.url + 'users/' + id)
             .toPromise()
-            .then(r => Promise.resolve(r.json()))
-            .catch(r => Promise.resolve({error: true, message: 'internal error'}));
+            .then(user => {
+                localStorage.setItem('user', JSON.stringify(<User>user.json()) )
+            })
+            .catch(r => Promise.resolve({error: true, message: 'Internal error, try again later.'}));
+
+    }
+
+    buildHeadersWithAuthorization(token: string): Headers {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + token);
+
+        return headers;
     }
 
 }
