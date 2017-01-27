@@ -20,6 +20,9 @@ var WebSocketService = (function () {
     WebSocketService.prototype.getTurn = function () {
         return this.listenOnChannel('turn');
     };
+    WebSocketService.prototype.getRoundWinners = function () {
+        return this.listenOnChannel('round');
+    };
     WebSocketService.prototype.getMoves = function () {
         return this.listenOnChannel('move');
     };

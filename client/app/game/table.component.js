@@ -51,6 +51,7 @@ var TableComponent = (function () {
         });
         this.getTurn();
         this.getMoves();
+        this.getRoundWinners();
         this.getSuit();
         /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
 
@@ -94,6 +95,12 @@ var TableComponent = (function () {
                 img.setAttribute("src", m.card._img);
                 console.log(img);
             }
+        });
+    };
+    TableComponent.prototype.getRoundWinners = function () {
+        this.websocketService.getRoundWinners().subscribe(function (m) {
+            console.log("WINNER OF ROUND");
+            console.log(m);
         });
     };
     TableComponent.prototype.getGamePlayers = function () {

@@ -96,12 +96,17 @@ export class WebSocketServer {
                 });
             });
 
-                //quando recebe uma carta
+            //quando recebe uma carta
             client.on('card', (data: any) => {
                 //console.log(data.card, "User " + data.username);
                 console.log(data.round, data.username, data.card);
                 this.games[data.room].addMove(data.round, data.username, data.card);
                 this.io.to(client.player.gameRoom).emit('move', data);
+
+                //console.log("1"+this.games[data.room].rounds[data.round].player1_option);
+                //console.log("2"+this.games[data.room].rounds[data.round].player2_option);
+                //console.log("3"+this.games[data.room].rounds[data.round].player3_option);
+                //console.log("4"+this.games[data.room].rounds[data.round].player4_option);
 
                 if (this.games[data.room].rounds[data.round].player1_option != null &&
                     this.games[data.room].rounds[data.round].player2_option != null &&
@@ -109,12 +114,20 @@ export class WebSocketServer {
                     this.games[data.room].rounds[data.round].player4_option != null) {
                     this.games[data.room].calculateRound(data.round);
                     //TODO: emit winner round and points
+                    console.log("WINNER" + this.games[data.room].rounds[data.round].winner);
+                    console.log("POINTS: " + this.games[data.room].rounds[data.round].points);
+
+                    this.io.to(client.player.gameRoom).emit('round', { round: data.round, points: this.games[data.room].rounds[data.round].points, winner: this.games[data.room].rounds[data.round].winner })
+                    console.log("STARTING ROUND " + this.games[data.room].round);
+                    this.games[data.room].startRound();
+
+                    this.io.to(client.player.gameRoom).emit('turn', { username: this.games[data.room].rounds[this.games[data.room].round].firstPlayer, round: this.games[data.room].round });
                 } else {
-                    let nextplayer : string = "";
+                    let nextplayer: string = "";
                     nextplayer = this.games[data.room].nextPlayer(data.round, data.username);
-                    console.log("NEXT PLAYER => "+ nextplayer);
-                    console.log("ROUND "+ this.games[data.room].round);
-                    this.io.to(client.player.gameRoom).emit('turn',{ username: nextplayer, round: this.games[data.room].round } );
+                    console.log("NEXT PLAYER => " + nextplayer);
+                    console.log("ROUND " + this.games[data.room].round);
+                    this.io.to(client.player.gameRoom).emit('turn', { username: nextplayer, round: this.games[data.room].round });
                 }
 
             });
@@ -203,8 +216,26 @@ export class Mesa {
             this.rounds[this.round].thirdPlayer = this.gamers[2];
             this.rounds[this.round].fourPlayer = this.gamers[3];
         } else {
+            console.log("STARTING ROUND: " + this.round);
             this.rounds[this.round].firstPlayer = this.rounds[this.round - 1].winner;
-            //NEED COMPLETE
+            
+            if (this.rounds[this.round].firstPlayer == this.gamers[0]) {
+                this.rounds[this.round].secondPlayer = this.gamers[1];
+                this.rounds[this.round].thirdPlayer = this.gamers[2];
+                this.rounds[this.round].fourPlayer = this.gamers[3];
+            }else if (this.rounds[this.round].firstPlayer == this.gamers[1]) {
+                this.rounds[this.round].secondPlayer = this.gamers[2];
+                this.rounds[this.round].thirdPlayer = this.gamers[3];
+                this.rounds[this.round].fourPlayer = this.gamers[0];
+            }else if(this.rounds[this.round].firstPlayer == this.gamers[2]) {
+                this.rounds[this.round].secondPlayer = this.gamers[3];
+                this.rounds[this.round].thirdPlayer = this.gamers[0];
+                this.rounds[this.round].fourPlayer = this.gamers[1];
+            }else if (this.rounds[this.round].firstPlayer == this.gamers[3]) {
+                this.rounds[this.round].secondPlayer = this.gamers[0];
+                this.rounds[this.round].thirdPlayer = this.gamers[1];
+                this.rounds[this.round].fourPlayer = this.gamers[2];
+            }
         }
     }
 
@@ -222,30 +253,37 @@ export class Mesa {
             console.log("error.not find player");
         }
 
-        if (this.rounds[round].player1_option != null && this.rounds[round].player2_option != null && this.rounds[round].player3_option != null && this.rounds[round].player4_option != null) {
+/*        if (this.rounds[round].player1_option != null && this.rounds[round].player2_option != null && this.rounds[round].player3_option != null && this.rounds[round].player4_option != null) {
             this.calculateRound(this.round);
-        }
+        }*/
     }
     public calculateRound(round: number) {
         //getCartasUsadas
-        let card1: Card = this.rounds[round].player1_option;
-        let card2: Card = this.rounds[round].player2_option;
-        let card3: Card = this.rounds[round].player3_option;
-        let card4: Card = this.rounds[round].player4_option;
+        console.log("\n\n\n\nAVALIACAO DA RONDA : " + round)
+
+        let card1: any = this.rounds[round].player1_option;
+        let card2: any = this.rounds[round].player2_option;
+        let card3: any = this.rounds[round].player3_option;
+        let card4: any = this.rounds[round].player4_option;
+
+        console.log(card1);
 
         //GET TRUNFO
-        let trunfo: string = this.getSuit().tipoCard;
+        let trunfo: string = this.cards[39].tipoCard;
+        console.log("TRUNFO : " + trunfo);
         //GET NAIPE DA JOGADA
         let tipo: string;
-        if (this.rounds[round].firstPlayer == this.gamers[0]) {
-            tipo = card1.tipoCard;
+        if (this.rounds[round].firstPlayer === this.gamers[0]) {
+            tipo = card1._tipoCard;
         } else if (this.rounds[round].firstPlayer == this.gamers[1]) {
-            tipo = card2.tipoCard;
+            tipo = card2._tipoCard;
         } else if (this.rounds[round].firstPlayer == this.gamers[2]) {
-            tipo = card3.tipoCard;
+            tipo = card3._tipoCard;
         } else if (this.rounds[round].firstPlayer == this.gamers[3]) {
-            tipo = card4.tipoCard;
+            tipo = card4._tipoCard;
         }
+        console.log("NAIPE DA JOGADA: " + tipo);
+
         //COUNT TRUNFOS
         let countTrunfos: number = 0;
         let card1trunfo: boolean = false;
@@ -253,22 +291,24 @@ export class Mesa {
         let card3trunfo: boolean = false;
         let card4trunfo: boolean = false;
 
-        if (card1.tipoCard == trunfo) { countTrunfos++; card1trunfo = true; }
-        if (card2.tipoCard == trunfo) { countTrunfos++; card2trunfo = true; }
-        if (card3.tipoCard == trunfo) { countTrunfos++; card3trunfo = true; }
-        if (card4.tipoCard == trunfo) { countTrunfos++; card4trunfo = true; }
+        if (card1._tipoCard == trunfo) { countTrunfos++; card1trunfo = true; }
+        if (card2._tipoCard == trunfo) { countTrunfos++; card2trunfo = true; }
+        if (card3._tipoCard == trunfo) { countTrunfos++; card3trunfo = true; }
+        if (card4._tipoCard == trunfo) { countTrunfos++; card4trunfo = true; }
 
         //se apenas foi usado um trunfo na ronda ele ganha
         if (countTrunfos == 1) {
-            if (card1.tipoCard == trunfo) {
+            if (card1._tipoCard == trunfo) {
                 this.rounds[round].winner = this.gamers[0];
-            } else if (card2.tipoCard == trunfo) {
+            } else if (card2._tipoCard == trunfo) {
                 this.rounds[round].winner = this.gamers[1];
-            } else if (card3.tipoCard == trunfo) {
+            } else if (card3._tipoCard == trunfo) {
                 this.rounds[round].winner = this.gamers[2];
-            } else if (card4.tipoCard == trunfo) {
+            } else if (card4._tipoCard == trunfo) {
                 this.rounds[round].winner = this.gamers[3];
             }
+
+            console.log("APENAS UM TRUNFO. WINNER É " + this.rounds[round].winner);
         }
 
         //se foi usado mais que um trunfo ganha o que tiver o trunfo mais alto
@@ -276,66 +316,62 @@ export class Mesa {
             let higherCard: number = 0;
             let winner: string;
 
-            if (card1trunfo) {
-                if (card1.ponto > higherCard) {
-                    higherCard = card1.ponto;
-                    winner = this.gamers[0];
-                }
+            if (card1trunfo && card1._ponto > higherCard) {
+                higherCard = card1._ponto;
+                winner = this.gamers[0];
             }
-            if (card2trunfo) {
-                if (card2.ponto > higherCard) {
-                    higherCard = card2.ponto;
-                    winner = this.gamers[1];
-                }
+
+            if (card2trunfo && card2._ponto > higherCard) {
+                higherCard = card2._ponto;
+                winner = this.gamers[1];
             }
-            if (card3trunfo) {
-                if (card3.ponto > higherCard) {
-                    higherCard = card3.ponto;
-                    winner = this.gamers[2];
-                }
+
+            if (card3trunfo && card3._ponto > higherCard) {
+                higherCard = card3._ponto;
+                winner = this.gamers[2];
             }
-            if (card4trunfo) {
-                if (card4.ponto > higherCard) {
-                    higherCard = card4.ponto;
-                    winner = this.gamers[3];
-                }
+
+            if (card4trunfo && card4._ponto > higherCard) {
+                higherCard = card4._ponto;
+                winner = this.gamers[3];
             }
 
             this.rounds[round].winner = winner;
+
+            console.log("VARIOS TRUNFOS . VENCEDOR É : " + this.rounds[round].winner);
         }
         //se nao houver trunfos, ganha quem tiver ganho posto a carta mais alta do naipe que o 1 jogador colocou
         if (countTrunfos == 0) {
+            console.log("NAO HOUVE TRUNFOS JOGADOS");
             let higherCard: number = 0;
             let winner: string;
-            if (card1.tipoCard == tipo) {
-                if (card1.ponto > higherCard) {
-                    higherCard = card1.ponto;
-                    winner = this.gamers[0];
-                }
+            if (card1._tipoCard == tipo && card1._ponto > higherCard) {
+                higherCard = card1._ponto;
+                winner = this.gamers[0];
+
             }
-            if (card2.tipoCard == tipo) {
-                if (card2.ponto > higherCard) {
-                    higherCard = card2.ponto;
-                    winner = this.gamers[1];
-                }
+            if (card2._tipoCard == tipo && card2._ponto > higherCard) {
+                higherCard = card2._ponto;
+                winner = this.gamers[1];
             }
-            if (card3.tipoCard == tipo) {
-                if (card3.ponto > higherCard) {
-                    higherCard = card3.ponto;
-                    winner = this.gamers[2];
-                }
+
+            if (card3._tipoCard == tipo && card3._ponto > higherCard) {
+                higherCard = card3._ponto;
+                winner = this.gamers[2];
             }
-            if (card4.tipoCard == tipo) {
-                if (card4.ponto > higherCard) {
-                    higherCard = card4.ponto;
-                    winner = this.gamers[3];
-                }
+
+            if (card4._tipoCard == tipo && card4._ponto > higherCard) {
+                higherCard = card4._ponto;
+                winner = this.gamers[3];
             }
+            this.rounds[round].winner = winner;
         }
         //ADICIONA OS PONTOS E COMEÇA NOVA RONDA
-        this.rounds[round].points = card1.ponto + card2.ponto + card3.ponto + card4.ponto;
+        this.rounds[round].points = card1._ponto + card2._ponto + card3._ponto + card4._ponto;
+        console.log("NUMERO DE PONTOS DA JOGADA " + this.rounds[round].points);
+        console.log("FINAL VENCEDOR DA RONDA: " + this.rounds[round].winner);
         this.round++;
-        this.startRound();
+        //this.startRound();
     }
 
     public baralharCartas() {
@@ -361,7 +397,7 @@ export class Mesa {
         return;
     }
 
-    public nextPlayer(round: number, lastPlayer: string):string {
+    public nextPlayer(round: number, lastPlayer: string): string {
         if (this.rounds[round].firstPlayer == lastPlayer) {
             return this.rounds[round].secondPlayer;
         } else if (this.rounds[round].secondPlayer == lastPlayer) {

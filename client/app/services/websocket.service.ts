@@ -18,6 +18,10 @@ export class WebSocketService {
         return this.listenOnChannel('turn');
     }
 
+    getRoundWinners(): Observable<any>{
+        return this.listenOnChannel('round');
+    }
+
     getMoves() {
         return this.listenOnChannel('move');
     }
