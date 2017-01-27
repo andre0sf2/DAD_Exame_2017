@@ -90,10 +90,12 @@ passport.use(new FacebookStrategy({
             })
                 .catch(function (err) { return done(err); });
         }
-        app_database_1.databaseConnection.db.collection('users')
-            .updateOne({ fbID: user.fbID }, { $set: { token: token } })
-            .then(function (r) { return r.modifiedCount !== 1 ? done(null, false) : done(null, user); })
-            .catch(function (err) { return done(err); });
+        else {
+            app_database_1.databaseConnection.db.collection('users')
+                .updateOne({ fbID: user.fbID }, { $set: { token: token } })
+                .then(function (r) { return r.modifiedCount !== 1 ? done(null, false) : done(null, user); })
+                .catch(function (err) { return done(err); });
+        }
     }).catch(function (err) { return done(err); });
     return done;
 }));

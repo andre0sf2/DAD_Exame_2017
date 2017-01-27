@@ -30,7 +30,7 @@ export class Authentication {
         // handle the callback after facebook has authenticated the user
         server.get(settings.prefix + "auth/facebook/callback",
             settings.security.passport.authenticate("facebook", {
-                failureRedirect: "/"
+                failureRedirect: "http://localhost:3000/"
             }),
             function (req, res, next) {
                 console.log(req.user);
@@ -43,5 +43,3 @@ export class Authentication {
         console.log("Facebook authentication routes registered");
     }
 }
-
-

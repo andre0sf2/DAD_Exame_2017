@@ -25,7 +25,7 @@ var Authentication = (function () {
         server.get(settings.prefix + "auth/facebook", settings.security.passport.authenticate("facebook", { scope: "public_profile,email" }));
         // handle the callback after facebook has authenticated the user
         server.get(settings.prefix + "auth/facebook/callback", settings.security.passport.authenticate("facebook", {
-            failureRedirect: "/"
+            failureRedirect: "http://localhost:3000/"
         }), function (req, res, next) {
             console.log(req.user);
             res.setHeader('Set-Cookie', 'user=' + req.user._id + '#' + req.user.token + ';Path=/');

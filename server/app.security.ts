@@ -99,12 +99,13 @@ passport.use(new FacebookStrategy({
                     })
                     .catch(err => done(err));
 
+            } else {
+                database.db.collection('users')
+                    .updateOne({fbID: user.fbID}, {$set: {token: token}})
+                    .then(r => r.modifiedCount !== 1 ? done(null, false) : done(null, user))
+                    .catch(err => done(err));
             }
 
-            database.db.collection('users')
-                .updateOne({fbID: user.fbID}, {$set: {token: token}})
-                .then(r => r.modifiedCount !== 1 ? done(null, false) : done(null, user))
-                .catch(err => done(err));
         }).catch(err => done(err));
 
         return done;
