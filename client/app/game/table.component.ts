@@ -26,6 +26,7 @@ export class TableComponent implements OnInit {
     private room: string;
 
     public jogadores: string[] = [];
+    public jogPics: any[] = [];
     chatChannel: string[] = [];
     public isMyTurn: boolean = false;
     public currentRound: number = 0;
@@ -57,7 +58,6 @@ export class TableComponent implements OnInit {
 
         this.getGamePlayers();
         this.getMyCards();
-        this.addCard();
 
         this.websocketService.getCard(this.auth.getCurrentUser().username).subscribe((m: any) => {
             console.log(m);
@@ -98,28 +98,29 @@ export class TableComponent implements OnInit {
                 this.isMyTurn = true;
                 this.currentRound = m.round;
             }
+            this.jogadores.forEach(jogador => {
+                if(m.username != jogador){
+                    let sty = document.getElementById(jogador+"sep");
+                    sty.setAttribute("style", "color: black");
+                }
+            })
+            let sty = document.getElementById(m.username+"sep");
+            sty.setAttribute("style", "color: yellow");
+
         });
-    }
-
-    addCard() {
-
-        this.websocketService.getCard({ username: this.auth.getCurrentUser().username }).subscribe((m: any) => {
-            //console.log("Carta: "+m.card._tipoCard+m.card._simbolo+"\n"+"User: "+ m.username);
-
-        });
-
     }
 
     getRoundWinners(){
         this.websocketService.getRoundWinners().subscribe((m:any)=>{
-            console.log("WINNER OF ROUND");
-            console.log(m);
+            console.log("WINNER OF ROUND"+ m);
+            this.cleanMesa();
         })
     }
     getGamePlayers() {
         this.websocketService.getGamePlayers(this.room).subscribe((m: any) => {
-            this.jogadores.push(<string>m);
-            console.log(this.jogadores);
+            this.jogadores.push(<string>m.username);
+            this.jogPics.push(<string>m.img);
+            console.log(m);
         });
     }
 
@@ -145,12 +146,16 @@ export class TableComponent implements OnInit {
     getMoves() {
         this.websocketService.getMoves().subscribe((m: any) => {
             console.log(m);
+            let img = document.getElementById(m.username);
+            img.setAttribute("src", m.card._img);
         });
     }
 
     cleanMesa() {
-        this.mesa = new Mesa();
-        this.error = '';
+        this.jogadores.forEach(jogador => {
+            let img = document.getElementById(jogador);
+            img.setAttribute("src", "../../img/cards/semFace.png");
+        })
     }
 
     getCardBaralho(card: Card) {
@@ -163,6 +168,7 @@ export class TableComponent implements OnInit {
                 }
             }
             this.isMyTurn = false;
+
         }else{
             console.log("WARNING - wait for your turn");
         }

@@ -78,7 +78,7 @@ var LobbyComponent = (function () {
             if (resource !== 'No game data') {
                 _this.info = "Game created";
                 _this.webSocketService.createRoom({ room: 'room' + resource._id,
-                    userId: _this.authService.getCurrentUser()._id, username: _this.authService.getCurrentUser().username });
+                    userId: _this.authService.getCurrentUser()._id, username: _this.authService.getCurrentUser().username, img: _this.authService.getCurrentUser().profilePic });
                 _this.findMyGames();
             }
             else {
@@ -108,7 +108,8 @@ var LobbyComponent = (function () {
             }
         });
         if (!this.already_join) {
-            this.webSocketService.joinRoom({ userId: this.authService.getCurrentUser()._id, username: this.authService.getCurrentUser().username, room: 'room' + this.otherGames[i]._id });
+            this.webSocketService.joinRoom({ userId: this.authService.getCurrentUser()._id, username: this.authService.getCurrentUser().username,
+                room: 'room' + this.otherGames[i]._id, img: this.authService.getCurrentUser().profilePic });
             this.otherGames[i].players.push({ player: this.authService.getCurrentUser()._id, points: 0 });
             this.otherGames[i].nplayers = this.otherGames[i].nplayers + 1;
             this.gameService.updateGame(this.otherGames[i], this.authService.getCurrentUser()).subscribe(function (response) {
@@ -118,7 +119,7 @@ var LobbyComponent = (function () {
                     response.status = 'on going';
                     _this.gameService.updateGame(response, _this.authService.getCurrentUser()).subscribe(function (res) { return console.log('1' + res); });
                     _this.webSocketService.sendStartGame({ room: 'room' + _this.otherGames[i]._id,
-                        userId: _this.authService.getCurrentUser()._id, username: _this.authService.getCurrentUser()._username });
+                        userId: _this.authService.getCurrentUser()._id, username: _this.authService.getCurrentUser()._username, img: _this.authService.getCurrentUser().profilePic });
                     console.log("pedido efectuado");
                 }
             });

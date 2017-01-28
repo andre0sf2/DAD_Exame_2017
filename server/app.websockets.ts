@@ -17,11 +17,11 @@ export class WebSocketServer {
             client.broadcast.emit('players', Date.now() + ': A new player has arrived');
 
             client.on('lobby-chat', (data: any) => this.io.emit('lobby-chat', {
-                image: data.image, username: data.username
+                image: data.image, username: data.username, date: data.date
             }));
             client.on('room-chat', (data: any) => {
                 this.io.to(client.player.gameRoom).emit('room-chat', {
-                    image: data.image, username: data.username
+                    image: data.image, username: data.username, date: data.date
                 })
             });
 
@@ -32,6 +32,7 @@ export class WebSocketServer {
                 client.join(data.room); // o utilizador junta-se ao room que criou
 
                 client.player.username = data.username;
+                client.player.img = data.img;
                 client.player.id = data.userId;
                 client.player.gameRoom = data.room;
                 client.player.socketId = client.id;
@@ -39,6 +40,7 @@ export class WebSocketServer {
                 this.games[data.room] = new Mesa();
                 this.games[data.room].gameRoom = data.room;
                 this.games[data.room].gamers.push(data.username);
+                this.games[data.room].playersPics.push(data.img);
                 this.games[data.room].sockets.push(client.id);
             })
 
@@ -47,9 +49,11 @@ export class WebSocketServer {
                 client.player.gameRoom = data.room;
                 client.player.socketId = data.id;
                 client.player.username = data.username;
+                client.player.img = data.img;
                 client.join(client.player.gameRoom);
 
                 this.games[data.room].gamers.push(data.username);
+                this.games[data.room].playersPics.push(data.img);
                 this.games[data.room].sockets.push(client.id);
             })
 
@@ -83,9 +87,14 @@ export class WebSocketServer {
                     index += 10;
                 });
 
-                this.games[data.room].gamers.forEach((player: any) => {
-                    console.log("PLayers: " + player);
-                    this.io.to(client.player.gameRoom).emit('players-on-game', player);
+                this.games[data.room].gamers.forEach((m, i) => {
+                    this.games[data.room].picsNames.push({ username: m, img: this.games[data.room].playersPics[i] });
+                });
+
+                this.games[data.room].picsNames.forEach((player: any) => {
+                    this.io.to(client.player.gameRoom).emit('players-on-game', {
+                        username: player.username, img: player.img
+                    });
                 });
 
                 this.games[data.room].startRound();
@@ -171,6 +180,8 @@ export class Mesa {
     public gameRoom: string;
 
     public gamers: string[] = [];
+    public playersPics: string[] = [];
+    public picsNames: any[] = [];
     public sockets: string[] = [];
 
     public round: number = 0;
@@ -277,7 +288,7 @@ export class Mesa {
         console.log("TRUNFO : " + trunfo);
         //GET NAIPE DA JOGADA
         let tipo: string;
-        if (this.rounds[round].firstPlayer === this.gamers[0]) {
+        if (this.rounds[round].firstPlayer == this.gamers[0]) {
             tipo = card1._tipoCard;
         } else if (this.rounds[round].firstPlayer == this.gamers[1]) {
             tipo = card2._tipoCard;
@@ -317,28 +328,69 @@ export class Mesa {
 
         //se foi usado mais que um trunfo ganha o que tiver o trunfo mais alto
         if (countTrunfos > 1) {
-            let higherCard: number = 0;
+            let higherCardPoints: number = 0;
+            let higherCardSimb: number = 0;
             let winner: string;
 
-            if (card1trunfo && card1._ponto > higherCard) {
-                higherCard = card1._ponto;
-                winner = this.gamers[0];
+            if(card1trunfo){
+                if(card1._ponto != 0 && card1._ponto > higherCardPoints){
+
+                    higherCardPoints = card1._ponto;
+                    winner = this.gamers[0];
+
+                }
+
+                if(card1._ponto == 0 && card1._simbolo > higherCardSimb){
+
+                    higherCardSimb = card1._simbolo;
+                    winner = this.gamers[0];
+
+                }
             }
 
-            if (card2trunfo && card2._ponto > higherCard) {
-                higherCard = card2._ponto;
-                winner = this.gamers[1];
+            if(card2trunfo){
+                if(card2._ponto!=0 && card2._ponto > higherCardPoints){
+
+                    higherCardPoints = card2._ponto;
+                    winner = this.gamers[1];
+
+                }
+
+                if(card2._ponto == 0 && card2._simbolo > higherCardSimb){
+
+                    higherCardSimb = card2._simbolo;
+                    winner = this.gamers[1];
+
+                }
             }
 
-            if (card3trunfo && card3._ponto > higherCard) {
-                higherCard = card3._ponto;
-                winner = this.gamers[2];
+            if(card3trunfo){
+                if (card3._ponto > higherCardPoints && card3._ponto != 0) {
+                    higherCardPoints = card3._ponto;
+                    winner = this.gamers[2];
+
+                }
+
+                if(card3._ponto == 0 && card3._simbolo > higherCardSimb){
+                    higherCardSimb = card3._simbolo;
+                    winner = this.gamers[2];
+                }
             }
 
-            if (card4trunfo && card4._ponto > higherCard) {
-                higherCard = card4._ponto;
-                winner = this.gamers[3];
+            if(card4trunfo){
+
+                if (card4._ponto > higherCardPoints && card4._ponto != 0) {
+                    higherCardPoints = card4._ponto;
+                    winner = this.gamers[3];
+
+                }
+
+                if(card4._ponto == 0 && card4._simbolo > higherCardSimb){
+                    higherCardSimb = card4._simbolo;
+                    winner = this.gamers[3];
+                }
             }
+
 
             this.rounds[round].winner = winner;
 
@@ -347,27 +399,53 @@ export class Mesa {
         //se nao houver trunfos, ganha quem tiver ganho posto a carta mais alta do naipe que o 1 jogador colocou
         if (countTrunfos == 0) {
             console.log("NAO HOUVE TRUNFOS JOGADOS");
-            let higherCard: number = 0;
+            let higherCardPoints: number = 0;
+            let higherCardSimb: number = 0;
             let winner: string;
-            if (card1._tipoCard == tipo && card1._ponto > higherCard) {
-                higherCard = card1._ponto;
+
+            if (card1._tipoCard == tipo && card1._ponto > higherCardPoints && card1._ponto != 0) {
+                higherCardPoints = card1._ponto;
                 winner = this.gamers[0];
 
             }
-            if (card2._tipoCard == tipo && card2._ponto > higherCard) {
-                higherCard = card2._ponto;
+            if(card1._tipoCard == tipo && card1._ponto == 0 && card1._simbolo > higherCardSimb){
+                higherCardSimb = card1._simbolo;
+                winner = this.gamers[0];
+
+            }
+            if (card2._tipoCard == tipo && card2._ponto > higherCardPoints && card2._ponto != 0) {
+                higherCardPoints = card2._ponto;
                 winner = this.gamers[1];
+
+            }
+            if(card2._tipoCard == tipo && card2._ponto == 0 && card2._simbolo > higherCardSimb){
+                higherCardSimb = card2._simbolo;
+                winner = this.gamers[1];
+
             }
 
-            if (card3._tipoCard == tipo && card3._ponto > higherCard) {
-                higherCard = card3._ponto;
+            if (card3._tipoCard == tipo && card3._ponto > higherCardPoints && card3._ponto != 0) {
+                higherCardPoints = card3._ponto;
                 winner = this.gamers[2];
+
+            }
+            if(card3._tipoCard == tipo && card3._ponto == 0 && card3._simbolo > higherCardSimb){
+                higherCardSimb = card3._simbolo;
+                winner = this.gamers[2];
+
             }
 
-            if (card4._tipoCard == tipo && card4._ponto > higherCard) {
-                higherCard = card4._ponto;
+            if (card4._tipoCard == tipo && card4._ponto > higherCardPoints && card4._ponto != 0) {
+                higherCardPoints = card4._ponto;
                 winner = this.gamers[3];
             }
+            if(card4._tipoCard == tipo && card4._ponto == 0 && card4._simbolo > higherCardSimb){
+                higherCardSimb = card4._simbolo;
+                winner = this.gamers[3];
+
+            }
+
+
             this.rounds[round].winner = winner;
         }
         //ADICIONA OS PONTOS E COMEÇA NOVA RONDA
