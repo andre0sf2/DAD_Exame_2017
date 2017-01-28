@@ -54,6 +54,7 @@ var TableComponent = (function () {
         this.getMoves();
         this.getRoundWinners();
         this.getSuit();
+        this.getFinal();
         /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
 
 
@@ -91,10 +92,18 @@ var TableComponent = (function () {
             //console.log("Carta: "+m.card._tipoCard+m.card._simbolo+"\n"+"User: "+ m.username);
         });
     };
+    TableComponent.prototype.getFinal = function () {
+        this.websocketService.getFinal().subscribe(function (m) {
+            console.log("GAME OVER - WINNERS");
+            console.log(m);
+        });
+    };
     TableComponent.prototype.getRoundWinners = function () {
+        var _this = this;
         this.websocketService.getRoundWinners().subscribe(function (m) {
             console.log("WINNER OF ROUND");
             console.log(m);
+            _this.cleanMesa();
         });
     };
     TableComponent.prototype.getGamePlayers = function () {
@@ -132,8 +141,10 @@ var TableComponent = (function () {
         });
     };
     TableComponent.prototype.cleanMesa = function () {
-        this.mesa = new mesa_1.Mesa();
-        this.error = '';
+        this.jogadores.forEach(function (jogador) {
+            var img = document.getElementById(jogador);
+            img.setAttribute("src", "../../img/cards/semFace.png");
+        });
     };
     TableComponent.prototype.getCardBaralho = function (card) {
         if (this.isMyTurn) {

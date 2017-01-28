@@ -77,8 +77,10 @@ var LobbyComponent = (function () {
         this.gameService.createGame(JSON.parse(localStorage.getItem('user'))).subscribe(function (resource) {
             if (resource !== 'No game data') {
                 _this.info = "Game created";
-                _this.webSocketService.createRoom({ room: 'room' + resource._id,
-                    userId: _this.authService.getCurrentUser()._id, username: _this.authService.getCurrentUser().username });
+                _this.webSocketService.createRoom({
+                    room: 'room' + resource._id,
+                    userId: _this.authService.getCurrentUser()._id, username: _this.authService.getCurrentUser().username
+                });
                 _this.findMyGames();
             }
             else {
@@ -116,9 +118,19 @@ var LobbyComponent = (function () {
                 if (response.nplayers == 4) {
                     console.log('game will start');
                     response.status = 'on going';
+                    var currentdate = new Date();
+                    var datetime = currentdate.getDate() + "-"
+                        + (currentdate.getMonth() + 1) + "-"
+                        + currentdate.getFullYear() + " "
+                        + currentdate.getHours() + ":"
+                        + currentdate.getMinutes() + ":"
+                        + currentdate.getSeconds();
+                    response.dateStart = datetime;
                     _this.gameService.updateGame(response, _this.authService.getCurrentUser()).subscribe(function (res) { return console.log('1' + res); });
-                    _this.webSocketService.sendStartGame({ room: 'room' + _this.otherGames[i]._id,
-                        userId: _this.authService.getCurrentUser()._id, username: _this.authService.getCurrentUser()._username });
+                    _this.webSocketService.sendStartGame({
+                        room: 'room' + _this.otherGames[i]._id,
+                        userId: _this.authService.getCurrentUser()._id, username: _this.authService.getCurrentUser()._username
+                    });
                     console.log("pedido efectuado");
                 }
             });

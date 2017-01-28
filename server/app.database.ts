@@ -4,7 +4,7 @@ export class databaseConnection {
     public static connect =  (url: string, callback: () => void ) => {
         MongoClient
             .connect(url)
-            .then(database => {
+            .then((database:any) => {
                 console.log('Connection established to', url);
                 databaseConnection.db = database;
                 callback();

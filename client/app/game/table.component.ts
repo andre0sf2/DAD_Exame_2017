@@ -34,7 +34,7 @@ export class TableComponent implements OnInit {
     public suitName: string = "";
     public user: string = this.auth.getCurrentUser().username;
 
-    public cartasJogadas:any [] = [];
+    public cartasJogadas: any[] = [];
 
     constructor(private router: Router, private auth: AuthService, private websocketService: WebSocketService,
         private activeRoute: ActivatedRoute) {
@@ -66,6 +66,7 @@ export class TableComponent implements OnInit {
         this.getMoves();
         this.getRoundWinners();
         this.getSuit();
+        this.getFinal();
         /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
 
 
@@ -110,10 +111,19 @@ export class TableComponent implements OnInit {
 
     }
 
-    getRoundWinners(){
-        this.websocketService.getRoundWinners().subscribe((m:any)=>{
+    getFinal(){
+        this.websocketService.getFinal().subscribe((m:any) => {
+            console.log("GAME OVER - WINNERS");
+            console.log(m);
+        })
+    }
+
+
+    getRoundWinners() {
+        this.websocketService.getRoundWinners().subscribe((m: any) => {
             console.log("WINNER OF ROUND");
             console.log(m);
+            this.cleanMesa();
         })
     }
     getGamePlayers() {
@@ -149,8 +159,10 @@ export class TableComponent implements OnInit {
     }
 
     cleanMesa() {
-        this.mesa = new Mesa();
-        this.error = '';
+        this.jogadores.forEach(jogador => {
+            let img = document.getElementById(jogador);
+            img.setAttribute("src", "../../img/cards/semFace.png");
+        })
     }
 
     getCardBaralho(card: Card) {
@@ -158,12 +170,12 @@ export class TableComponent implements OnInit {
             for (let i = 0; i < this.cards.length; i++) {
                 if (this.cards[i].tipoCard == card.tipoCard && this.cards[i].simbolo == card.simbolo) {
                     //console.log(this.cards[i].toString());
-                    this.websocketService.sendCard({ room: this.room, round: this.currentRound,  username: this.auth.getCurrentUser().username, card: this.cards[i] });
+                    this.websocketService.sendCard({ room: this.room, round: this.currentRound, username: this.auth.getCurrentUser().username, card: this.cards[i] });
                     this.removeCard(this.cards[i]);
                 }
             }
             this.isMyTurn = false;
-        }else{
+        } else {
             console.log("WARNING - wait for your turn");
         }
     }

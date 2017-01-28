@@ -1,4 +1,3 @@
-"use strict";
 var mongodb = require('mongodb');
 var util = require('util');
 var app_database_1 = require('./app.database');
@@ -112,5 +111,5 @@ var Game = (function () {
         };
     }
     return Game;
-}());
+})();
 exports.Game = Game;

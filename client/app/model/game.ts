@@ -8,6 +8,8 @@ export class Game {
         public nplayers : number,
         public finish : string,
         public status: string,
+        public dateStart :string,
+        public dateFinish : string,
         public players : any[]
     ) {  }
 }
