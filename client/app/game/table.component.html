@@ -30,30 +30,31 @@
             <img class="trunfo centrar" src="{{this.suitImg}}">
             <p style="text-align: center">Trunfo: {{this.suitName}}</p>
         </div>
-        <div class="baralho col-md-9">
+        <div class="baralho col-md-9" style="background-color: green">
             <div class="">
-                <p style="text-align:center">{{this.jogadores[0]}}</p>
+                <p style="text-align:center;" ><img src="{{this.jogPics[0]}}" width="4%"> <strong id="{{this.jogadores[0]}}sep">{{this.jogadores[0]}}</strong></p>
                 <img src="../../img/cards/semFace.png" class="cartasMesa centrar" id="{{this.jogadores[0]}}">
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <p> {{this.jogadores[3]}}</p>
+                    <p><img src="{{this.jogPics[3]}}" width="8%"> <strong id="{{this.jogadores[3]}}sep">{{this.jogadores[3]}}</strong></p>
                     <img src="../../img/cards/semFace.png" class="cartasMesa2" id="{{this.jogadores[3]}}">
                 </div>
                 <div class="col-md-6">
-                    <p style="text-align:right">{{this.jogadores[1]}} </p>
+                    <p style="text-align:right; color: black;" ><img src="{{this.jogPics[1]}}" width="8%">
+                        <strong id="{{this.jogadores[1]}}sep">{{this.jogadores[1]}}</strong> </p>
                     <img src="../../img/cards/semFace.png" class="cartasMesa2 alignRight" id="{{this.jogadores[1]}}">
                 </div>
             </div>
 
             <div style="clear: both"></div>
 
-            <div class=""><p style="text-align:center">{{this.jogadores[2]}}</p>
+            <div class="">
+                <p style="text-align:center; color: black;"><img src="{{this.jogPics[2]}}" width="4%"> <strong id="{{this.jogadores[2]}}sep">{{this.jogadores[2]}}</strong></p>
                 <img src="../../img/cards/semFace.png" class="cartasMesa centrar" id="{{this.jogadores[2]}}">
             </div>
         </div>
     </div>
-
     <hr>
 
     <div>

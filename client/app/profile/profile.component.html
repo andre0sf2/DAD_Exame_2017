@@ -3,7 +3,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <img src="{{this.user.profilePic}}" width="100%">
+            <img src="{{this.user.profilePic}}" width="100%"><br>
+            <button class="btn btn-default" (click)="edit=true">Edit Picture</button>
         </div>
         <div class="col-md-8 jumbotron">
             <h3>Name: {{this.user.username}}</h3>
@@ -24,6 +25,13 @@
             </table>
         </div>
     </div>
+
+    <div *ngIf="edit">
+        <!--Picture-->
+        <label for="picture">Edit Picture here!</label><br>
+        <span class="btn btn-default btn-file">Browse..<input type="file" id="picture" image-upload (imageSelected)="selected($event)" [resizeOptions]="resizeOptions"
+                                                              aria-describedby="fileHelp"></span><br>
+    </div><br>
 </div>
 
 <div class="container">

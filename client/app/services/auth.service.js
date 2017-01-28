@@ -53,6 +53,16 @@ var AuthService = (function () {
             return Rx_1.Observable.throw(e);
         });
     };
+    AuthService.prototype.update = function (user) {
+        var options = this.buildHeadersWithAuthorization();
+        return this.http.put(url + 'users/' + user._id, user, { headers: options })
+            .toPromise()
+            .then(function (r) {
+            Promise.resolve(r.json());
+            localStorage.setItem('user', JSON.stringify(r.json()));
+        })
+            .catch(function (r) { return Promise.resolve({ error: true, message: 'internal error' }); });
+    };
     AuthService.prototype.getCookie = function (cookie) {
         return this.cookieService.get(cookie);
     };

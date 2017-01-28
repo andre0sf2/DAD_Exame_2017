@@ -41,7 +41,7 @@
 .baralho{
     width: 50%;
     height: 50%;
-    border: 1px solid black;
+    border: 10px solid brown;
     margin-right: auto;
     margin-left: auto;
 }

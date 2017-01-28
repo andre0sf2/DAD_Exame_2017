@@ -78,17 +78,16 @@ export class LobbyComponent implements OnInit {
         })
     }
 
-    createGame() {
-        this.gameService.createGame(JSON.parse(localStorage.getItem('user'))).subscribe((resource: any) => {
-            if (resource !== 'No game data') {
-                this.info = "Game created";
-                this.webSocketService.createRoom({
-                    room: 'room' + resource._id,
-                    userId: this.authService.getCurrentUser()._id, username: this.authService.getCurrentUser().username
-                });
-                this.findMyGames();
-            } else {
-                this.info = "Error creating game";
+    createGame(){
+        this.gameService.createGame(JSON.parse(localStorage.getItem('user'))).subscribe((resource: any) => 
+        {
+            if(resource!== 'No game data'){
+                this.info="Game created";
+                this.webSocketService.createRoom({room:'room' + resource._id,
+                    userId: this.authService.getCurrentUser()._id, username : this.authService.getCurrentUser().username, img: this.authService.getCurrentUser().profilePic });
+                this.findMyGames();  
+            }else{
+                this.info="Error creating game";
             }
 
         })
@@ -117,10 +116,9 @@ export class LobbyComponent implements OnInit {
         });
 
         if (!this.already_join) {
-
-            this.webSocketService.joinRoom({ userId: this.authService.getCurrentUser()._id, username: this.authService.getCurrentUser().username, room: 'room' + this.otherGames[i]._id });
-
-
+            this.webSocketService.joinRoom({userId:this.authService.getCurrentUser()._id, username : this.authService.getCurrentUser().username,
+                room : 'room'+ this.otherGames[i]._id, img: this.authService.getCurrentUser().profilePic});
+            
             this.otherGames[i].players.push({ player: this.authService.getCurrentUser()._id, points: 0 });
             this.otherGames[i].nplayers = this.otherGames[i].nplayers + 1;
 
@@ -141,11 +139,8 @@ export class LobbyComponent implements OnInit {
                     response.dateStart = datetime;
                     this.gameService.updateGame(response, this.authService.getCurrentUser()).subscribe(res => console.log('1' + res));
 
-                    this.webSocketService.sendStartGame({
-                        room: 'room' + this.otherGames[i]._id,
-                        userId: this.authService.getCurrentUser()._id, username: this.authService.getCurrentUser()._username
-                    });
-                    console.log("pedido efectuado");
+                    this.webSocketService.sendStartGame({room:'room' + this.otherGames[i]._id,
+                        userId: this.authService.getCurrentUser()._id,username:this.authService.getCurrentUser()._username, img: this.authService.getCurrentUser().profilePic});                    console.log("pedido efectuado");
                 }
             });
 

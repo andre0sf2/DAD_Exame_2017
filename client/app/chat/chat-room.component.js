@@ -37,14 +37,25 @@ var ChatRoomComponent = (function () {
         });
         this.webSocket.getChatMessagesFromRoom(this.roomId).subscribe(function (m) {
             _this.images.push(m.image);
-            _this.chatMessages.push(m.username);
+            _this.chatMessages.push({
+                chat: m.username,
+                date: m.date
+            });
             _this.arrAux = _this.transform(_this.images, _this.chatMessages);
         });
     };
     ChatRoomComponent.prototype.sendMessage = function () {
         var now = new Date(Date.now());
-        var time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-        var message = { image: this.auth.getCurrentUser().profilePic, username: this.auth.getCurrentUser().username + ' (' + time + '): ' + this.chatForm.controls['message'].value };
+        var hour = now.getHours().toString();
+        var minute = now.getMinutes().toString();
+        if (now.getHours() < 10) {
+            hour = "0" + now.getHours();
+        }
+        if (now.getMinutes() < 10) {
+            minute = "0" + now.getMinutes();
+        }
+        var time = hour + ":" + minute;
+        var message = { image: this.auth.getCurrentUser().profilePic, username: this.auth.getCurrentUser().username, date: ' (' + time + '): ' + this.chatForm.controls['message'].value };
         this.webSocket.sendChatMessageToRoom(this.roomId, message);
         this.chatForm.controls['message'].setValue("");
     };
