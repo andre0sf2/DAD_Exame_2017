@@ -16,7 +16,7 @@ var http_1 = require("@angular/http");
 var UserService = (function () {
     function UserService(http) {
         this.http = http;
-        this.url = 'http://localhost:7777/api/v1/';
+        this.url = 'http://138.68.100.185:7777/api/v1/';
     }
     UserService.prototype.getUserToLocalStorage = function (id, token) {
         this.http.get(this.url + 'users/' + id)

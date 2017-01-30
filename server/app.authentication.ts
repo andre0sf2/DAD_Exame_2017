@@ -34,15 +34,15 @@ export class Authentication {
             })
         );
 
-        server.get("http://127.0.0.1:7777/api/v1/" + "auth/google/callback",
+        server.get(settings.prefix + + "auth/google/callback",
             settings.security.passport.authenticate("google", {
-                failureRedirect: "http://127.0.0.1:3000/"
+                failureRedirect: "/login"
             }),
             function (req, res, next) {
                 console.log(req.user);
 
                 res.setHeader('Set-Cookie', 'user=' + req.user._id + '#' + req.user.token + ';Path=/');
-                res.redirect('http://127.0.0.1:3000/home', next);
+                res.redirect('/', next);
 
             }
         );
@@ -58,13 +58,13 @@ export class Authentication {
 
         server.get(settings.prefix + "auth/github/callback",
             settings.security.passport.authenticate("github", {
-                failureRedirect: "http://localhost:3000/"
+                failureRedirect: "/login"
             }),
             function (req, res, next) {
                 console.log(req.user);
 
                 res.setHeader('Set-Cookie', 'user=' + req.user._id + '#' + req.user.token + ';Path=/');
-                res.redirect('http://localhost:3000/home', next);
+                res.redirect('/', next);
 
             }
         );
@@ -79,13 +79,13 @@ export class Authentication {
         // handle the callback after facebook has authenticated the user
         server.get(settings.prefix + "auth/facebook/callback",
             settings.security.passport.authenticate("facebook", {
-                failureRedirect: "http://localhost:3000/"
+                failureRedirect: "/login"
             }),
             function (req, res, next) {
                 console.log(req.user);
 
                 res.setHeader('Set-Cookie', 'user=' + req.user._id + '#' + req.user.token + ';Path=/');
-                res.redirect('http://localhost:3000/home', next);
+                res.redirect('/', next);
 
             }
         );

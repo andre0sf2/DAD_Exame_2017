@@ -66,7 +66,7 @@ passport.deserializeUser(function(user, done) {
 let facebookAuth = {
     'clientID': '944505412318401', // facebook App ID
     'clientSecret': 'ad3de579cd766e02ef9afc98ee3e259c', // facebook App Secret
-    'callbackURL': 'http://localhost:7777/api/v1/auth/facebook/callback'
+    'callbackURL': 'http://138.68.100.185:7777/api/v1/auth/facebook/callback'
 };
 passport.use(new FacebookStrategy({
         "clientID": facebookAuth.clientID,
@@ -124,7 +124,7 @@ passport.use(new FacebookStrategy({
 let githubAuth = {
     'clientID': '3f7a64c6f68f9459ec2f',
     'clientSecret': '06ffab5f584db3ab042369daadc5b7dbf0616850',
-    'callbackURL': 'http://localhost:7777/api/v1/auth/github/callback'
+    'callbackURL': 'http://138.68.100.185:7777/api/v1/auth/github/callback'
 };
 passport.use(new GitHubStrategy({
         "clientID": githubAuth.clientID,
@@ -183,7 +183,7 @@ passport.use(new GitHubStrategy({
 let googleAuth = {
     'clientID': '11841045362-1cj0rejku8p9phl2119g1aih84bfvi1j.apps.googleusercontent.com',
     'clientSecret': 'Hoc69hr5-eZthQZEjTzxicjy',
-    'callbackURL': 'http://127.0.0.1:7777/api/v1/auth/google/callback'
+    'callbackURL': 'http://138.68.100.185:7777/api/v1/auth/google/callback'
 };
 passport.use(new GoogleStrategy({
         "clientID": googleAuth.clientID,

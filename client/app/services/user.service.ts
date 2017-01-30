@@ -9,7 +9,7 @@ import {User} from "../model/user";
 @Injectable()
 export class UserService {
 
-    protected url = 'http://localhost:7777/api/v1/';
+    protected url = 'http://138.68.100.185:7777/api/v1/';
 
     constructor(private http: Http) {
     }

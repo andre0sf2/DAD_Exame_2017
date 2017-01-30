@@ -19,7 +19,7 @@ require("rxjs/add/operator/catch");
 require("rxjs/add/observable/throw");
 var core_2 = require("angular2-cookie/core");
 var user_service_1 = require("./user.service");
-var url = 'http://localhost:7777/api/v1/';
+var url = 'http://138.68.100.185:7777/api/v1/';
 var AuthService = (function () {
     function AuthService(http, cookieService, userService) {
         this.http = http;

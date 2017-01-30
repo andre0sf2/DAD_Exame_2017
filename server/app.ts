@@ -6,7 +6,7 @@ import {databaseConnection as database} from './app.database';
 import {WebSocketServer} from './app.websockets';
 import {HandlerSettings} from './handler.settings';
 
-const url = 'mongodb://localhost:27017/sueca-proj';
+const url = 'mongodb://138.68.100.185:27017/sueca-proj';
 
 // Create Restify and WebSocket Server
 const restifyServer = restify.createServer();
@@ -65,9 +65,10 @@ new User().init(restifyServer, settings);
 import {Game} from './app.games';
 new Game().init(restifyServer, settings);
 
-restifyServer.get(/^\/(?!api\/).*!/, restify.serveStatic({
-    directory: '../client',
-    default: 'index.html'
+restifyServer.get(/\/?.*/, restify.serveStatic({
+    directory: __dirname.replace("server", "client"),
+    default: 'index.html',
+    match: /^((?!app.js).)*$/
 }));
 
 database.connect(url, () => {

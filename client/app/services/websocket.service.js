@@ -14,7 +14,7 @@ var io = require("socket.io-client");
 var WebSocketService = (function () {
     function WebSocketService() {
         if (!this.socket) {
-            this.socket = io("http://localhost:7777");
+            this.socket = io("http://138.68.100.185:7777");
         }
     }
     WebSocketService.prototype.getTurn = function () {
