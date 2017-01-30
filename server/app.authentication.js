@@ -17,9 +17,21 @@ var Authentication = (function () {
             server.post(settings.prefix + 'login', settings.security.passport.authenticate('local', { 'session': false }), _this.login);
             server.post(settings.prefix + 'logout', settings.security.authorize, _this.logout);
             _this.initFacebookRoutes(server, settings);
+            _this.initGithubRoutes(server, settings);
             console.log("Authentication routes registered");
         };
     }
+    Authentication.prototype.initGithubRoutes = function (server, settings) {
+        server.get(settings.prefix + "auth/github", settings.security.passport.authenticate('github'));
+        server.get(settings.prefix + "auth/github/callback", settings.security.passport.authenticate("github", {
+            failureRedirect: "http://localhost:3000/"
+        }), function (req, res, next) {
+            console.log(req.user);
+            res.setHeader('Set-Cookie', 'user=' + req.user._id + '#' + req.user.token + ';Path=/');
+            res.redirect('http://localhost:3000/home', next);
+        });
+        console.log("Github authentication routes registered");
+    };
     Authentication.prototype.initFacebookRoutes = function (server, settings) {
         // send to facebook to do the authentication
         server.get(settings.prefix + "auth/facebook", settings.security.passport.authenticate("facebook", { scope: "public_profile,email" }));

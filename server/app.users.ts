@@ -183,4 +183,5 @@ export class User {
         console.log("Users routes registered");
 
     };
+
 }

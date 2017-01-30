@@ -4,6 +4,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var BearerStrategy = require('passport-http-bearer').Strategy;
 var FacebookStrategy = require("passport-facebook").Strategy;
+var GitHubStrategy = require("passport-github").Strategy;
 var sha1 = require('sha1');
 var app_database_1 = require('./app.database');
 var Security = (function () {
@@ -93,6 +94,52 @@ passport.use(new FacebookStrategy({
         else {
             app_database_1.databaseConnection.db.collection('users')
                 .updateOne({ fbID: user.fbID }, { $set: { token: token } })
+                .then(function (r) { return r.modifiedCount !== 1 ? done(null, false) : done(null, user); })
+                .catch(function (err) { return done(err); });
+        }
+    }).catch(function (err) { return done(err); });
+    return done;
+}));
+/* GitHub Auth */
+var githubAuth = {
+    'clientID': '3f7a64c6f68f9459ec2f',
+    'clientSecret': '06ffab5f584db3ab042369daadc5b7dbf0616850',
+    'callbackURL': 'http://localhost:7777/api/v1/auth/github/callback'
+};
+passport.use(new GitHubStrategy({
+    "clientID": githubAuth.clientID,
+    "clientSecret": githubAuth.clientSecret,
+    "callbackURL": githubAuth.callbackURL,
+}, function (token, refreshToken, profile, done) {
+    app_database_1.databaseConnection.db.collection('users').findOne({
+        githubID: profile.id
+    }).then(function (user) {
+        console.log(profile);
+        if (user === null) {
+            // INSERT ONE
+            var u_2 = new user_1.User(profile.username, profile.emails === undefined ? "" : profile.emails[0].value, token, '', '', profile.photos ? profile.photos[0].value : '../../img/photo4.png', null, profile.id);
+            delete u_2._githubID;
+            delete u_2._fbID;
+            delete u_2.password;
+            delete u_2.passwordConfirmation;
+            delete u_2._username;
+            delete u_2._email;
+            delete u_2._token;
+            delete u_2._password;
+            delete u_2._passwordConfirmation;
+            delete u_2._profilePic;
+            delete u_2.passwordHash;
+            app_database_1.databaseConnection.db.collection('users')
+                .insertOne(u_2)
+                .then(function (r) {
+                user = u_2;
+                r.modifiedCount !== 1 ? done(null, false) : done(null, user);
+            })
+                .catch(function (err) { return done(err); });
+        }
+        else {
+            app_database_1.databaseConnection.db.collection('users')
+                .updateOne({ githubID: user.githubID }, { $set: { token: token } })
                 .then(function (r) { return r.modifiedCount !== 1 ? done(null, false) : done(null, user); })
                 .catch(function (err) { return done(err); });
         }

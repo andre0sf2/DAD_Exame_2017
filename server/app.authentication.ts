@@ -20,9 +20,33 @@ export class Authentication {
         server.post(settings.prefix + 'logout', settings.security.authorize, this.logout);
 
         this.initFacebookRoutes(server, settings);
+        this.initGithubRoutes(server, settings);
 
         console.log("Authentication routes registered");
     };
+
+    private initGithubRoutes(server: any, settings: HandlerSettings) {
+
+        server.get(settings.prefix + "auth/github",
+            settings.security.passport.authenticate('github')
+        );
+
+        server.get(settings.prefix + "auth/github/callback",
+            settings.security.passport.authenticate("github", {
+                failureRedirect: "http://localhost:3000/"
+            }),
+            function (req, res, next) {
+                console.log(req.user);
+
+                res.setHeader('Set-Cookie', 'user=' + req.user._id + '#' + req.user.token + ';Path=/');
+                res.redirect('http://localhost:3000/home', next);
+
+            }
+        );
+
+        console.log("Github authentication routes registered");
+
+    }
 
     private initFacebookRoutes(server: any, settings: HandlerSettings) {
         // send to facebook to do the authentication

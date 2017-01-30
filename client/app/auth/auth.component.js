@@ -17,10 +17,6 @@ var AuthComponent = (function () {
     function AuthComponent(auth) {
         this.auth = auth;
     }
-    AuthComponent.prototype.facebook = function () {
-    };
-    AuthComponent.prototype.twitter = function () {
-    };
     AuthComponent.prototype.google = function () {
     };
     return AuthComponent;

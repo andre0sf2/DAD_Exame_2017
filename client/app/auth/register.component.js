@@ -68,9 +68,6 @@ var RegisterComponent = (function () {
             }
         });
     };
-    RegisterComponent.prototype.authFacebook = function () {
-        this.auth.facebook();
-    };
     RegisterComponent.prototype.gotoLogin = function () {
         this.router.navigateByUrl('/login').then();
     };

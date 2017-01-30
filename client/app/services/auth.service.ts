@@ -103,19 +103,5 @@ export class AuthService {
         return headers;
     }
 
-    facebook() {
-        return this.http
-            .get(url + 'auth/facebook')
-            .toPromise()
-            .then(r => Promise.resolve(r.json()))
-            .catch(r => Promise.resolve({error: true, message: 'Internal error, try again later.'}));
-    }
 
-    twitter() {
-
-    }
-
-    google() {
-
-    }
 }

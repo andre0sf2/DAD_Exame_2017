@@ -17,14 +17,6 @@ export class AuthComponent {
 
     }
 
-    facebook() {
-
-    }
-
-    twitter() {
-
-    }
-
     google() {
 
     }

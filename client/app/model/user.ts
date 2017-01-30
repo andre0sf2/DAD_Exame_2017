@@ -5,6 +5,7 @@
 export class User {
     _id: string;
     public fbID: number;
+    public githubID: number;
     username: string;
     email: string;
     passwordHash: string;
@@ -22,8 +23,10 @@ export class User {
                 public _password?: string,
                 public _passwordConfirmation?: string,
                 public _profilePic?: string,
-                public _fbID?: number) {
+                public _fbID?: number,
+                public _githubID?:number) {
         this.fbID = _fbID;
+        this.githubID = _githubID;
         this.username = _username;
         this.email = _email;
         this.token = _token;

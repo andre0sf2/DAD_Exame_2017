@@ -74,10 +74,6 @@ export class RegisterComponent {
             });
     }
 
-    authFacebook() {
-        this.auth.facebook();
-    }
-
     gotoLogin() {
         this.router.navigateByUrl('/login').then(/*Do Nothing*/);
     }

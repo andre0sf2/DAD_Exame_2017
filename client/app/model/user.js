@@ -3,7 +3,7 @@
  */
 "use strict";
 var User = (function () {
-    function User(_username, _email, _token, _password, _passwordConfirmation, _profilePic, _fbID) {
+    function User(_username, _email, _token, _password, _passwordConfirmation, _profilePic, _fbID, _githubID) {
         this._username = _username;
         this._email = _email;
         this._token = _token;
@@ -11,7 +11,9 @@ var User = (function () {
         this._passwordConfirmation = _passwordConfirmation;
         this._profilePic = _profilePic;
         this._fbID = _fbID;
+        this._githubID = _githubID;
         this.fbID = _fbID;
+        this.githubID = _githubID;
         this.username = _username;
         this.email = _email;
         this.token = _token;

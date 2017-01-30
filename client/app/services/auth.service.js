@@ -89,17 +89,6 @@ var AuthService = (function () {
         headers.append('Authorization', 'Bearer ' + this.getCurrentUser().token);
         return headers;
     };
-    AuthService.prototype.facebook = function () {
-        return this.http
-            .get(url + 'auth/facebook')
-            .toPromise()
-            .then(function (r) { return Promise.resolve(r.json()); })
-            .catch(function (r) { return Promise.resolve({ error: true, message: 'Internal error, try again later.' }); });
-    };
-    AuthService.prototype.twitter = function () {
-    };
-    AuthService.prototype.google = function () {
-    };
     return AuthService;
 }());
 AuthService = __decorate([
