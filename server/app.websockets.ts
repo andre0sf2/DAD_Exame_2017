@@ -142,7 +142,7 @@ export class WebSocketServer {
                         this.io.to(client.player.gameRoom).emit('round', { round: data.round, points: this.games[data.room].rounds[data.round].points, winner: this.games[data.room].rounds[data.round].winner })
                         console.log("STARTING ROUND " + this.games[data.room].round);
                         this.games[data.room].startRound();
-                        this.io.to(client.player.gameRoom).emit('turn', { username: this.games[data.room].rounds[this.games[data.room].round].firstPlayer, round: this.games[data.room].round });
+                        setTimeout(this.io.to(client.player.gameRoom).emit('turn', { username: this.games[data.room].rounds[this.games[data.room].round].firstPlayer, round: this.games[data.room].round }),1000);
                     } else {
                         //FINISH GAME
                         console.log("FINISH GAME");

@@ -1,1 +1,0 @@
-{"version":3,"file":"gameHistory.component.js","sourceRoot":"","sources":["gameHistory.component.ts"],"names":[],"mappings":";;;;;;;AAAA,sCAA0C;AAU1C,IAAa,oBAAoB;IAAjC;IAIA,CAAC;IAAD,2BAAC;AAAD,CAAC,AAJD,IAIC;AAJY,oBAAoB;IAPhC,gBAAS,CAAC;QACP,QAAQ,EAAE,MAAM,CAAC,EAAE;QACnB,QAAQ,EAAE,aAAa;QACvB,WAAW,EAAE,4BAA4B;KAC5C,CAAC;GAGW,oBAAoB,CAIhC;AAJY,oDAAoB"}
