@@ -4,23 +4,21 @@
     <list default="true" id="46c09e73-346d-44cf-8727-c13994d00eca" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/auth/auth.component.html" afterPath="$PROJECT_DIR$/client/app/auth/auth.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/auth/auth.component.js" afterPath="$PROJECT_DIR$/client/app/auth/auth.component.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/auth/auth.component.js.map" afterPath="$PROJECT_DIR$/client/app/auth/auth.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/auth/auth.component.ts" afterPath="$PROJECT_DIR$/client/app/auth/auth.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/auth/register.component.js" afterPath="$PROJECT_DIR$/client/app/auth/register.component.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/auth/register.component.js.map" afterPath="$PROJECT_DIR$/client/app/auth/register.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/auth/register.component.ts" afterPath="$PROJECT_DIR$/client/app/auth/register.component.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/model/user.js" afterPath="$PROJECT_DIR$/client/app/model/user.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/model/user.js.map" afterPath="$PROJECT_DIR$/client/app/model/user.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/model/user.ts" afterPath="$PROJECT_DIR$/client/app/model/user.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/profile/profile.component.js" afterPath="$PROJECT_DIR$/client/app/profile/profile.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/profile/profile.component.js.map" afterPath="$PROJECT_DIR$/client/app/profile/profile.component.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/services/auth.service.js" afterPath="$PROJECT_DIR$/client/app/services/auth.service.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/services/auth.service.js.map" afterPath="$PROJECT_DIR$/client/app/services/auth.service.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/services/auth.service.ts" afterPath="$PROJECT_DIR$/client/app/services/auth.service.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/services/websocket.service.js" afterPath="$PROJECT_DIR$/client/app/services/websocket.service.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/services/websocket.service.js.map" afterPath="$PROJECT_DIR$/client/app/services/websocket.service.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/app.authentication.js" afterPath="$PROJECT_DIR$/server/app.authentication.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/app.authentication.ts" afterPath="$PROJECT_DIR$/server/app.authentication.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/app.security.js" afterPath="$PROJECT_DIR$/server/app.security.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/app.security.ts" afterPath="$PROJECT_DIR$/server/app.security.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/app.users.ts" afterPath="$PROJECT_DIR$/server/app.users.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/app.websockets.js" afterPath="$PROJECT_DIR$/server/app.websockets.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/app.websockets.js.map" afterPath="$PROJECT_DIR$/server/app.websockets.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/package.json" afterPath="$PROJECT_DIR$/server/package.json" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -42,8 +40,8 @@
       <file leaf-file-name="app.authentication.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/app.authentication.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+            <state relative-caret-position="256">
+              <caret line="44" column="46" lean-forward="false" selection-start-line="44" selection-start-column="46" selection-end-line="44" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -52,8 +50,8 @@
       <file leaf-file-name="app.security.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/app.security.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-186">
-              <caret line="139" column="29" lean-forward="false" selection-start-line="139" selection-start-column="29" selection-end-line="139" selection-end-column="29" />
+            <state relative-caret-position="173">
+              <caret line="191" column="31" lean-forward="false" selection-start-line="191" selection-start-column="31" selection-end-line="191" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -72,8 +70,8 @@
       <file leaf-file-name="user.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/app/model/user.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="28" column="34" lean-forward="false" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="34" />
+            <state relative-caret-position="289">
+              <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -102,8 +100,8 @@
       <file leaf-file-name="auth.component.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/app/auth/auth.component.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="37" lean-forward="false" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
+            <state relative-caret-position="170">
+              <caret line="10" column="86" lean-forward="false" selection-start-line="10" selection-start-column="86" selection-end-line="10" selection-end-column="86" />
               <folding />
             </state>
           </provider>
@@ -137,9 +135,16 @@
         <entry file="file://$PROJECT_DIR$/client/app/services/auth.service.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1564">
-              <caret line="105" column="0" lean-forward="false" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+              <caret line="118" column="0" lean-forward="false" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
+                <marker date="1485788826026" expanded="true" signature="1984:2038" ph="{...}" />
+                <marker date="1485788826026" expanded="true" signature="2080:2366" ph="{...}" />
+                <marker date="1485788826026" expanded="true" signature="2392:2460" ph="{...}" />
+                <marker date="1485788826026" expanded="true" signature="2489:2859" ph="{...}" />
+                <marker date="1485788826026" expanded="true" signature="2541:2795" ph="{...}" />
+                <marker date="1485788826026" expanded="true" signature="2692:2785" ph="{...}" />
+                <marker date="1485788826026" expanded="true" signature="2890:3079" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -157,11 +162,11 @@
         <option value="$PROJECT_DIR$/client/app/auth/auth.component.ts" />
         <option value="$PROJECT_DIR$/client/app/auth/register.component.ts" />
         <option value="$PROJECT_DIR$/client/app/services/auth.service.ts" />
-        <option value="$PROJECT_DIR$/client/app/auth/auth.component.html" />
         <option value="$PROJECT_DIR$/server/app.users.ts" />
+        <option value="$PROJECT_DIR$/client/app/auth/auth.component.html" />
         <option value="$PROJECT_DIR$/client/app/model/user.ts" />
-        <option value="$PROJECT_DIR$/server/app.security.ts" />
         <option value="$PROJECT_DIR$/server/app.authentication.ts" />
+        <option value="$PROJECT_DIR$/server/app.security.ts" />
       </list>
     </option>
   </component>
@@ -496,15 +501,15 @@
       <updated>1485556026816</updated>
       <workItem from="1485556029717" duration="3442000" />
       <workItem from="1485559920902" duration="2413000" />
-      <workItem from="1485783371085" duration="4078000" />
+      <workItem from="1485783371085" duration="7083000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9933000" />
+    <option name="totallyTimeSpent" value="12938000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -512,7 +517,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3252818" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -685,6 +690,13 @@
           <caret line="105" column="0" lean-forward="false" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <marker date="1485788826026" expanded="true" signature="1984:2038" ph="{...}" />
+            <marker date="1485788826026" expanded="true" signature="2080:2366" ph="{...}" />
+            <marker date="1485788826026" expanded="true" signature="2392:2460" ph="{...}" />
+            <marker date="1485788826026" expanded="true" signature="2489:2859" ph="{...}" />
+            <marker date="1485788826026" expanded="true" signature="2541:2795" ph="{...}" />
+            <marker date="1485788826026" expanded="true" signature="2692:2785" ph="{...}" />
+            <marker date="1485788826026" expanded="true" signature="2890:3079" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -811,9 +823,16 @@
     <entry file="file://$PROJECT_DIR$/client/app/services/auth.service.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1564">
-          <caret line="105" column="0" lean-forward="false" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+          <caret line="118" column="0" lean-forward="false" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <marker date="1485788826026" expanded="true" signature="1984:2038" ph="{...}" />
+            <marker date="1485788826026" expanded="true" signature="2080:2366" ph="{...}" />
+            <marker date="1485788826026" expanded="true" signature="2392:2460" ph="{...}" />
+            <marker date="1485788826026" expanded="true" signature="2489:2859" ph="{...}" />
+            <marker date="1485788826026" expanded="true" signature="2541:2795" ph="{...}" />
+            <marker date="1485788826026" expanded="true" signature="2692:2785" ph="{...}" />
+            <marker date="1485788826026" expanded="true" signature="2890:3079" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -825,22 +844,6 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/app/auth/auth.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="37" lean-forward="false" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/app.database.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -860,26 +863,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/auth/auth.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="86" lean-forward="false" selection-start-line="10" selection-start-column="86" selection-end-line="10" selection-end-column="86" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/app/model/user.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="28" column="34" lean-forward="false" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="34" />
+        <state relative-caret-position="289">
+          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/app.database.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/app.authentication.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+        <state relative-caret-position="256">
+          <caret line="44" column="46" lean-forward="false" selection-start-line="44" selection-start-column="46" selection-end-line="44" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/app.security.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-186">
-          <caret line="139" column="29" lean-forward="false" selection-start-line="139" selection-start-column="29" selection-end-line="139" selection-end-column="29" />
+        <state relative-caret-position="173">
+          <caret line="191" column="31" lean-forward="false" selection-start-line="191" selection-start-column="31" selection-end-line="191" selection-end-column="31" />
           <folding />
         </state>
       </provider>

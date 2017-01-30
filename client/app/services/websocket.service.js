@@ -23,6 +23,9 @@ var WebSocketService = (function () {
     WebSocketService.prototype.getRoundWinners = function () {
         return this.listenOnChannel('round');
     };
+    WebSocketService.prototype.getFinal = function () {
+        return this.listenOnChannel('final');
+    };
     WebSocketService.prototype.getMoves = function () {
         return this.listenOnChannel('move');
     };

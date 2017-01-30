@@ -18,9 +18,24 @@ var Authentication = (function () {
             server.post(settings.prefix + 'logout', settings.security.authorize, _this.logout);
             _this.initFacebookRoutes(server, settings);
             _this.initGithubRoutes(server, settings);
+            _this.initGoogleRoutes(server, settings);
             console.log("Authentication routes registered");
         };
     }
+    Authentication.prototype.initGoogleRoutes = function (server, settings) {
+        server.get(settings.prefix + "auth/google", settings.security.passport.authenticate('google', {
+            scope: ['https://www.googleapis.com/auth/plus.login',
+                'https://www.googleapis.com/auth/plus.profile.emails.read']
+        }));
+        server.get("http://127.0.0.1:7777/api/v1/" + "auth/google/callback", settings.security.passport.authenticate("google", {
+            failureRedirect: "http://127.0.0.1:3000/"
+        }), function (req, res, next) {
+            console.log(req.user);
+            res.setHeader('Set-Cookie', 'user=' + req.user._id + '#' + req.user.token + ';Path=/');
+            res.redirect('http://127.0.0.1:3000/home', next);
+        });
+        console.log("Google authentication routes registered");
+    };
     Authentication.prototype.initGithubRoutes = function (server, settings) {
         server.get(settings.prefix + "auth/github", settings.security.passport.authenticate('github'));
         server.get(settings.prefix + "auth/github/callback", settings.security.passport.authenticate("github", {

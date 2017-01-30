@@ -21,9 +21,34 @@ export class Authentication {
 
         this.initFacebookRoutes(server, settings);
         this.initGithubRoutes(server, settings);
+        this.initGoogleRoutes(server, settings);
 
         console.log("Authentication routes registered");
     };
+
+    private initGoogleRoutes(server: any, settings: HandlerSettings) {
+        server.get(settings.prefix + "auth/google",
+            settings.security.passport.authenticate('google', {
+                scope: ['https://www.googleapis.com/auth/plus.login',
+                    'https://www.googleapis.com/auth/plus.profile.emails.read']
+            })
+        );
+
+        server.get("http://127.0.0.1:7777/api/v1/" + "auth/google/callback",
+            settings.security.passport.authenticate("google", {
+                failureRedirect: "http://127.0.0.1:3000/"
+            }),
+            function (req, res, next) {
+                console.log(req.user);
+
+                res.setHeader('Set-Cookie', 'user=' + req.user._id + '#' + req.user.token + ';Path=/');
+                res.redirect('http://127.0.0.1:3000/home', next);
+
+            }
+        );
+
+        console.log("Google authentication routes registered");
+    }
 
     private initGithubRoutes(server: any, settings: HandlerSettings) {
 

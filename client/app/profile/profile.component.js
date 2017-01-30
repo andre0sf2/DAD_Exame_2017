@@ -13,15 +13,35 @@ var auth_service_1 = require("../services/auth.service");
 var ProfileComponent = (function () {
     function ProfileComponent(auth) {
         this.auth = auth;
+        this.edit = false;
         this.user = this.auth.getCurrentUser();
+        this.src = "";
+        this.resizeOptions = {
+            resizeMaxHeight: 178,
+            resizeMaxWidth: 178
+        };
+        this.edit = false;
         console.log(this.user.profilePic);
     }
+    ProfileComponent.prototype.editPic = function (userAux) {
+        console.log("Imagem: " + userAux.profilePic);
+        this.user = userAux;
+        this.auth.update(userAux);
+        this.edit = false;
+    };
+    ProfileComponent.prototype.selected = function (imageResult) {
+        this.src = imageResult.resized && imageResult.resized.dataURL || imageResult.dataURL;
+        this.user.profilePic = this.src;
+        //console.log("Imagem: "+ this.src);
+        this.editPic(this.user);
+    };
     return ProfileComponent;
 }());
 ProfileComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        templateUrl: 'profile.component.html'
+        templateUrl: 'profile.component.html',
+        styleUrls: ['profile.component.css']
     }),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], ProfileComponent);

@@ -4,6 +4,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const BearerStrategy = require('passport-http-bearer').Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
 const GitHubStrategy = require("passport-github").Strategy;
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const sha1 = require('sha1');
 
 import {databaseConnection as database} from './app.database';
@@ -79,7 +80,7 @@ passport.use(new FacebookStrategy({
         }).then(user => {
             if (user === null) {
                 // INSERT ONE
-                let u = new User(profile.displayName, profile.emails === undefined ? "" : profile.emails[0].value, token, '', '', profile.photos ? profile.photos[0].value : '../../img/photo4.png', profile.id );
+                let u = new User(profile.displayName, profile.emails === undefined ? "" : profile.emails[0].value, token, '', '', profile.photos ? profile.photos[0].value : '../../img/photo4.png', profile.id, null, null);
 
                 delete u.password;
                 delete u.passwordConfirmation;
@@ -91,6 +92,12 @@ passport.use(new FacebookStrategy({
                 delete u._profilePic;
                 delete u._fbID;
                 delete u.passwordHash;
+
+                delete u._fbID;
+                delete u._googleID;
+                delete u._githubID;
+                delete u.githubID;
+                delete u.googleID;
 
                 database.db.collection('users')
                     .insertOne(u)
@@ -131,10 +138,9 @@ passport.use(new GitHubStrategy({
             console.log(profile);
             if (user === null) {
                 // INSERT ONE
-                let u = new User(profile.username, profile.emails === undefined ? "" : profile.emails[0].value, token, '', '', profile.photos ? profile.photos[0].value : '../../img/photo4.png', null, profile.id);
+                let u = new User(profile.username, profile.emails === undefined ? "" : profile.emails[0].value, token, '', '', profile.photos ? profile.photos[0].value : '../../img/photo4.png', null, profile.id, null);
 
-                 delete u._githubID;
-                 delete u._fbID;
+
                  delete u.password;
                  delete u.passwordConfirmation;
                  delete u._username;
@@ -144,6 +150,12 @@ passport.use(new GitHubStrategy({
                  delete u._passwordConfirmation;
                  delete u._profilePic;
                  delete u.passwordHash;
+
+                delete u._fbID;
+                delete u._googleID;
+                delete u._githubID;
+                delete u.fbID;
+                delete u.googleID;
 
                  database.db.collection('users')
                  .insertOne(u)
@@ -156,6 +168,65 @@ passport.use(new GitHubStrategy({
             } else {
                 database.db.collection('users')
                     .updateOne({githubID: user.githubID}, {$set: {token: token}})
+                    .then(r => r.modifiedCount !== 1 ? done(null, false) : done(null, user))
+                    .catch(err => done(err));
+            }
+
+        }).catch(err => done(err));
+
+        return done;
+
+    }));
+
+
+/* Google Auth */
+let googleAuth = {
+    'clientID': '11841045362-1cj0rejku8p9phl2119g1aih84bfvi1j.apps.googleusercontent.com',
+    'clientSecret': 'Hoc69hr5-eZthQZEjTzxicjy',
+    'callbackURL': 'http://127.0.0.1:7777/api/v1/auth/google/callback'
+};
+passport.use(new GoogleStrategy({
+        "clientID": googleAuth.clientID,
+        "clientSecret": googleAuth.clientSecret,
+        "callbackURL": googleAuth.callbackURL,
+        passReqToCallback: true
+    },
+    function (request, token, refreshToken, profile, done) {
+        console.log(profile);
+
+        database.db.collection('users').findOne({
+            googleID: profile.id
+        }).then(user => {
+            if (user === null) {
+                // INSERT ONE
+                let u = new User(profile.displayName, profile.emails === undefined ? "" : profile.emails[0].value, token, '', '', profile.photos ? profile.photos[0].value : '../../img/photo4.png', null, null, profile.id);
+
+                delete u._googleID;
+                delete u._githubID;
+                delete u._fbID;
+                delete u.fbID;
+                delete u.githubID;
+                delete u.password;
+                delete u.passwordConfirmation;
+                delete u._username;
+                delete u._email;
+                delete u._token;
+                delete u._password;
+                delete u._passwordConfirmation;
+                delete u._profilePic;
+                delete u.passwordHash;
+
+                database.db.collection('users')
+                    .insertOne(u)
+                    .then(r => {
+                        user = u;
+                        r.modifiedCount !== 1 ? done(null, false) : done(null, user);
+                    })
+                    .catch(err => done(err));
+
+            } else {
+                database.db.collection('users')
+                    .updateOne({googleID: user.googleID}, {$set: {token: token}})
                     .then(r => r.modifiedCount !== 1 ? done(null, false) : done(null, user))
                     .catch(err => done(err));
             }
