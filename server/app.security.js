@@ -1,4 +1,3 @@
-"use strict";
 var user_1 = require("../client/app/model/user");
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -17,7 +16,7 @@ var Security = (function () {
         this.authorize = this.passport.authenticate('bearer', { session: false });
     }
     return Security;
-}());
+})();
 exports.Security = Security;
 var validPassword = function (user, password) {
     return sha1(password) === user.passwordHash;
@@ -73,26 +72,26 @@ passport.use(new FacebookStrategy({
     }).then(function (user) {
         if (user === null) {
             // INSERT ONE
-            var u_1 = new user_1.User(profile.displayName, profile.emails === undefined ? "" : profile.emails[0].value, token, '', '', profile.photos ? profile.photos[0].value : '../../img/photo4.png', profile.id, null, null);
-            delete u_1.password;
-            delete u_1.passwordConfirmation;
-            delete u_1._username;
-            delete u_1._email;
-            delete u_1._token;
-            delete u_1._password;
-            delete u_1._passwordConfirmation;
-            delete u_1._profilePic;
-            delete u_1._fbID;
-            delete u_1.passwordHash;
-            delete u_1._fbID;
-            delete u_1._googleID;
-            delete u_1._githubID;
-            delete u_1.githubID;
-            delete u_1.googleID;
+            var u = new user_1.User(profile.displayName, profile.emails === undefined ? "" : profile.emails[0].value, token, '', '', profile.photos ? profile.photos[0].value : '../../img/photo4.png', profile.id, null, null);
+            delete u.password;
+            delete u.passwordConfirmation;
+            delete u._username;
+            delete u._email;
+            delete u._token;
+            delete u._password;
+            delete u._passwordConfirmation;
+            delete u._profilePic;
+            delete u._fbID;
+            delete u.passwordHash;
+            delete u._fbID;
+            delete u._googleID;
+            delete u._githubID;
+            delete u.githubID;
+            delete u.googleID;
             app_database_1.databaseConnection.db.collection('users')
-                .insertOne(u_1)
+                .insertOne(u)
                 .then(function (r) {
-                user = u_1;
+                user = u;
                 r.modifiedCount !== 1 ? done(null, false) : done(null, user);
             })
                 .catch(function (err) { return done(err); });
@@ -123,25 +122,25 @@ passport.use(new GitHubStrategy({
         console.log(profile);
         if (user === null) {
             // INSERT ONE
-            var u_2 = new user_1.User(profile.username, profile.emails === undefined ? "" : profile.emails[0].value, token, '', '', profile.photos ? profile.photos[0].value : '../../img/photo4.png', null, profile.id, null);
-            delete u_2.password;
-            delete u_2.passwordConfirmation;
-            delete u_2._username;
-            delete u_2._email;
-            delete u_2._token;
-            delete u_2._password;
-            delete u_2._passwordConfirmation;
-            delete u_2._profilePic;
-            delete u_2.passwordHash;
-            delete u_2._fbID;
-            delete u_2._googleID;
-            delete u_2._githubID;
-            delete u_2.fbID;
-            delete u_2.googleID;
+            var u = new user_1.User(profile.username, profile.emails === undefined ? "" : profile.emails[0].value, token, '', '', profile.photos ? profile.photos[0].value : '../../img/photo4.png', null, profile.id, null);
+            delete u.password;
+            delete u.passwordConfirmation;
+            delete u._username;
+            delete u._email;
+            delete u._token;
+            delete u._password;
+            delete u._passwordConfirmation;
+            delete u._profilePic;
+            delete u.passwordHash;
+            delete u._fbID;
+            delete u._googleID;
+            delete u._githubID;
+            delete u.fbID;
+            delete u.googleID;
             app_database_1.databaseConnection.db.collection('users')
-                .insertOne(u_2)
+                .insertOne(u)
                 .then(function (r) {
-                user = u_2;
+                user = u;
                 r.modifiedCount !== 1 ? done(null, false) : done(null, user);
             })
                 .catch(function (err) { return done(err); });
@@ -173,25 +172,25 @@ passport.use(new GoogleStrategy({
     }).then(function (user) {
         if (user === null) {
             // INSERT ONE
-            var u_3 = new user_1.User(profile.displayName, profile.emails === undefined ? "" : profile.emails[0].value, token, '', '', profile.photos ? profile.photos[0].value : '../../img/photo4.png', null, null, profile.id);
-            delete u_3._googleID;
-            delete u_3._githubID;
-            delete u_3._fbID;
-            delete u_3.fbID;
-            delete u_3.githubID;
-            delete u_3.password;
-            delete u_3.passwordConfirmation;
-            delete u_3._username;
-            delete u_3._email;
-            delete u_3._token;
-            delete u_3._password;
-            delete u_3._passwordConfirmation;
-            delete u_3._profilePic;
-            delete u_3.passwordHash;
+            var u = new user_1.User(profile.displayName, profile.emails === undefined ? "" : profile.emails[0].value, token, '', '', profile.photos ? profile.photos[0].value : '../../img/photo4.png', null, null, profile.id);
+            delete u._googleID;
+            delete u._githubID;
+            delete u._fbID;
+            delete u.fbID;
+            delete u.githubID;
+            delete u.password;
+            delete u.passwordConfirmation;
+            delete u._username;
+            delete u._email;
+            delete u._token;
+            delete u._password;
+            delete u._passwordConfirmation;
+            delete u._profilePic;
+            delete u.passwordHash;
             app_database_1.databaseConnection.db.collection('users')
-                .insertOne(u_3)
+                .insertOne(u)
                 .then(function (r) {
-                user = u_3;
+                user = u;
                 r.modifiedCount !== 1 ? done(null, false) : done(null, user);
             })
                 .catch(function (err) { return done(err); });

@@ -542,9 +542,11 @@ var Mesa = (function () {
     Mesa.prototype.writeUserToDB = function (player, newStars, newPoints) {
         var oldstars;
         var oldpoints;
+        console.log("PLAYER ATUALIZOU " + newStars + " " + newPoints);
+        var id = new mongodb.ObjectID(player);
         app_database_1.databaseConnection.db.collection('users')
             .findOne({
-            _id: player
+            _id: id
         })
             .then(function (user) {
             console.log(user);
@@ -556,7 +558,7 @@ var Mesa = (function () {
             var points = oldpoints + newPoints;
             app_database_1.databaseConnection.db.collection('users')
                 .updateOne({
-                username: player
+                _id: id
             }, {
                 $set: { totalStars: stars, totalPoints: points }
             })

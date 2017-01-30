@@ -1,4 +1,3 @@
-"use strict";
 var restify = require('restify');
 var passport = require('passport');
 var path = require('path');
