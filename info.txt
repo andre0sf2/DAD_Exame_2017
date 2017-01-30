@@ -8,4 +8,4 @@ Identificação e Autorização - OK
 Histórico de Jogos – Ok
 Game Lobby – OK
 Jogos Múltiplos - OK
-Outras Funcionalidades – Chat Rooms;
+Outras Funcionalidades – Chat Rooms; Avatares; Serviços Externos de Autenticação (Facebook, GitHub, Google)

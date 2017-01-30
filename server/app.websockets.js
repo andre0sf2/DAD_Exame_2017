@@ -2,7 +2,7 @@
 var io = require('socket.io');
 var mongodb = require('mongodb');
 var util = require('util');
-var app_database_1 = require("./app.database");
+var app_database_1 = require('./app.database');
 var WebSocketServer = (function () {
     function WebSocketServer() {
         var _this = this;
@@ -666,4 +666,3 @@ var Card = (function () {
     return Card;
 }());
 exports.Card = Card;
-//# sourceMappingURL=app.websockets.js.map
