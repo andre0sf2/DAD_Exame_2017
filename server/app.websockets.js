@@ -2,7 +2,7 @@
 var io = require('socket.io');
 var mongodb = require('mongodb');
 var util = require('util');
-var app_database_1 = require('./app.database');
+var app_database_1 = require("./app.database");
 var WebSocketServer = (function () {
     function WebSocketServer() {
         var _this = this;
@@ -542,9 +542,11 @@ var Mesa = (function () {
     Mesa.prototype.writeUserToDB = function (player, newStars, newPoints) {
         var oldstars;
         var oldpoints;
+        console.log("PLAYER ATUALIZOU " + newStars + " " + newPoints);
+        var id = new mongodb.ObjectID(player);
         app_database_1.databaseConnection.db.collection('users')
             .findOne({
-            _id: player
+            _id: id
         })
             .then(function (user) {
             console.log(user);
@@ -556,7 +558,7 @@ var Mesa = (function () {
             var points = oldpoints + newPoints;
             app_database_1.databaseConnection.db.collection('users')
                 .updateOne({
-                username: player
+                _id: id
             }, {
                 $set: { totalStars: stars, totalPoints: points }
             })
@@ -666,3 +668,4 @@ var Card = (function () {
     return Card;
 }());
 exports.Card = Card;
+//# sourceMappingURL=app.websockets.js.map

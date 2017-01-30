@@ -1,4 +1,3 @@
-"use strict";
 var mongodb = require('mongodb');
 var util = require('util');
 var sha1 = require('sha1');
@@ -167,5 +166,5 @@ var User = (function () {
         };
     }
     return User;
-}());
+})();
 exports.User = User;

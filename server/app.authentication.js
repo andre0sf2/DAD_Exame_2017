@@ -1,4 +1,3 @@
-"use strict";
 var Authentication = (function () {
     function Authentication() {
         var _this = this;
@@ -61,5 +60,5 @@ var Authentication = (function () {
         console.log("Facebook authentication routes registered");
     };
     return Authentication;
-}());
+})();
 exports.Authentication = Authentication;

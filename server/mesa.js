@@ -1,4 +1,3 @@
-"use strict";
 var card_1 = require('./card');
 var Mesa = (function () {
     function Mesa() {
@@ -46,5 +45,5 @@ var Mesa = (function () {
         return [1, 2, 3, 4, 5, 6, 7, 11, 12, 13];
     };
     return Mesa;
-}());
+})();
 exports.Mesa = Mesa;
