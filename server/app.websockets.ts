@@ -614,13 +614,17 @@ export class Mesa {
 
     }
 
-    public writeUserToDB(player: string, newStars: number, newPoints: number) {
+        public writeUserToDB(player: string, newStars: number, newPoints: number) {
         let oldstars: any;
         let oldpoints: any;
 
+        console.log("PLAYER ATUALIZOU "  + newStars +" "+ newPoints);
+
+        const id = new mongodb.ObjectID(player);
+
         database.db.collection('users')
             .findOne({
-                _id: player
+                _id: id
             })
             .then((user: any) => {
                 console.log(user);
@@ -635,7 +639,7 @@ export class Mesa {
 
                 database.db.collection('users')
                     .updateOne({
-                        username: player
+                        _id:id
                     }, {
                         $set: { totalStars: stars, totalPoints: points }
                     })

@@ -16,7 +16,7 @@ import {ProfileComponent} from "./profile/profile.component";
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'home',  component: HomeComponent },
+    { path: 'home', redirectTo: '/index.html' },
     { path: 'login',  component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'game/:room', component: TableComponent },

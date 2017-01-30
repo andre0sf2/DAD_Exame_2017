@@ -6,7 +6,7 @@ import {databaseConnection as database} from './app.database';
 import {WebSocketServer} from './app.websockets';
 import {HandlerSettings} from './handler.settings';
 
-const url = 'mongodb://138.68.100.185:27017/sueca-proj';
+const url = 'mongodb://localhost:27017/sueca-proj';
 
 // Create Restify and WebSocket Server
 const restifyServer = restify.createServer();
