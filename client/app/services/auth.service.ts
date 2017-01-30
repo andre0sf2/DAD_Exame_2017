@@ -55,6 +55,18 @@ export class AuthService {
             });
     }
 
+    update(user: User){
+        let options = this.buildHeadersWithAuthorization();
+
+        return this.http.put(url + 'users/' + user._id, user, {headers: options})
+            .toPromise()
+            .then(r => {
+                Promise.resolve(r.json());
+                localStorage.setItem('user', JSON.stringify(<User>r.json()));
+            })
+            .catch(r => Promise.resolve({error: true, message: 'internal error'}));
+    }
+
     getCookie(cookie: string) {
         return this.cookieService.get(cookie);
     }

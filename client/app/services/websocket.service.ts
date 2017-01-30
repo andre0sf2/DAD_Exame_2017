@@ -22,6 +22,10 @@ export class WebSocketService {
         return this.listenOnChannel('round');
     }
 
+    getFinal():Observable<any>{
+        return this.listenOnChannel('final');
+    }
+
     getMoves() {
         return this.listenOnChannel('move');
     }

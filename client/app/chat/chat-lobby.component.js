@@ -32,15 +32,26 @@ var ChatLobbyComponent = (function () {
         var _this = this;
         this.webSocket.getChatMessages().subscribe(function (m) {
             _this.images.push(m.image);
-            _this.chatMessages.push(m.username);
+            _this.chatMessages.push({
+                chat: m.username,
+                date: m.date
+            });
             _this.arrAux = _this.transform(_this.images, _this.chatMessages);
         });
     };
     ChatLobbyComponent.prototype.sendMessage = function () {
         if (this.chatForm.controls['message'].value !== null) {
             var now = new Date(Date.now());
-            var time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-            var message = { image: this.auth.getCurrentUser().profilePic, username: this.auth.getCurrentUser().username + ' (' + time + '): ' + this.chatForm.controls['message'].value };
+            var hour = now.getHours().toString();
+            var minute = now.getMinutes().toString();
+            if (now.getHours() < 10) {
+                hour = "0" + now.getHours();
+            }
+            if (now.getMinutes() < 10) {
+                minute = "0" + now.getMinutes();
+            }
+            var time = hour + ":" + minute;
+            var message = { image: this.auth.getCurrentUser().profilePic, username: this.auth.getCurrentUser().username, date: ' (' + time + '): ' + this.chatForm.controls['message'].value };
             this.webSocket.sendChatMessage(message);
             this.chatForm.controls['message'].setValue("");
         }

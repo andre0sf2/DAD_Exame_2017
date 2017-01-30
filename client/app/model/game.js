@@ -1,6 +1,6 @@
 "use strict";
 var Game = (function () {
-    function Game(_id, UserOwner, winner1, winner2, start, nplayers, finish, status, players) {
+    function Game(_id, UserOwner, winner1, winner2, start, nplayers, finish, status, dateStart, dateFinish, players) {
         this._id = _id;
         this.UserOwner = UserOwner;
         this.winner1 = winner1;
@@ -9,6 +9,8 @@ var Game = (function () {
         this.nplayers = nplayers;
         this.finish = finish;
         this.status = status;
+        this.dateStart = dateStart;
+        this.dateFinish = dateFinish;
         this.players = players;
     }
     return Game;
