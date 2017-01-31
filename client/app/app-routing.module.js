@@ -17,7 +17,7 @@ var table_component_1 = require("./game/table.component");
 var history_component_1 = require("./history/history.component");
 var profile_component_1 = require("./profile/profile.component");
 var routes = [
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: home_component_1.HomeComponent },
     { path: 'login', component: login_component_1.LoginComponent },
     { path: 'register', component: register_component_1.RegisterComponent },
