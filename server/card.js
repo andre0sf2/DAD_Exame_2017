@@ -1,3 +1,4 @@
+"use strict";
 var Card = (function () {
     function Card(tipo, id, pontos, img) {
         this._tipoCard = tipo;
@@ -50,5 +51,5 @@ var Card = (function () {
         configurable: true
     });
     return Card;
-})();
+}());
 exports.Card = Card;

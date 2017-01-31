@@ -1,3 +1,4 @@
+"use strict";
 var user_1 = require("../client/app/model/user");
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -6,7 +7,7 @@ var FacebookStrategy = require("passport-facebook").Strategy;
 var GitHubStrategy = require("passport-github").Strategy;
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
 var sha1 = require('sha1');
-var app_database_1 = require('./app.database');
+var app_database_1 = require("./app.database");
 var Security = (function () {
     function Security() {
         this.passport = passport;
@@ -16,7 +17,7 @@ var Security = (function () {
         this.authorize = this.passport.authenticate('bearer', { session: false });
     }
     return Security;
-})();
+}());
 exports.Security = Security;
 var validPassword = function (user, password) {
     return sha1(password) === user.passwordHash;
@@ -59,7 +60,7 @@ passport.deserializeUser(function (user, done) {
 var facebookAuth = {
     'clientID': '944505412318401',
     'clientSecret': 'ad3de579cd766e02ef9afc98ee3e259c',
-    'callbackURL': 'http://localhost:7777/api/v1/auth/facebook/callback'
+    'callbackURL': 'http://138.68.100.185:7777/api/v1/auth/facebook/callback'
 };
 passport.use(new FacebookStrategy({
     "clientID": facebookAuth.clientID,
@@ -72,26 +73,26 @@ passport.use(new FacebookStrategy({
     }).then(function (user) {
         if (user === null) {
             // INSERT ONE
-            var u = new user_1.User(profile.displayName, profile.emails === undefined ? "" : profile.emails[0].value, token, '', '', profile.photos ? profile.photos[0].value : '../../img/photo4.png', profile.id, null, null);
-            delete u.password;
-            delete u.passwordConfirmation;
-            delete u._username;
-            delete u._email;
-            delete u._token;
-            delete u._password;
-            delete u._passwordConfirmation;
-            delete u._profilePic;
-            delete u._fbID;
-            delete u.passwordHash;
-            delete u._fbID;
-            delete u._googleID;
-            delete u._githubID;
-            delete u.githubID;
-            delete u.googleID;
+            var u_1 = new user_1.User(profile.displayName, profile.emails === undefined ? "" : profile.emails[0].value, token, '', '', profile.photos ? profile.photos[0].value : '../../img/photo4.png', profile.id, null, null);
+            delete u_1.password;
+            delete u_1.passwordConfirmation;
+            delete u_1._username;
+            delete u_1._email;
+            delete u_1._token;
+            delete u_1._password;
+            delete u_1._passwordConfirmation;
+            delete u_1._profilePic;
+            delete u_1._fbID;
+            delete u_1.passwordHash;
+            delete u_1._fbID;
+            delete u_1._googleID;
+            delete u_1._githubID;
+            delete u_1.githubID;
+            delete u_1.googleID;
             app_database_1.databaseConnection.db.collection('users')
-                .insertOne(u)
+                .insertOne(u_1)
                 .then(function (r) {
-                user = u;
+                user = u_1;
                 r.modifiedCount !== 1 ? done(null, false) : done(null, user);
             })
                 .catch(function (err) { return done(err); });
@@ -109,7 +110,7 @@ passport.use(new FacebookStrategy({
 var githubAuth = {
     'clientID': '3f7a64c6f68f9459ec2f',
     'clientSecret': '06ffab5f584db3ab042369daadc5b7dbf0616850',
-    'callbackURL': 'http://localhost:7777/api/v1/auth/github/callback'
+    'callbackURL': 'http://138.68.100.185:7777/api/v1/auth/github/callback'
 };
 passport.use(new GitHubStrategy({
     "clientID": githubAuth.clientID,
@@ -122,25 +123,25 @@ passport.use(new GitHubStrategy({
         console.log(profile);
         if (user === null) {
             // INSERT ONE
-            var u = new user_1.User(profile.username, profile.emails === undefined ? "" : profile.emails[0].value, token, '', '', profile.photos ? profile.photos[0].value : '../../img/photo4.png', null, profile.id, null);
-            delete u.password;
-            delete u.passwordConfirmation;
-            delete u._username;
-            delete u._email;
-            delete u._token;
-            delete u._password;
-            delete u._passwordConfirmation;
-            delete u._profilePic;
-            delete u.passwordHash;
-            delete u._fbID;
-            delete u._googleID;
-            delete u._githubID;
-            delete u.fbID;
-            delete u.googleID;
+            var u_2 = new user_1.User(profile.username, profile.emails === undefined ? "" : profile.emails[0].value, token, '', '', profile.photos ? profile.photos[0].value : '../../img/photo4.png', null, profile.id, null);
+            delete u_2.password;
+            delete u_2.passwordConfirmation;
+            delete u_2._username;
+            delete u_2._email;
+            delete u_2._token;
+            delete u_2._password;
+            delete u_2._passwordConfirmation;
+            delete u_2._profilePic;
+            delete u_2.passwordHash;
+            delete u_2._fbID;
+            delete u_2._googleID;
+            delete u_2._githubID;
+            delete u_2.fbID;
+            delete u_2.googleID;
             app_database_1.databaseConnection.db.collection('users')
-                .insertOne(u)
+                .insertOne(u_2)
                 .then(function (r) {
-                user = u;
+                user = u_2;
                 r.modifiedCount !== 1 ? done(null, false) : done(null, user);
             })
                 .catch(function (err) { return done(err); });
@@ -158,7 +159,7 @@ passport.use(new GitHubStrategy({
 var googleAuth = {
     'clientID': '11841045362-1cj0rejku8p9phl2119g1aih84bfvi1j.apps.googleusercontent.com',
     'clientSecret': 'Hoc69hr5-eZthQZEjTzxicjy',
-    'callbackURL': 'http://127.0.0.1:7777/api/v1/auth/google/callback'
+    'callbackURL': 'http://138.68.100.185:7777/api/v1/auth/google/callback'
 };
 passport.use(new GoogleStrategy({
     "clientID": googleAuth.clientID,
@@ -172,25 +173,25 @@ passport.use(new GoogleStrategy({
     }).then(function (user) {
         if (user === null) {
             // INSERT ONE
-            var u = new user_1.User(profile.displayName, profile.emails === undefined ? "" : profile.emails[0].value, token, '', '', profile.photos ? profile.photos[0].value : '../../img/photo4.png', null, null, profile.id);
-            delete u._googleID;
-            delete u._githubID;
-            delete u._fbID;
-            delete u.fbID;
-            delete u.githubID;
-            delete u.password;
-            delete u.passwordConfirmation;
-            delete u._username;
-            delete u._email;
-            delete u._token;
-            delete u._password;
-            delete u._passwordConfirmation;
-            delete u._profilePic;
-            delete u.passwordHash;
+            var u_3 = new user_1.User(profile.displayName, profile.emails === undefined ? "" : profile.emails[0].value, token, '', '', profile.photos ? profile.photos[0].value : '../../img/photo4.png', null, null, profile.id);
+            delete u_3._googleID;
+            delete u_3._githubID;
+            delete u_3._fbID;
+            delete u_3.fbID;
+            delete u_3.githubID;
+            delete u_3.password;
+            delete u_3.passwordConfirmation;
+            delete u_3._username;
+            delete u_3._email;
+            delete u_3._token;
+            delete u_3._password;
+            delete u_3._passwordConfirmation;
+            delete u_3._profilePic;
+            delete u_3.passwordHash;
             app_database_1.databaseConnection.db.collection('users')
-                .insertOne(u)
+                .insertOne(u_3)
                 .then(function (r) {
-                user = u;
+                user = u_3;
                 r.modifiedCount !== 1 ? done(null, false) : done(null, user);
             })
                 .catch(function (err) { return done(err); });

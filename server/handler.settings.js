@@ -12,4 +12,3 @@ var HandlerSettings = (function () {
     return HandlerSettings;
 }());
 exports.HandlerSettings = HandlerSettings;
-//# sourceMappingURL=handler.settings.js.map

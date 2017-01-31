@@ -1,3 +1,4 @@
+"use strict";
 var Authentication = (function () {
     function Authentication() {
         var _this = this;
@@ -26,23 +27,23 @@ var Authentication = (function () {
             scope: ['https://www.googleapis.com/auth/plus.login',
                 'https://www.googleapis.com/auth/plus.profile.emails.read']
         }));
-        server.get("http://127.0.0.1:7777/api/v1/" + "auth/google/callback", settings.security.passport.authenticate("google", {
-            failureRedirect: "http://127.0.0.1:3000/"
+        server.get(settings.prefix + +"auth/google/callback", settings.security.passport.authenticate("google", {
+            failureRedirect: "/login"
         }), function (req, res, next) {
             console.log(req.user);
             res.setHeader('Set-Cookie', 'user=' + req.user._id + '#' + req.user.token + ';Path=/');
-            res.redirect('http://127.0.0.1:3000/home', next);
+            res.redirect('/', next);
         });
         console.log("Google authentication routes registered");
     };
     Authentication.prototype.initGithubRoutes = function (server, settings) {
         server.get(settings.prefix + "auth/github", settings.security.passport.authenticate('github'));
         server.get(settings.prefix + "auth/github/callback", settings.security.passport.authenticate("github", {
-            failureRedirect: "http://localhost:3000/"
+            failureRedirect: "/login"
         }), function (req, res, next) {
             console.log(req.user);
             res.setHeader('Set-Cookie', 'user=' + req.user._id + '#' + req.user.token + ';Path=/');
-            res.redirect('http://localhost:3000/home', next);
+            res.redirect('/', next);
         });
         console.log("Github authentication routes registered");
     };
@@ -51,14 +52,14 @@ var Authentication = (function () {
         server.get(settings.prefix + "auth/facebook", settings.security.passport.authenticate("facebook", { scope: "public_profile,email" }));
         // handle the callback after facebook has authenticated the user
         server.get(settings.prefix + "auth/facebook/callback", settings.security.passport.authenticate("facebook", {
-            failureRedirect: "http://localhost:3000/"
+            failureRedirect: "/login"
         }), function (req, res, next) {
             console.log(req.user);
             res.setHeader('Set-Cookie', 'user=' + req.user._id + '#' + req.user.token + ';Path=/');
-            res.redirect('http://localhost:3000/home', next);
+            res.redirect('/', next);
         });
         console.log("Facebook authentication routes registered");
     };
     return Authentication;
-})();
+}());
 exports.Authentication = Authentication;

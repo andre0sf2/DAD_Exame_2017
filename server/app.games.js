@@ -1,6 +1,7 @@
+"use strict";
 var mongodb = require('mongodb');
 var util = require('util');
-var app_database_1 = require('./app.database');
+var app_database_1 = require("./app.database");
 var Game = (function () {
     function Game() {
         var _this = this;
@@ -111,5 +112,5 @@ var Game = (function () {
         };
     }
     return Game;
-})();
+}());
 exports.Game = Game;

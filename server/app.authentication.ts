@@ -1,5 +1,6 @@
 import {HandlerSettings} from './handler.settings';
 
+
 export class Authentication {
 
     public login = (request: any, response: any, next: any) => {

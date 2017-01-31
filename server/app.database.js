@@ -16,4 +16,3 @@ databaseConnection.connect = function (url, callback) {
         .catch(console.error);
 };
 exports.databaseConnection = databaseConnection;
-//# sourceMappingURL=app.database.js.map
