@@ -42,6 +42,10 @@ export class ChatRoomComponent implements OnInit{
                 date: <string>m.date
             });
             this.arrAux = this.transform(this.images, this.chatMessages);
+            if(this.arrAux.length != 0){
+                let box = document.getElementById('Box');
+                box.scrollTop = box.scrollHeight;
+            }
         });
     }
 

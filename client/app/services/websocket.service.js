@@ -23,6 +23,12 @@ var WebSocketService = (function () {
     WebSocketService.prototype.getRoundWinners = function () {
         return this.listenOnChannel('round');
     };
+    WebSocketService.prototype.sendRenuncia = function (message) {
+        this.socket.emit('renuncia', message);
+    };
+    WebSocketService.prototype.getRenunciaFeedBack = function () {
+        return this.listenOnChannel('renuncia-feedback');
+    };
     WebSocketService.prototype.getFinal = function () {
         return this.listenOnChannel('final');
     };
@@ -99,18 +105,6 @@ var WebSocketService = (function () {
     };
     WebSocketService.prototype.getGameStart = function () {
         return this.listenOnChannel('game-start');
-    };
-    WebSocketService.prototype.notifyAllPlayersImReady = function (message) {
-        this.socket.emit('ready', message);
-    };
-    WebSocketService.prototype.getPlayersReady = function () {
-        return this.listenOnChannel('ready');
-    };
-    WebSocketService.prototype.getAllPlayersReady = function () {
-        return this.listenOnChannel('all_ready');
-    };
-    WebSocketService.prototype.sendGetTurn = function (message) {
-        this.socket.emit('yourTurn', message);
     };
     WebSocketService.prototype.sendCard = function (message) {
         //console.log(message);

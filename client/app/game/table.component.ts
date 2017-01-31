@@ -67,6 +67,7 @@ export class TableComponent implements OnInit {
         this.getRoundWinners();
         this.getSuit();
         this.getFinal();
+        this.checkCheating();
         /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
 
 
@@ -102,11 +103,11 @@ export class TableComponent implements OnInit {
             this.jogadores.forEach(jogador => {
                 if(m.username != jogador){
                     let sty = document.getElementById(jogador+"sep");
-                    sty.setAttribute("style", "color: black");
+                    sty.style.color = "black";
                 }
             })
             let sty = document.getElementById(m.username+"sep");
-            sty.setAttribute("style", "color: yellow");
+            sty.style.color = "yellow";
 
         });
     }
@@ -130,7 +131,7 @@ export class TableComponent implements OnInit {
         this.websocketService.getGamePlayers(this.room).subscribe((m: any) => {
             this.jogadores.push(<string>m.username);
             this.jogPics.push(<string>m.img);
-            console.log(m);
+            //console.log(m);
         });
     }
 
@@ -155,7 +156,7 @@ export class TableComponent implements OnInit {
 
     getMoves() {
         this.websocketService.getMoves().subscribe((m: any) => {
-            console.log(m);
+            //console.log(m);
             let img = document.getElementById(m.username);
             img.setAttribute("src", m.card._img);
         });
@@ -183,17 +184,20 @@ export class TableComponent implements OnInit {
         }
     }
 
-    countCards(): number {
-        let count: number = 0;
-        for (let i = 0; i < this.mesa.cards.length; i++) {
-            count += this.mesa.cards[i].ponto;
-        }
-        //console.log(count);
-        return count;
+    checkCheating() {
+       this.websocketService.getRenunciaFeedBack().subscribe(m => {
+           console.log(m);
+       })
     }
 
-    checkCheating() {
+    renuncia(playerVerificar:string, playerDenuncia: string){
 
+        if(this.user != playerVerificar) {
+            //console.log(playerVerificar, playerDenuncia);
+            this.websocketService.sendRenuncia({
+                verificar: playerVerificar, denuncia: playerDenuncia, room:this.room
+            });
+        }
     }
 
     removeCard(card: Card) {
