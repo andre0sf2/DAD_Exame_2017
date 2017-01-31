@@ -419,8 +419,7 @@ export class Mesa {
         }
         //se nao houver trunfos, ganha quem tiver ganho posto a carta mais alta do naipe que o 1 jogador colocou
         if (countTrunfos == 0) {
-            console.log("NAO HOUVE TRUNFOS JOGADOS");
-            let higherCard: number = -1;
+            //console.log("NAO HOUVE TRUNFOS JOGADOS");
             let higherCardPoints: number = 0;
             let higherCardSimb: number = 0;
             let winner: string;
@@ -429,8 +428,7 @@ export class Mesa {
                 higherCardPoints = card1._ponto;
                 winner = this.gamers[0];
 
-            }
-            if(card1._tipoCard == tipo && card1._ponto == 0 && card1._simbolo > higherCardSimb){
+            } else if (card1._tipoCard == tipo && card1._ponto == 0 && card1._simbolo > higherCardSimb && higherCardPoints == 0) {
                 higherCardSimb = card1._simbolo;
                 winner = this.gamers[0];
 
@@ -439,8 +437,7 @@ export class Mesa {
                 higherCardPoints = card2._ponto;
                 winner = this.gamers[1];
 
-            }
-            if(card2._tipoCard == tipo && card2._ponto == 0 && card2._simbolo > higherCardSimb){
+            } else if (card2._tipoCard == tipo && card2._ponto == 0 && card2._simbolo > higherCardSimb && higherCardPoints == 0) {
                 higherCardSimb = card2._simbolo;
                 winner = this.gamers[1];
 
@@ -450,8 +447,7 @@ export class Mesa {
                 higherCardPoints = card3._ponto;
                 winner = this.gamers[2];
 
-            }
-            if(card3._tipoCard == tipo && card3._ponto == 0 && card3._simbolo > higherCardSimb){
+            } else if (card3._tipoCard == tipo && card3._ponto == 0 && card3._simbolo > higherCardSimb && higherCardPoints == 0) {
                 higherCardSimb = card3._simbolo;
                 winner = this.gamers[2];
 
@@ -460,8 +456,8 @@ export class Mesa {
             if (card4._tipoCard == tipo && card4._ponto > higherCardPoints && card4._ponto != 0) {
                 higherCardPoints = card4._ponto;
                 winner = this.gamers[3];
-            }
-            if(card4._tipoCard == tipo && card4._ponto == 0 && card4._simbolo > higherCardSimb){
+
+            } else if (card4._tipoCard == tipo && card4._ponto == 0 && card4._simbolo > higherCardSimb && higherCardPoints == 0) {
                 higherCardSimb = card4._simbolo;
                 winner = this.gamers[3];
 
