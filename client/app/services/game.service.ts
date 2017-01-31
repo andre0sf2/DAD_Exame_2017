@@ -152,7 +152,7 @@ export class GameService{
                 game.players.forEach((p: User)=> {
                     //console.log(p.username + "SADKDS");
                     //console.log(user.username);
-                    if(p.username == user.username){
+                    if(p.username == user.username && game.status == "on lobby"){
                         games.push(game);
                     }                    
                 });

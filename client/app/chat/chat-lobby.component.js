@@ -22,6 +22,7 @@ var ChatLobbyComponent = (function () {
         this.auth = auth;
         this.type = "Lobby";
         this.chatMessages = [];
+        this.notificationMsg = [];
         this.images = [];
         this.arrAux = [];
         this.chatForm = this.formBuilder.group({
@@ -41,6 +42,14 @@ var ChatLobbyComponent = (function () {
                 var box = document.getElementById('Box');
                 box.scrollTop = box.scrollHeight;
             }
+        });
+        this.webSocket.getNotifications().subscribe(function (m) {
+            console.log(m);
+            _this.arrAux.push({
+                image: "../../img/system.png", message: {
+                    chat: "SYSTEM", date: m
+                }
+            });
         });
     };
     ChatLobbyComponent.prototype.sendMessage = function () {

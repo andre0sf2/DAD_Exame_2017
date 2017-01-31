@@ -100,6 +100,7 @@ var TableComponent = (function () {
         this.websocketService.getFinal().subscribe(function (m) {
             console.log("GAME OVER - WINNERS");
             console.log(m);
+            alert("GAME OVER - WINNERS: " + m.winner1 + "and\t " + m.winner2);
         });
     };
     TableComponent.prototype.getRoundWinners = function () {
@@ -169,8 +170,10 @@ var TableComponent = (function () {
         }
     };
     TableComponent.prototype.checkCheating = function () {
+        var _this = this;
         this.websocketService.getRenunciaFeedBack().subscribe(function (m) {
             console.log(m);
+            _this.cleanMesa();
         });
     };
     TableComponent.prototype.renuncia = function (playerVerificar, playerDenuncia) {

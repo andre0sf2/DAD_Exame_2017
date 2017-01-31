@@ -35,6 +35,7 @@ var WebSocketServer = (function () {
                     _this.games[data.room].ids.push(data.userId);
                     _this.games[data.room].playersPics.push(data.img);
                     _this.games[data.room].sockets.push(client.id);
+                    _this.io.emit('notification', "Room Created by " + data.username);
                 });
                 client.on('join', function (data) {
                     console.log("One player joined the room " + data.room);
@@ -130,12 +131,14 @@ var WebSocketServer = (function () {
                     var renuncia = _this.games[data.room].checkRenuncia(data.verificar);
                     if (renuncia) {
                         console.log("Fez renuncia");
-                        _this.io.to(client.player.gameRoom).emit('renuncia-feedback', "O jogador " + data.verificar + " fez renuncia. Vai perder");
+                        _this.io.to(client.player.gameRoom).emit('renuncia-feedback', "A equipa do jogador " + data.verificar + " fez renuncia. Vai perder");
+                        _this.io.to(client.player.gameRoom).emit('notification-room', "A equipa do jogador " + data.verificar + " fez renuncia.");
                         _this.games[data.room].finishGameWithRenuncia(data.denuncia);
                     }
                     else {
                         console.log("Nao fez renuncia");
-                        _this.io.to(client.player.gameRoom).emit('renuncia-feedback', "O jogador " + data.denuncia + ", vai perder porque o outro nao fez renuncia");
+                        _this.io.to(client.player.gameRoom).emit('renuncia-feedback', "A equipa do jogador " + data.denuncia + ", vai perder porque o outro nao fez renuncia");
+                        _this.io.to(client.player.gameRoom).emit('notification-room', "A equipa do jogador " + data.denuncia + ", vai perder porque o outro nao fez renuncia");
                         _this.games[data.room].finishGameWithRenuncia(data.verificar);
                     }
                 });
@@ -150,7 +153,7 @@ var WebSocketServer = (function () {
                     //console.log("3"+this.games[data.room].rounds[data.round].player3_option);
                     //console.log("4"+this.games[data.room].rounds[data.round].player4_option);
                     if (_this.games[data.room].stopGame) {
-                        console.log("FINISH GAME Renuncia");
+                        _this.io.to(client.player.gameRoom).emit('notification-room', "Game terminate somebody do Renuncia");
                     }
                     else {
                         if (_this.games[data.room].rounds[data.round].player1_option != null &&
@@ -177,6 +180,7 @@ var WebSocketServer = (function () {
                             else {
                                 //FINISH GAME
                                 console.log("FINISH GAME");
+                                _this.io.to(client.player.gameRoom).emit('notification', "Games is finish");
                                 _this.games[data.room].finishGame(data.room);
                                 _this.io.to(client.player.gameRoom).emit('final', {
                                     winner1: _this.games[data.room].winner1,
@@ -569,18 +573,58 @@ var Mesa = (function () {
         var totalPointsPlayer3 = 0;
         var player4 = this.gamers[3];
         var totalPointsPlayer4 = 0;
+        var starsTeam1 = 0;
+        var starsTeam2 = 0;
+        var winner1;
+        var winner2;
         if (player1 == player || player3 == player) {
             totalPointsPlayer1 = 120;
             totalPointsPlayer3 = 120;
-            this.winner1 = player1;
-            this.winner2 = player3;
+            starsTeam1 = 5;
+            winner1 = player1;
+            winner2 = player3;
         }
         else {
             totalPointsPlayer2 = 120;
             totalPointsPlayer4 = 120;
-            this.winner1 = player2;
-            this.winner2 = player4;
+            starsTeam2 = 5;
+            winner1 = player2;
+            winner2 = player4;
         }
+        var idRoom = this.gameRoom.substring(4);
+        var id = new mongodb.ObjectID(idRoom);
+        var currentdate = new Date();
+        var datetime = currentdate.getDate() + "-"
+            + (currentdate.getMonth() + 1) + "-"
+            + currentdate.getFullYear() + " "
+            + currentdate.getHours() + ":"
+            + currentdate.getMinutes() + ":"
+            + currentdate.getSeconds();
+        var game = {
+            finish: "RENUNCIA",
+            dateFinish: datetime,
+            winner1: winner1,
+            winner2: winner2,
+            status: "finish",
+            players: [
+                { username: player1, points: totalPointsPlayer1, stars: starsTeam1 },
+                { username: player2, points: totalPointsPlayer2, stars: starsTeam2 },
+                { username: player3, points: totalPointsPlayer3, stars: starsTeam1 },
+                { username: player4, points: totalPointsPlayer4, stars: starsTeam2 }
+            ]
+        };
+        app_database_1.databaseConnection.db.collection('games')
+            .updateOne({
+            _id: id
+        }, {
+            $set: game
+        })
+            .then(function (result) { return console.log("UPDATE WITH SUCCESS"); })
+            .catch(function (err) { return console.log("ERROR UPDATING"); });
+        this.writeUserToDB(this.ids[0], starsTeam1, totalPointsPlayer1);
+        this.writeUserToDB(this.ids[1], starsTeam2, totalPointsPlayer2);
+        this.writeUserToDB(this.ids[2], starsTeam1, totalPointsPlayer3);
+        this.writeUserToDB(this.ids[3], starsTeam2, totalPointsPlayer4);
     };
     Mesa.prototype.finishGame = function (room) {
         var player1 = this.gamers[0];

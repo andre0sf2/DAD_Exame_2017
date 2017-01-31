@@ -23,6 +23,7 @@ export class ChatRoomComponent implements OnInit{
     protected images:string[] = [];
 
     arrAux:any[] = [];
+    protected notificationMsg: any[] = [];
 
     constructor(private formBuilder: FormBuilder, public webSocket: WebSocketService, public auth: AuthService, private route: ActivatedRoute) {
         this.chatForm = this.formBuilder.group({
@@ -46,6 +47,13 @@ export class ChatRoomComponent implements OnInit{
                 let box = document.getElementById('Box');
                 box.scrollTop = box.scrollHeight;
             }
+        });
+        this.webSocket.getNotificationRoom().subscribe((m:any) => {
+            this.arrAux.push({
+                image: "../../img/system.png", message: {
+                    chat: "SYSTEM", date: m
+                }
+            });
         });
     }
 

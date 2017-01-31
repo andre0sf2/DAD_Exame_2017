@@ -32,7 +32,6 @@ var LobbyComponent = (function () {
         this.findOtherGames();
         this.findPlayingGames();
         this.webSocketService.getCreateRoom().subscribe(function (m) {
-            console.log("ROOOM CREATEDEE");
             _this.findOtherGames();
             _this.findMyGames();
         });
@@ -78,7 +77,8 @@ var LobbyComponent = (function () {
             if (resource !== 'No game data') {
                 _this.info = "Game created";
                 _this.webSocketService.createRoom({ room: 'room' + resource._id,
-                    userId: _this.authService.getCurrentUser()._id, username: _this.authService.getCurrentUser().username, img: _this.authService.getCurrentUser().profilePic });
+                    userId: _this.authService.getCurrentUser()._id, username: _this.authService.getCurrentUser().username, img: _this.authService.getCurrentUser().profilePic
+                });
                 _this.findMyGames();
             }
             else {
@@ -97,13 +97,15 @@ var LobbyComponent = (function () {
         var _this = this;
         //verify length and status
         if (this.otherGames[i].nplayers == 4 || this.otherGames[i].status != "on lobby") {
-            console.log('game is full');
+            this.webSocketService.sendChatMessage({
+                image: "", username: "SYSTEM", date: "Game is full"
+            });
             return;
         }
         this.already_join = false;
         this.otherGames[i].players.forEach(function (player) {
             if (player.player == _this.authService.getCurrentUser()._id) {
-                console.log('already join');
+                alert("Already join");
                 _this.already_join = true;
             }
         });

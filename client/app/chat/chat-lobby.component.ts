@@ -19,6 +19,7 @@ export class ChatLobbyComponent implements OnInit{
     private type = "Lobby";
 
     protected chatMessages: any[] = [];
+    protected notificationMsg: any[] = [];
 
     protected images:string[] = [];
 
@@ -43,6 +44,14 @@ export class ChatLobbyComponent implements OnInit{
                 let box = document.getElementById('Box');
                 box.scrollTop = box.scrollHeight;
             }
+        });
+        this.webSocket.getNotifications().subscribe((m:any) => {
+            console.log(m);
+            this.arrAux.push({
+                image: "../../img/system.png", message: {
+                    chat: "SYSTEM", date: m
+                }
+            });
         });
     }
 

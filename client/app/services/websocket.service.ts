@@ -14,6 +14,14 @@ export class WebSocketService {
         }
     }
 
+    getNotifications(): Observable<any> {
+        return this.listenOnChannel('notification');
+    }
+
+    getNotificationRoom(): Observable<any> {
+        return this.listenOnChannel('notification-room');
+    }
+
     getTurn(): Observable<any> {
         return this.listenOnChannel('turn');
     }
@@ -80,22 +88,6 @@ export class WebSocketService {
 
     getChatMessagesFromRoom(room: string): Observable<any> {
         return this.listenOnChannel('room-chat');
-    }
-
-    sendNote(message: any) {
-        this.socket.emit('notes', message);
-    }
-
-    getDerrotado(): Observable<any> {
-        return this.listenOnChannel('derrotado');
-    }
-
-    sendClickElementMessage(index: number) {
-        this.socket.emit('clickElement', index);
-    }
-
-    getBoardMessages(): Observable<any> {
-        return this.listenOnChannel('board');
     }
 
     createRoom(message: any) {

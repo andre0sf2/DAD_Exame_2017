@@ -116,6 +116,7 @@ export class TableComponent implements OnInit {
         this.websocketService.getFinal().subscribe((m:any) => {
             console.log("GAME OVER - WINNERS");
             console.log(m);
+            alert("GAME OVER - WINNERS: " + m.winner1 +"and\t "+ m.winner2);
         })
     }
 
@@ -187,6 +188,7 @@ export class TableComponent implements OnInit {
     checkCheating() {
        this.websocketService.getRenunciaFeedBack().subscribe(m => {
            console.log(m);
+           this.cleanMesa();
        })
     }
 

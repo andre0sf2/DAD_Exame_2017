@@ -33,7 +33,6 @@ export class LobbyComponent implements OnInit {
         this.findPlayingGames();
 
         this.webSocketService.getCreateRoom().subscribe((m: any) => {
-            console.log("ROOOM CREATEDEE");
             this.findOtherGames();
             this.findMyGames();
         });
@@ -84,7 +83,8 @@ export class LobbyComponent implements OnInit {
             if(resource!== 'No game data'){
                 this.info="Game created";
                 this.webSocketService.createRoom({room:'room' + resource._id,
-                    userId: this.authService.getCurrentUser()._id, username : this.authService.getCurrentUser().username, img: this.authService.getCurrentUser().profilePic });
+                    userId: this.authService.getCurrentUser()._id, username : this.authService.getCurrentUser().username, img: this.authService.getCurrentUser().profilePic
+                });
                 this.findMyGames();  
             }else{
                 this.info="Error creating game";
@@ -104,13 +104,15 @@ export class LobbyComponent implements OnInit {
     joinGame(i: number): void {
         //verify length and status
         if (this.otherGames[i].nplayers == 4 || this.otherGames[i].status != "on lobby") {
-            console.log('game is full');
+            this.webSocketService.sendChatMessage({
+                image: "", username: "SYSTEM", date:  "Game is full"
+            });
             return;
         }
         this.already_join = false;
         this.otherGames[i].players.forEach((player: any) => {
             if (player.player == this.authService.getCurrentUser()._id) {
-                console.log('already join');
+                alert("Already join");
                 this.already_join = true;
             }
         });

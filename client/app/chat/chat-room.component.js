@@ -26,6 +26,7 @@ var ChatRoomComponent = (function () {
         this.chatMessages = [];
         this.images = [];
         this.arrAux = [];
+        this.notificationMsg = [];
         this.chatForm = this.formBuilder.group({
             'message': [null, forms_1.Validators.minLength(1)]
         });
@@ -46,6 +47,13 @@ var ChatRoomComponent = (function () {
                 var box = document.getElementById('Box');
                 box.scrollTop = box.scrollHeight;
             }
+        });
+        this.webSocket.getNotificationRoom().subscribe(function (m) {
+            _this.arrAux.push({
+                image: "../../img/system.png", message: {
+                    chat: "SYSTEM", date: m
+                }
+            });
         });
     };
     ChatRoomComponent.prototype.sendMessage = function () {
