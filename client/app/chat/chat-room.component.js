@@ -47,6 +47,13 @@ var ChatRoomComponent = (function () {
                 box.scrollTop = box.scrollHeight;
             }
         });
+        this.webSocket.getNotificationRoom().subscribe(function (m) {
+            _this.arrAux.push({
+                image: "../../img/system.png", message: {
+                    chat: "SYSTEM", date: m
+                }
+            });
+        });
     };
     ChatRoomComponent.prototype.sendMessage = function () {
         var now = new Date(Date.now());

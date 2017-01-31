@@ -48,6 +48,8 @@ export class WebSocketServer {
                 this.games[data.room].ids.push(data.userId);
                 this.games[data.room].playersPics.push(data.img);
                 this.games[data.room].sockets.push(client.id);
+
+                this.io.emit('notification', "Room Created by " + data.username);
             })
 
             client.on('join', (data: any) => {
@@ -157,11 +159,13 @@ export class WebSocketServer {
 
                 if (renuncia) {
                     console.log("Fez renuncia");
-                    this.io.to(client.player.gameRoom).emit('renuncia-feedback', "O jogador " + data.verificar + " fez renuncia. Vai perder");
+                    this.io.to(client.player.gameRoom).emit('renuncia-feedback', "A equipa do jogador " + data.verificar + " fez renuncia. Vai perder");
+                    this.io.to(client.player.gameRoom).emit('notification-room', "A equipa do jogador " + data.verificar + " fez renuncia.");
                     this.games[data.room].finishGameWithRenuncia(data.denuncia,);
                 } else {
                     console.log("Nao fez renuncia");
-                    this.io.to(client.player.gameRoom).emit('renuncia-feedback', "O jogador " + data.denuncia + ", vai perder porque o outro nao fez renuncia");
+                    this.io.to(client.player.gameRoom).emit('renuncia-feedback', "A equipa do jogador " + data.denuncia + ", vai perder porque o outro nao fez renuncia");
+                    this.io.to(client.player.gameRoom).emit('notification-room', "A equipa do jogador " + data.denuncia + ", vai perder porque o outro nao fez renuncia");
                     this.games[data.room].finishGameWithRenuncia(data.verificar);
                 }
             });
@@ -180,7 +184,7 @@ export class WebSocketServer {
 
                 if (this.games[data.room].stopGame) {
 
-                    console.log("FINISH GAME Renuncia");
+                    this.io.to(client.player.gameRoom).emit('notification-room', "Game terminate somebody do Renuncia");
 
                 } else {
 
@@ -209,6 +213,7 @@ export class WebSocketServer {
                         } else {
                             //FINISH GAME
                             console.log("FINISH GAME");
+                            this.io.to(client.player.gameRoom).emit('notification', "Games is finish");
                             this.games[data.room].finishGame(data.room);
                             this.io.to(client.player.gameRoom).emit('final', {
                                 winner1: this.games[data.room].winner1,
@@ -661,20 +666,65 @@ export class Mesa {
         let totalPointsPlayer3: number = 0;
         let player4: string = this.gamers[3];
         let totalPointsPlayer4: number = 0;
+        let starsTeam1: number = 0;
+        let starsTeam2: number = 0;
+        let winner1;
+        let winner2;
 
         if (player1 == player || player3 == player) {
             totalPointsPlayer1 = 120;
             totalPointsPlayer3 = 120;
+            starsTeam1 = 5;
 
-            this.winner1 = player1;
-            this.winner2 = player3;
+
+            winner1 = player1;
+            winner2 = player3;
         } else {
             totalPointsPlayer2 = 120;
             totalPointsPlayer4 = 120;
+            starsTeam2 = 5;
 
-            this.winner1 = player2;
-            this.winner2 = player4;
+            winner1 = player2;
+            winner2 = player4;
         }
+        let idRoom = this.gameRoom.substring(4);
+
+        const id = new mongodb.ObjectID(idRoom);
+        let currentdate = new Date();
+        let datetime = currentdate.getDate() + "-"
+            + (currentdate.getMonth() + 1) + "-"
+            + currentdate.getFullYear() + " "
+            + currentdate.getHours() + ":"
+            + currentdate.getMinutes() + ":"
+            + currentdate.getSeconds();
+        const game = {
+            finish: "RENUNCIA",
+            dateFinish: datetime,
+            winner1: winner1,
+            winner2: winner2,
+            status: "finish",
+            players: [
+                {username: player1, points: totalPointsPlayer1, stars: starsTeam1},
+                {username: player2, points: totalPointsPlayer2, stars: starsTeam2},
+                {username: player3, points: totalPointsPlayer3, stars: starsTeam1},
+                {username: player4, points: totalPointsPlayer4, stars: starsTeam2}
+            ]
+        };
+
+
+        database.db.collection('games')
+            .updateOne({
+                _id: id
+            }, {
+                $set: game
+            })
+            .then((result: any) => console.log("UPDATE WITH SUCCESS"))
+            .catch((err: any) => console.log("ERROR UPDATING"));
+
+        this.writeUserToDB(this.ids[0], starsTeam1, totalPointsPlayer1);
+        this.writeUserToDB(this.ids[1], starsTeam2, totalPointsPlayer2);
+        this.writeUserToDB(this.ids[2], starsTeam1, totalPointsPlayer3);
+        this.writeUserToDB(this.ids[3], starsTeam2, totalPointsPlayer4);
     }
 
     public finishGame(room: string) {

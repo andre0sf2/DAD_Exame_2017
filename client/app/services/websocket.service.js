@@ -17,6 +17,12 @@ var WebSocketService = (function () {
             this.socket = io("http://138.68.100.185:7777");
         }
     }
+    WebSocketService.prototype.getNotifications = function () {
+        return this.listenOnChannel('notification');
+    };
+    WebSocketService.prototype.getNotificationRoom = function () {
+        return this.listenOnChannel('notification-room');
+    };
     WebSocketService.prototype.getTurn = function () {
         return this.listenOnChannel('turn');
     };
@@ -68,18 +74,6 @@ var WebSocketService = (function () {
     };
     WebSocketService.prototype.getChatMessagesFromRoom = function (room) {
         return this.listenOnChannel('room-chat');
-    };
-    WebSocketService.prototype.sendNote = function (message) {
-        this.socket.emit('notes', message);
-    };
-    WebSocketService.prototype.getDerrotado = function () {
-        return this.listenOnChannel('derrotado');
-    };
-    WebSocketService.prototype.sendClickElementMessage = function (index) {
-        this.socket.emit('clickElement', index);
-    };
-    WebSocketService.prototype.getBoardMessages = function () {
-        return this.listenOnChannel('board');
     };
     WebSocketService.prototype.createRoom = function (message) {
         this.socket.emit('room', message);

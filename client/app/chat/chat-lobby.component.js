@@ -42,6 +42,14 @@ var ChatLobbyComponent = (function () {
                 box.scrollTop = box.scrollHeight;
             }
         });
+        this.webSocket.getNotifications().subscribe(function (m) {
+            console.log(m);
+            _this.arrAux.push({
+                image: "../../img/system.png", message: {
+                    chat: "SYSTEM", date: m
+                }
+            });
+        });
     };
     ChatLobbyComponent.prototype.sendMessage = function () {
         if (this.chatForm.controls['message'].value !== null) {

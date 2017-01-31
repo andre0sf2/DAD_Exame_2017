@@ -135,7 +135,7 @@ var GameService = (function () {
                 game.players.forEach(function (p) {
                     //console.log(p.username + "SADKDS");
                     //console.log(user.username);
-                    if (p.username == user.username) {
+                    if (p.username == user.username && game.status == "on lobby") {
                         games.push(game);
                     }
                 });

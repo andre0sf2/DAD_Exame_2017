@@ -45,6 +45,14 @@ export class ChatLobbyComponent implements OnInit{
                 box.scrollTop = box.scrollHeight;
             }
         });
+        this.webSocket.getNotifications().subscribe((m:any) => {
+            console.log(m);
+            this.arrAux.push({
+                image: "../../img/system.png", message: {
+                    chat: "SYSTEM", date: m
+                }
+            });
+        });
     }
 
     sendMessage() {
