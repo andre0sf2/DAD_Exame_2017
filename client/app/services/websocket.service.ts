@@ -22,6 +22,14 @@ export class WebSocketService {
         return this.listenOnChannel('round');
     }
 
+    sendRenuncia(message: any){
+        this.socket.emit('renuncia', message);
+    }
+
+    getRenunciaFeedBack(): Observable<any>{
+        return this.listenOnChannel('renuncia-feedback')
+    }
+
     getFinal():Observable<any>{
         return this.listenOnChannel('final');
     }
@@ -124,23 +132,6 @@ export class WebSocketService {
     getGameStart(): Observable<any> {
         return this.listenOnChannel('game-start');
     }
-
-    notifyAllPlayersImReady(message: any) {
-        this.socket.emit('ready', message);
-    }
-
-    getPlayersReady(): Observable<any> {
-        return this.listenOnChannel('ready');
-    }
-
-    getAllPlayersReady(): Observable<any> {
-        return this.listenOnChannel('all_ready');
-    }
-
-    sendGetTurn(message: any) {
-        this.socket.emit('yourTurn', message);
-    }
-
 
 
     sendCard(message: any) {

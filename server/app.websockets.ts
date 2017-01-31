@@ -1,9 +1,10 @@
+import {cli} from "../client/node_modules/webdriver-manager/built/lib/webdriver";
 const io = require('socket.io');
 
 const mongodb = require('mongodb');
 const util = require('util');
-import { HandlerSettings } from './handler.settings';
-import { databaseConnection as database } from './app.database';
+import {HandlerSettings} from './handler.settings';
+import {databaseConnection as database} from './app.database';
 
 export class WebSocketServer {
     public io: any;
@@ -29,7 +30,6 @@ export class WebSocketServer {
                     image: data.image, username: data.username, date: data.date
                 })
             });
-
 
 
             client.on('room', (data: any) => {
@@ -70,32 +70,62 @@ export class WebSocketServer {
                 console.log('GAME WILL START ->' + client.player.gameRoom)
                 this.io.emit(client.player.gameRoom).emit('game-start', client.player.gameRoom);
                 this.games[data.room].gamers.forEach((player: any) => {
-                    console.log(player);
+                    //console.log(player);
                 });
 
-                console.log(this.games[data.room].getSuit());
+                //console.log(this.games[data.room].getSuit());
                 this.io.to(client.player.gameRoom).emit('suit', this.games[data.room].getSuit());
 
                 ///this.games[data.room].gamers.forEach((player:any) => {
 
                 let index = 0;
                 this.games[data.room].sockets.forEach((client: string) => {
-                    console.log(index);
-                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[0 + index] });
-                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[1 + index] });
-                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[2 + index] });
-                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[3 + index] });
-                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[4 + index] });
-                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[5 + index] });
-                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[6 + index] });
-                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[7 + index] });
-                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[8 + index] });
-                    this.io.to(client).emit('my-cards', { room: data.room, card: this.games[data.room].cards[9 + index] });
+                    //console.log(index);
+                    this.io.to(client).emit('my-cards', {
+                        room: data.room,
+                        card: this.games[data.room].cards[0 + index]
+                    });
+                    this.io.to(client).emit('my-cards', {
+                        room: data.room,
+                        card: this.games[data.room].cards[1 + index]
+                    });
+                    this.io.to(client).emit('my-cards', {
+                        room: data.room,
+                        card: this.games[data.room].cards[2 + index]
+                    });
+                    this.io.to(client).emit('my-cards', {
+                        room: data.room,
+                        card: this.games[data.room].cards[3 + index]
+                    });
+                    this.io.to(client).emit('my-cards', {
+                        room: data.room,
+                        card: this.games[data.room].cards[4 + index]
+                    });
+                    this.io.to(client).emit('my-cards', {
+                        room: data.room,
+                        card: this.games[data.room].cards[5 + index]
+                    });
+                    this.io.to(client).emit('my-cards', {
+                        room: data.room,
+                        card: this.games[data.room].cards[6 + index]
+                    });
+                    this.io.to(client).emit('my-cards', {
+                        room: data.room,
+                        card: this.games[data.room].cards[7 + index]
+                    });
+                    this.io.to(client).emit('my-cards', {
+                        room: data.room,
+                        card: this.games[data.room].cards[8 + index]
+                    });
+                    this.io.to(client).emit('my-cards', {
+                        room: data.room,
+                        card: this.games[data.room].cards[9 + index]
+                    });
                     index += 10;
                 });
 
                 this.games[data.room].gamers.forEach((m, i) => {
-                    this.games[data.room].picsNames.push({ username: m, img: this.games[data.room].playersPics[i] });
+                    this.games[data.room].picsNames.push({username: m, img: this.games[data.room].playersPics[i]});
                 });
 
                 this.games[data.room].picsNames.forEach((player: any) => {
@@ -107,7 +137,10 @@ export class WebSocketServer {
                 this.games[data.room].startRound();
                 console.log(this.games[data.room].rounds[0].firstPlayer);
                 //send first player from match
-                this.io.to(client.player.gameRoom).emit('turn', { username: this.games[data.room].rounds[0].firstPlayer, round: this.games[data.room].round });
+                this.io.to(client.player.gameRoom).emit('turn', {
+                    username: this.games[data.room].rounds[0].firstPlayer,
+                    round: this.games[data.room].round
+                });
             });
 
             client.on('players-on-game', (data: any) => {
@@ -116,10 +149,27 @@ export class WebSocketServer {
                 });
             });
 
+            client.on('renuncia', (data: any) => {
+
+                this.games[data.room].stopGame = true;
+
+                let renuncia = this.games[data.room].checkRenuncia(data.verificar);
+
+                if (renuncia) {
+                    console.log("Fez renuncia");
+                    this.io.to(client.player.gameRoom).emit('renuncia-feedback', "O jogador " + data.verificar + " fez renuncia. Vai perder");
+                    this.games[data.room].finishGameWithRenuncia(data.denuncia,);
+                } else {
+                    console.log("Nao fez renuncia");
+                    this.io.to(client.player.gameRoom).emit('renuncia-feedback', "O jogador " + data.denuncia + ", vai perder porque o outro nao fez renuncia");
+                    this.games[data.room].finishGameWithRenuncia(data.verificar);
+                }
+            });
+
             //quando recebe uma carta
             client.on('card', (data: any) => {
                 //console.log(data.card, "User " + data.username);
-                console.log(data.round, data.username, data.card);
+                //console.log(data.round, data.username, data.card);
                 this.games[data.room].addMove(data.round, data.username, data.card);
                 this.io.to(client.player.gameRoom).emit('move', data);
 
@@ -128,35 +178,57 @@ export class WebSocketServer {
                 //console.log("3"+this.games[data.room].rounds[data.round].player3_option);
                 //console.log("4"+this.games[data.room].rounds[data.round].player4_option);
 
-                if (this.games[data.room].rounds[data.round].player1_option != null &&
-                    this.games[data.room].rounds[data.round].player2_option != null &&
-                    this.games[data.room].rounds[data.round].player3_option != null &&
-                    this.games[data.room].rounds[data.round].player4_option != null) {
-                    this.games[data.room].calculateRound(data.round);
-                    //TODO: emit winner round and points
-                    console.log("WINNER" + this.games[data.room].rounds[data.round].winner);
-                    console.log("POINTS: " + this.games[data.room].rounds[data.round].points);
+                if (this.games[data.room].stopGame) {
 
-                    if (this.games[data.room].round != 10) {
-
-                        this.io.to(client.player.gameRoom).emit('round', { round: data.round, points: this.games[data.room].rounds[data.round].points, winner: this.games[data.room].rounds[data.round].winner })
-                        console.log("STARTING ROUND " + this.games[data.room].round);
-                        this.games[data.room].startRound();
-                        setTimeout(this.io.to(client.player.gameRoom).emit('turn', { username: this.games[data.room].rounds[this.games[data.room].round].firstPlayer, round: this.games[data.room].round }),1000);
-                    } else {
-                        //FINISH GAME
-                        console.log("FINISH GAME");
-                        this.games[data.room].finishGame(data.room);
-                        this.io.to(client.player.gameRoom).emit('final', {winner1 : this.games[data.room].winner1, winner2 : this.games[data.room].winner2});
-                    }
+                    console.log("FINISH GAME Renuncia");
 
                 } else {
-                    let nextplayer: string = "";
-                    nextplayer = this.games[data.room].nextPlayer(data.round, data.username);
-                    console.log("NEXT PLAYER => " + nextplayer);
-                    console.log("ROUND " + this.games[data.room].round);
-                    this.io.to(client.player.gameRoom).emit('turn', { username: nextplayer, round: this.games[data.room].round });
+
+                    if (this.games[data.room].rounds[data.round].player1_option != null &&
+                        this.games[data.room].rounds[data.round].player2_option != null &&
+                        this.games[data.room].rounds[data.round].player3_option != null &&
+                        this.games[data.room].rounds[data.round].player4_option != null) {
+                        this.games[data.room].calculateRound(data.round);
+                        //TODO: emit winner round and points
+                        console.log("WINNER" + this.games[data.room].rounds[data.round].winner);
+                        console.log("POINTS: " + this.games[data.room].rounds[data.round].points);
+
+                        if (this.games[data.room].round != 10) {
+
+                            this.io.to(client.player.gameRoom).emit('round', {
+                                round: data.round,
+                                points: this.games[data.room].rounds[data.round].points,
+                                winner: this.games[data.room].rounds[data.round].winner
+                            })
+                            console.log("STARTING ROUND " + this.games[data.room].round);
+                            this.games[data.room].startRound();
+                            this.io.to(client.player.gameRoom).emit('turn', {
+                                username: this.games[data.room].rounds[this.games[data.room].round].firstPlayer,
+                                round: this.games[data.room].round
+                            });
+                        } else {
+                            //FINISH GAME
+                            console.log("FINISH GAME");
+                            this.games[data.room].finishGame(data.room);
+                            this.io.to(client.player.gameRoom).emit('final', {
+                                winner1: this.games[data.room].winner1,
+                                winner2: this.games[data.room].winner2
+                            });
+                        }
+
+
+                    } else {
+                        let nextplayer: string = "";
+                        nextplayer = this.games[data.room].nextPlayer(data.round, data.username);
+                        console.log("NEXT PLAYER => " + nextplayer);
+                        console.log("ROUND " + this.games[data.room].round);
+                        this.io.to(client.player.gameRoom).emit('turn', {
+                            username: nextplayer,
+                            round: this.games[data.room].round
+                        });
+                    }
                 }
+
 
             });
 
@@ -166,7 +238,8 @@ export class WebSocketServer {
     public notifyAll = (channel: string, message: any) => {
         this.io.sockets.emit(channel, message);
     };
-};
+}
+;
 
 export class Round {
     public firstPlayer: string;
@@ -187,8 +260,6 @@ export class Player {
     public username: string;
     public id: number;
     public gameRoom: string;
-    public socketId: string;
-
 }
 export class Mesa {
 
@@ -203,34 +274,49 @@ export class Mesa {
     public round: number = 0;
     public rounds: Round[] = [];
 
-    public winner1 : string ="";
-    public winner2 : string ="";
+    public winner1: string = "";
+    public winner2: string = "";
+    private _stopGame: boolean;
 
 
     public cards: Card[];
+
+    get stopGame(): boolean {
+        return this._stopGame;
+    }
+
+    set stopGame(value: boolean) {
+        this._stopGame = value;
+    }
 
     constructor() {
         this.gameRoom = '';
         this.gamers = [];
         this.sockets = [];
         this.cards = [];
-
+        this._stopGame = false;
         Mesa.todosOsNaipes().forEach(naipe => {
             Mesa.todosOsSimbolos().forEach(simbolo => {
                 let c: Card = null;
                 let img = '../img/cards/' + naipe + simbolo + ".png"
                 switch (simbolo) {
-                    case 1: c = new Card(naipe, simbolo, 11, img);
+                    case 1:
+                        c = new Card(naipe, simbolo, 11, img);
                         break;
-                    case 7: c = new Card(naipe, simbolo, 10, img);
+                    case 7:
+                        c = new Card(naipe, simbolo, 10, img);
                         break;
-                    case 13: c = new Card(naipe, simbolo, 4, img);
+                    case 13:
+                        c = new Card(naipe, simbolo, 4, img);
                         break;
-                    case 11: c = new Card(naipe, simbolo, 3, img);
+                    case 11:
+                        c = new Card(naipe, simbolo, 3, img);
                         break;
-                    case 12: c = new Card(naipe, simbolo, 2, img);
+                    case 12:
+                        c = new Card(naipe, simbolo, 2, img);
                         break;
-                    default: c = new Card(naipe, simbolo, 0, img);
+                    default:
+                        c = new Card(naipe, simbolo, 0, img);
                 }
                 this.cards.push(c);
             });
@@ -289,9 +375,90 @@ export class Mesa {
         }
 
         /*        if (this.rounds[round].player1_option != null && this.rounds[round].player2_option != null && this.rounds[round].player3_option != null && this.rounds[round].player4_option != null) {
-                    this.calculateRound(this.round);
-                }*/
+         this.calculateRound(this.round);
+         }*/
     }
+
+    public checkRenuncia(playerVerificar: string): boolean {
+        let renuncia = false;
+        let baralhJogador: Card[] = [];
+        for (let i = 0; i < this.gamers.length; i++) {
+            if (playerVerificar == this.gamers[i]) {
+                for (let j = 0; j < 10; j++) {
+                    baralhJogador.push(this.cards[i * 10 + j]);
+                }
+            }
+            //console.log(baralhJogador);
+        }
+
+
+        for (let k = 0; k < this.round+1; k++) {
+            if(this.rounds[k].player1_option != null && this.rounds[k].player2_option != null
+                && this.rounds[k].player3_option != null && this.rounds[k].player4_option != null){
+
+                let cartaJogada: any;
+                let primeiroJogado = this.rounds[k].firstPlayer;
+                let card1: any = this.rounds[k].player1_option;
+                let card2: any = this.rounds[k].player2_option;
+                let card3: any = this.rounds[k].player3_option;
+                let card4: any = this.rounds[k].player4_option;
+
+
+
+                console.log("Primeiro jogador que jogou: "+ primeiroJogado+"\nRonda: "+ k);
+
+                let naipeJogado: string;
+
+                if (this.gamers[0] == primeiroJogado) {
+                    naipeJogado = card1._tipoCard;
+                } else if (this.gamers[1] == primeiroJogado) {
+                    naipeJogado = card2._tipoCard;
+                } else if (this.gamers[2] == primeiroJogado) {
+                    naipeJogado = card3._tipoCard;
+                } else if (this.gamers[3] == primeiroJogado) {
+                    naipeJogado = card4._tipoCard;
+                } else {
+                    console.log("error.not find player");
+                }
+
+
+                if (this.gamers[0] == playerVerificar) {
+                    cartaJogada = card1;
+                } else if (this.gamers[1] == playerVerificar) {
+                    cartaJogada = card2;
+                } else if (this.gamers[2] == playerVerificar) {
+                    cartaJogada = card3;
+                } else if (this.gamers[3] == playerVerificar) {
+                    cartaJogada = card4;
+                } else {
+                    console.log("error.not find player");
+                }
+
+                console.log("Naipe Jogado: "+naipeJogado);
+                console.log("Carta que o jogador jogou "+ cartaJogada.tipoCard+cartaJogada.simbolo);
+
+                if (naipeJogado != cartaJogada.tipoCard) {
+                    baralhJogador.forEach((m: Card) => {
+                        if (m.tipoCard == naipeJogado) {
+                            renuncia = true;
+                        }
+                    })
+                }
+
+                for (let i = 0; i < baralhJogador.length; i++) {
+                    if (baralhJogador[i].tipoCard == cartaJogada._tipoCard && baralhJogador[i].simbolo == cartaJogada._simbolo) {
+                        console.log("tirei a carta "+cartaJogada._tipoCard+cartaJogada._simbolo);
+                        baralhJogador.splice(i, 1);
+                    }
+                }
+            }
+
+
+
+        }
+        return renuncia;
+    }
+
     public calculateRound(round: number) {
         //getCartasUsadas
         console.log("\n\n\n\nAVALIACAO DA RONDA : " + round)
@@ -301,11 +468,11 @@ export class Mesa {
         let card3: any = this.rounds[round].player3_option;
         let card4: any = this.rounds[round].player4_option;
 
-        console.log(card1);
+        //console.log(card1);
 
         //GET TRUNFO
         let trunfo: string = this.cards[39].tipoCard;
-        console.log("TRUNFO : " + trunfo);
+        //console.log("TRUNFO : " + trunfo);
         //GET NAIPE DA JOGADA
         let tipo: string;
         if (this.rounds[round].firstPlayer == this.gamers[0]) {
@@ -317,7 +484,7 @@ export class Mesa {
         } else if (this.rounds[round].firstPlayer == this.gamers[3]) {
             tipo = card4._tipoCard;
         }
-        console.log("NAIPE DA JOGADA: " + tipo);
+        //console.log("NAIPE DA JOGADA: " + tipo);
 
         //COUNT TRUNFOS
         let countTrunfos: number = 0;
@@ -326,10 +493,22 @@ export class Mesa {
         let card3trunfo: boolean = false;
         let card4trunfo: boolean = false;
 
-        if (card1._tipoCard == trunfo) { countTrunfos++; card1trunfo = true; }
-        if (card2._tipoCard == trunfo) { countTrunfos++; card2trunfo = true; }
-        if (card3._tipoCard == trunfo) { countTrunfos++; card3trunfo = true; }
-        if (card4._tipoCard == trunfo) { countTrunfos++; card4trunfo = true; }
+        if (card1._tipoCard == trunfo) {
+            countTrunfos++;
+            card1trunfo = true;
+        }
+        if (card2._tipoCard == trunfo) {
+            countTrunfos++;
+            card2trunfo = true;
+        }
+        if (card3._tipoCard == trunfo) {
+            countTrunfos++;
+            card3trunfo = true;
+        }
+        if (card4._tipoCard == trunfo) {
+            countTrunfos++;
+            card4trunfo = true;
+        }
 
         //se apenas foi usado um trunfo na ronda ele ganha
         if (countTrunfos == 1) {
@@ -343,25 +522,24 @@ export class Mesa {
                 this.rounds[round].winner = this.gamers[3];
             }
 
-            console.log("APENAS UM TRUNFO. WINNER É " + this.rounds[round].winner);
+            //console.log("APENAS UM TRUNFO. WINNER É " + this.rounds[round].winner);
         }
 
         //se foi usado mais que um trunfo ganha o que tiver o trunfo mais alto
         if (countTrunfos > 1) {
-            let higherCard: number = -1;
             let higherCardPoints: number = 0;
             let higherCardSimb: number = 0;
             let winner: string;
 
-            if(card1trunfo){
-                if(card1._ponto != 0 && card1._ponto > higherCardPoints){
+            if (card1trunfo) {
+                if (card1._ponto != 0 && card1._ponto > higherCardPoints) {
 
                     higherCardPoints = card1._ponto;
                     winner = this.gamers[0];
 
                 }
 
-                if(card1._ponto == 0 && card1._simbolo > higherCardSimb){
+                if (card1._ponto == 0 && card1._simbolo > higherCardSimb) {
 
                     higherCardSimb = card1._simbolo;
                     winner = this.gamers[0];
@@ -369,15 +547,15 @@ export class Mesa {
                 }
             }
 
-            if(card2trunfo){
-                if(card2._ponto!=0 && card2._ponto > higherCardPoints){
+            if (card2trunfo) {
+                if (card2._ponto != 0 && card2._ponto > higherCardPoints) {
 
                     higherCardPoints = card2._ponto;
                     winner = this.gamers[1];
 
                 }
 
-                if(card2._ponto == 0 && card2._simbolo > higherCardSimb){
+                if (card2._ponto == 0 && card2._simbolo > higherCardSimb) {
 
                     higherCardSimb = card2._simbolo;
                     winner = this.gamers[1];
@@ -385,20 +563,20 @@ export class Mesa {
                 }
             }
 
-            if(card3trunfo){
+            if (card3trunfo) {
                 if (card3._ponto > higherCardPoints && card3._ponto != 0) {
                     higherCardPoints = card3._ponto;
                     winner = this.gamers[2];
 
                 }
 
-                if(card3._ponto == 0 && card3._simbolo > higherCardSimb){
+                if (card3._ponto == 0 && card3._simbolo > higherCardSimb) {
                     higherCardSimb = card3._simbolo;
                     winner = this.gamers[2];
                 }
             }
 
-            if(card4trunfo){
+            if (card4trunfo) {
 
                 if (card4._ponto > higherCardPoints && card4._ponto != 0) {
                     higherCardPoints = card4._ponto;
@@ -406,7 +584,7 @@ export class Mesa {
 
                 }
 
-                if(card4._ponto == 0 && card4._simbolo > higherCardSimb){
+                if (card4._ponto == 0 && card4._simbolo > higherCardSimb) {
                     higherCardSimb = card4._simbolo;
                     winner = this.gamers[3];
                 }
@@ -415,7 +593,7 @@ export class Mesa {
 
             this.rounds[round].winner = winner;
 
-            console.log("VARIOS TRUNFOS . VENCEDOR É : " + this.rounds[round].winner);
+            //console.log("VARIOS TRUNFOS . VENCEDOR É : " + this.rounds[round].winner);
         }
         //se nao houver trunfos, ganha quem tiver ganho posto a carta mais alta do naipe que o 1 jogador colocou
         if (countTrunfos == 0) {
@@ -472,6 +650,31 @@ export class Mesa {
         console.log("FINAL VENCEDOR DA RONDA: " + this.rounds[round].winner);
         this.round++;
         //this.startRound();
+    }
+
+    public finishGameWithRenuncia(player: string) {
+        let player1: string = this.gamers[0];
+        let totalPointsPlayer1: number = 0;
+        let player2: string = this.gamers[1];
+        let totalPointsPlayer2: number = 0;
+        let player3: string = this.gamers[2];
+        let totalPointsPlayer3: number = 0;
+        let player4: string = this.gamers[3];
+        let totalPointsPlayer4: number = 0;
+
+        if (player1 == player || player3 == player) {
+            totalPointsPlayer1 = 120;
+            totalPointsPlayer3 = 120;
+
+            this.winner1 = player1;
+            this.winner2 = player3;
+        } else {
+            totalPointsPlayer2 = 120;
+            totalPointsPlayer4 = 120;
+
+            this.winner1 = player2;
+            this.winner2 = player4;
+        }
     }
 
     public finishGame(room: string) {
@@ -584,10 +787,10 @@ export class Mesa {
             winner2: winner2,
             status: "finish",
             players: [
-                { username: player1, points: totalPointsPlayer1, stars: starsTeam1 },
-                { username: player2, points: totalPointsPlayer2, stars: starsTeam2 },
-                { username: player3, points: totalPointsPlayer3, stars: starsTeam1 },
-                { username: player4, points: totalPointsPlayer4, stars: starsTeam2 }
+                {username: player1, points: totalPointsPlayer1, stars: starsTeam1},
+                {username: player2, points: totalPointsPlayer2, stars: starsTeam2},
+                {username: player3, points: totalPointsPlayer3, stars: starsTeam1},
+                {username: player4, points: totalPointsPlayer4, stars: starsTeam2}
             ]
         };
 
@@ -637,7 +840,7 @@ export class Mesa {
                     .updateOne({
                         _id:id
                     }, {
-                        $set: { totalStars: stars, totalPoints: points }
+                        $set: {totalStars: stars, totalPoints: points}
                     })
                     .then((result: any) => console.log("PLAYER " + player + " UPDATED WITH SUCCESS"))
 
@@ -654,7 +857,7 @@ export class Mesa {
             this.cards[j] = k;
 
         }
-        console.log(this.cards);
+        //console.log(this.cards);
     }
 
     public getCard(naipe: string, simbolo: number): Card {

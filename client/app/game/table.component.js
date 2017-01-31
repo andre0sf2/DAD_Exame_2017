@@ -55,6 +55,7 @@ var TableComponent = (function () {
         this.getRoundWinners();
         this.getSuit();
         this.getFinal();
+        this.checkCheating();
         /*this.websocketService.getChatMessagesOnRoom().subscribe((m: any) => this.chatChannel.push(<string>m));
 
 
@@ -88,11 +89,11 @@ var TableComponent = (function () {
             _this.jogadores.forEach(function (jogador) {
                 if (m.username != jogador) {
                     var sty_1 = document.getElementById(jogador + "sep");
-                    sty_1.setAttribute("style", "color: black");
+                    sty_1.style.color = "black";
                 }
             });
             var sty = document.getElementById(m.username + "sep");
-            sty.setAttribute("style", "color: yellow");
+            sty.style.color = "yellow";
         });
     };
     TableComponent.prototype.getFinal = function () {
@@ -114,7 +115,7 @@ var TableComponent = (function () {
         this.websocketService.getGamePlayers(this.room).subscribe(function (m) {
             _this.jogadores.push(m.username);
             _this.jogPics.push(m.img);
-            console.log(m);
+            //console.log(m);
         });
     };
     TableComponent.prototype.getSuit = function () {
@@ -141,7 +142,7 @@ var TableComponent = (function () {
     };
     TableComponent.prototype.getMoves = function () {
         this.websocketService.getMoves().subscribe(function (m) {
-            console.log(m);
+            //console.log(m);
             var img = document.getElementById(m.username);
             img.setAttribute("src", m.card._img);
         });
@@ -167,15 +168,18 @@ var TableComponent = (function () {
             console.log("WARNING - wait for your turn");
         }
     };
-    TableComponent.prototype.countCards = function () {
-        var count = 0;
-        for (var i = 0; i < this.mesa.cards.length; i++) {
-            count += this.mesa.cards[i].ponto;
-        }
-        //console.log(count);
-        return count;
-    };
     TableComponent.prototype.checkCheating = function () {
+        this.websocketService.getRenunciaFeedBack().subscribe(function (m) {
+            console.log(m);
+        });
+    };
+    TableComponent.prototype.renuncia = function (playerVerificar, playerDenuncia) {
+        if (this.user != playerVerificar) {
+            //console.log(playerVerificar, playerDenuncia);
+            this.websocketService.sendRenuncia({
+                verificar: playerVerificar, denuncia: playerDenuncia, room: this.room
+            });
+        }
     };
     TableComponent.prototype.removeCard = function (card) {
         for (var i = 0; i < this.baralhoJogadores.length; i++) {

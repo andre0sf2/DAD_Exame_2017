@@ -74,3 +74,10 @@
     border: 1px solid black;
     border-radius: 4px;
 }
+
+.bottomDiv{
+    float: right;
+    right: 20px;
+    position: absolute;
+    top:75px;
+}

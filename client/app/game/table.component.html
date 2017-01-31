@@ -1,34 +1,21 @@
 <div class="container">
     <div class="row">
-            <h1>Room {{ room }}</h1>
+            <h1>Room: {{ room }}</h1>
             <h2 style="color:red">{{this.error}}</h2>
             <button style="float: right;" class="btn btn-sm btn-default" (click)="gotoLobby()">Back to Lobby</button>
     </div>
 
-
-    <!--
-        baralha-se
-
-        ultima carta do array vai ser o trunfo
-
-        joga a pessoa que esta ao lado esquerdo da pessoa que deu joga
-
-        if is my turn jogo carta
-
-        joga a pessoa que esta ao lado esquerdo que fez a ultima jogada
-
-        ao fim das 4 jogarem guarda-se no historico e no array de quem ganhou a ronda
-
-        trunfo ganha a jogada a nao sei que aja uma com mais pontos ou com maior numero caso sejam de 0 pontos
-
-        guardar o historico das jogadas num array para caso seja permido o botao renuncia
-
-        cada ronda ganha guarda-se as cartas num array para contar no final
-    !-->
     <div class="row">
         <div class="col-md-3">
             <img class="trunfo centrar" src="{{this.suitImg}}">
             <p style="text-align: center">Trunfo: {{this.suitName}}</p>
+            <br>
+            <div>
+                <button (click)="renuncia(this.jogadores[0], this.user)" class="btn btn-warning">Renuncia de: {{this.jogadores[0]}}</button>
+                <button (click)="renuncia(this.jogadores[1], this.user)" class="btn btn-warning">Renuncia de: {{this.jogadores[1]}}</button>
+                <button (click)="renuncia(this.jogadores[2], this.user)" class="btn btn-warning">Renuncia de: {{this.jogadores[2]}}</button>
+                <button (click)="renuncia(this.jogadores[3], this.user)" class="btn btn-warning">Renuncia de: {{this.jogadores[3]}}</button>
+            </div>
         </div>
         <div class="baralho col-md-9" style="background-color: green">
             <div class="">

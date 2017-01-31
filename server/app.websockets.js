@@ -54,24 +54,54 @@ var WebSocketServer = (function () {
                     console.log('GAME WILL START ->' + client.player.gameRoom);
                     _this.io.emit(client.player.gameRoom).emit('game-start', client.player.gameRoom);
                     _this.games[data.room].gamers.forEach(function (player) {
-                        console.log(player);
+                        //console.log(player);
                     });
-                    console.log(_this.games[data.room].getSuit());
+                    //console.log(this.games[data.room].getSuit());
                     _this.io.to(client.player.gameRoom).emit('suit', _this.games[data.room].getSuit());
                     ///this.games[data.room].gamers.forEach((player:any) => {
                     var index = 0;
                     _this.games[data.room].sockets.forEach(function (client) {
-                        console.log(index);
-                        _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[0 + index] });
-                        _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[1 + index] });
-                        _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[2 + index] });
-                        _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[3 + index] });
-                        _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[4 + index] });
-                        _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[5 + index] });
-                        _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[6 + index] });
-                        _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[7 + index] });
-                        _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[8 + index] });
-                        _this.io.to(client).emit('my-cards', { room: data.room, card: _this.games[data.room].cards[9 + index] });
+                        //console.log(index);
+                        _this.io.to(client).emit('my-cards', {
+                            room: data.room,
+                            card: _this.games[data.room].cards[0 + index]
+                        });
+                        _this.io.to(client).emit('my-cards', {
+                            room: data.room,
+                            card: _this.games[data.room].cards[1 + index]
+                        });
+                        _this.io.to(client).emit('my-cards', {
+                            room: data.room,
+                            card: _this.games[data.room].cards[2 + index]
+                        });
+                        _this.io.to(client).emit('my-cards', {
+                            room: data.room,
+                            card: _this.games[data.room].cards[3 + index]
+                        });
+                        _this.io.to(client).emit('my-cards', {
+                            room: data.room,
+                            card: _this.games[data.room].cards[4 + index]
+                        });
+                        _this.io.to(client).emit('my-cards', {
+                            room: data.room,
+                            card: _this.games[data.room].cards[5 + index]
+                        });
+                        _this.io.to(client).emit('my-cards', {
+                            room: data.room,
+                            card: _this.games[data.room].cards[6 + index]
+                        });
+                        _this.io.to(client).emit('my-cards', {
+                            room: data.room,
+                            card: _this.games[data.room].cards[7 + index]
+                        });
+                        _this.io.to(client).emit('my-cards', {
+                            room: data.room,
+                            card: _this.games[data.room].cards[8 + index]
+                        });
+                        _this.io.to(client).emit('my-cards', {
+                            room: data.room,
+                            card: _this.games[data.room].cards[9 + index]
+                        });
                         index += 10;
                     });
                     _this.games[data.room].gamers.forEach(function (m, i) {
@@ -85,50 +115,85 @@ var WebSocketServer = (function () {
                     _this.games[data.room].startRound();
                     console.log(_this.games[data.room].rounds[0].firstPlayer);
                     //send first player from match
-                    _this.io.to(client.player.gameRoom).emit('turn', { username: _this.games[data.room].rounds[0].firstPlayer, round: _this.games[data.room].round });
+                    _this.io.to(client.player.gameRoom).emit('turn', {
+                        username: _this.games[data.room].rounds[0].firstPlayer,
+                        round: _this.games[data.room].round
+                    });
                 });
                 client.on('players-on-game', function (data) {
                     _this.games[data.room].gamers.forEach(function (player) {
                         _this.io.to(client.player.gameRoom).emit('players-on-game', player);
                     });
                 });
+                client.on('renuncia', function (data) {
+                    _this.games[data.room].stopGame = true;
+                    var renuncia = _this.games[data.room].checkRenuncia(data.verificar);
+                    if (renuncia) {
+                        console.log("Fez renuncia");
+                        _this.io.to(client.player.gameRoom).emit('renuncia-feedback', "O jogador " + data.verificar + " fez renuncia. Vai perder");
+                        _this.games[data.room].finishGameWithRenuncia(data.denuncia);
+                    }
+                    else {
+                        console.log("Nao fez renuncia");
+                        _this.io.to(client.player.gameRoom).emit('renuncia-feedback', "O jogador " + data.denuncia + ", vai perder porque o outro nao fez renuncia");
+                        _this.games[data.room].finishGameWithRenuncia(data.verificar);
+                    }
+                });
                 //quando recebe uma carta
                 client.on('card', function (data) {
                     //console.log(data.card, "User " + data.username);
-                    console.log(data.round, data.username, data.card);
+                    //console.log(data.round, data.username, data.card);
                     _this.games[data.room].addMove(data.round, data.username, data.card);
                     _this.io.to(client.player.gameRoom).emit('move', data);
                     //console.log("1"+this.games[data.room].rounds[data.round].player1_option);
                     //console.log("2"+this.games[data.room].rounds[data.round].player2_option);
                     //console.log("3"+this.games[data.room].rounds[data.round].player3_option);
                     //console.log("4"+this.games[data.room].rounds[data.round].player4_option);
-                    if (_this.games[data.room].rounds[data.round].player1_option != null &&
-                        _this.games[data.room].rounds[data.round].player2_option != null &&
-                        _this.games[data.room].rounds[data.round].player3_option != null &&
-                        _this.games[data.room].rounds[data.round].player4_option != null) {
-                        _this.games[data.room].calculateRound(data.round);
-                        //TODO: emit winner round and points
-                        console.log("WINNER" + _this.games[data.room].rounds[data.round].winner);
-                        console.log("POINTS: " + _this.games[data.room].rounds[data.round].points);
-                        if (_this.games[data.room].round != 10) {
-                            _this.io.to(client.player.gameRoom).emit('round', { round: data.round, points: _this.games[data.room].rounds[data.round].points, winner: _this.games[data.room].rounds[data.round].winner });
-                            console.log("STARTING ROUND " + _this.games[data.room].round);
-                            _this.games[data.room].startRound();
-                            _this.io.to(client.player.gameRoom).emit('turn', { username: _this.games[data.room].rounds[_this.games[data.room].round].firstPlayer, round: _this.games[data.room].round });
-                        }
-                        else {
-                            //FINISH GAME
-                            console.log("FINISH GAME");
-                            _this.games[data.room].finishGame(data.room);
-                            _this.io.to(client.player.gameRoom).emit('final', { winner1: _this.games[data.room].winner1, winner2: _this.games[data.room].winner2 });
-                        }
+                    if (_this.games[data.room].stopGame) {
+                        console.log("FINISH GAME Renuncia");
                     }
                     else {
-                        var nextplayer = "";
-                        nextplayer = _this.games[data.room].nextPlayer(data.round, data.username);
-                        console.log("NEXT PLAYER => " + nextplayer);
-                        console.log("ROUND " + _this.games[data.room].round);
-                        _this.io.to(client.player.gameRoom).emit('turn', { username: nextplayer, round: _this.games[data.room].round });
+                        if (_this.games[data.room].rounds[data.round].player1_option != null &&
+                            _this.games[data.room].rounds[data.round].player2_option != null &&
+                            _this.games[data.room].rounds[data.round].player3_option != null &&
+                            _this.games[data.room].rounds[data.round].player4_option != null) {
+                            _this.games[data.room].calculateRound(data.round);
+                            //TODO: emit winner round and points
+                            console.log("WINNER" + _this.games[data.room].rounds[data.round].winner);
+                            console.log("POINTS: " + _this.games[data.room].rounds[data.round].points);
+                            if (_this.games[data.room].round != 10) {
+                                _this.io.to(client.player.gameRoom).emit('round', {
+                                    round: data.round,
+                                    points: _this.games[data.room].rounds[data.round].points,
+                                    winner: _this.games[data.room].rounds[data.round].winner
+                                });
+                                console.log("STARTING ROUND " + _this.games[data.room].round);
+                                _this.games[data.room].startRound();
+                                _this.io.to(client.player.gameRoom).emit('turn', {
+                                    username: _this.games[data.room].rounds[_this.games[data.room].round].firstPlayer,
+                                    round: _this.games[data.room].round
+                                });
+                            }
+                            else {
+                                //FINISH GAME
+                                console.log("FINISH GAME");
+                                _this.games[data.room].finishGame(data.room);
+                                _this.io.to(client.player.gameRoom).emit('final', {
+                                    winner1: _this.games[data.room].winner1,
+                                    winner2: _this.games[data.room].winner2
+                                });
+                            }
+                        }
+                        else {
+                            var nextplayer = "";
+                            nextplayer = _this.games[data.room].nextPlayer(data.round, data.username);
+                            console.log("NEXT PLAYER => " + nextplayer);
+                            console.log("ROUND " + _this.games[data.room].round);
+                            _this.io.to(client.player.gameRoom).emit('turn', {
+                                username: nextplayer,
+                                round: _this.games[data.room].round
+                            });
+                        }
                     }
                 });
             });
@@ -169,6 +234,7 @@ var Mesa = (function () {
         this.gamers = [];
         this.sockets = [];
         this.cards = [];
+        this._stopGame = false;
         Mesa.todosOsNaipes().forEach(function (naipe) {
             Mesa.todosOsSimbolos().forEach(function (simbolo) {
                 var c = null;
@@ -189,13 +255,24 @@ var Mesa = (function () {
                     case 12:
                         c = new Card(naipe, simbolo, 2, img);
                         break;
-                    default: c = new Card(naipe, simbolo, 0, img);
+                    default:
+                        c = new Card(naipe, simbolo, 0, img);
                 }
                 _this.cards.push(c);
             });
         });
         this.baralharCartas();
     }
+    Object.defineProperty(Mesa.prototype, "stopGame", {
+        get: function () {
+            return this._stopGame;
+        },
+        set: function (value) {
+            this._stopGame = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Mesa.prototype.getSuit = function () {
         return this.cards[this.cards.length - 1];
     };
@@ -249,8 +326,82 @@ var Mesa = (function () {
             console.log("error.not find player");
         }
         /*        if (this.rounds[round].player1_option != null && this.rounds[round].player2_option != null && this.rounds[round].player3_option != null && this.rounds[round].player4_option != null) {
-                    this.calculateRound(this.round);
-                }*/
+         this.calculateRound(this.round);
+         }*/
+    };
+    Mesa.prototype.checkRenuncia = function (playerVerificar) {
+        var renuncia = false;
+        var baralhJogador = [];
+        for (var i = 0; i < this.gamers.length; i++) {
+            if (playerVerificar == this.gamers[i]) {
+                for (var j = 0; j < 10; j++) {
+                    baralhJogador.push(this.cards[i * 10 + j]);
+                }
+            }
+        }
+        var _loop_1 = function (k) {
+            if (this_1.rounds[k].player1_option != null && this_1.rounds[k].player2_option != null
+                && this_1.rounds[k].player3_option != null && this_1.rounds[k].player4_option != null) {
+                var cartaJogada = void 0;
+                var primeiroJogado = this_1.rounds[k].firstPlayer;
+                var card1 = this_1.rounds[k].player1_option;
+                var card2 = this_1.rounds[k].player2_option;
+                var card3 = this_1.rounds[k].player3_option;
+                var card4 = this_1.rounds[k].player4_option;
+                console.log("Primeiro jogador que jogou: " + primeiroJogado + "\nRonda: " + k);
+                var naipeJogado_1;
+                if (this_1.gamers[0] == primeiroJogado) {
+                    naipeJogado_1 = card1._tipoCard;
+                }
+                else if (this_1.gamers[1] == primeiroJogado) {
+                    naipeJogado_1 = card2._tipoCard;
+                }
+                else if (this_1.gamers[2] == primeiroJogado) {
+                    naipeJogado_1 = card3._tipoCard;
+                }
+                else if (this_1.gamers[3] == primeiroJogado) {
+                    naipeJogado_1 = card4._tipoCard;
+                }
+                else {
+                    console.log("error.not find player");
+                }
+                if (this_1.gamers[0] == playerVerificar) {
+                    cartaJogada = card1;
+                }
+                else if (this_1.gamers[1] == playerVerificar) {
+                    cartaJogada = card2;
+                }
+                else if (this_1.gamers[2] == playerVerificar) {
+                    cartaJogada = card3;
+                }
+                else if (this_1.gamers[3] == playerVerificar) {
+                    cartaJogada = card4;
+                }
+                else {
+                    console.log("error.not find player");
+                }
+                console.log("Naipe Jogado: " + naipeJogado_1);
+                console.log("Carta que o jogador jogou " + cartaJogada.tipoCard + cartaJogada.simbolo);
+                if (naipeJogado_1 != cartaJogada.tipoCard) {
+                    baralhJogador.forEach(function (m) {
+                        if (m.tipoCard == naipeJogado_1) {
+                            renuncia = true;
+                        }
+                    });
+                }
+                for (var i = 0; i < baralhJogador.length; i++) {
+                    if (baralhJogador[i].tipoCard == cartaJogada._tipoCard && baralhJogador[i].simbolo == cartaJogada._simbolo) {
+                        console.log("tirei a carta " + cartaJogada._tipoCard + cartaJogada._simbolo);
+                        baralhJogador.splice(i, 1);
+                    }
+                }
+            }
+        };
+        var this_1 = this;
+        for (var k = 0; k < this.round + 1; k++) {
+            _loop_1(k);
+        }
+        return renuncia;
     };
     Mesa.prototype.calculateRound = function (round) {
         //getCartasUsadas
@@ -259,10 +410,10 @@ var Mesa = (function () {
         var card2 = this.rounds[round].player2_option;
         var card3 = this.rounds[round].player3_option;
         var card4 = this.rounds[round].player4_option;
-        console.log(card1);
+        //console.log(card1);
         //GET TRUNFO
         var trunfo = this.cards[39].tipoCard;
-        console.log("TRUNFO : " + trunfo);
+        //console.log("TRUNFO : " + trunfo);
         //GET NAIPE DA JOGADA
         var tipo;
         if (this.rounds[round].firstPlayer == this.gamers[0]) {
@@ -277,7 +428,7 @@ var Mesa = (function () {
         else if (this.rounds[round].firstPlayer == this.gamers[3]) {
             tipo = card4._tipoCard;
         }
-        console.log("NAIPE DA JOGADA: " + tipo);
+        //console.log("NAIPE DA JOGADA: " + tipo);
         //COUNT TRUNFOS
         var countTrunfos = 0;
         var card1trunfo = false;
@@ -314,11 +465,9 @@ var Mesa = (function () {
             else if (card4._tipoCard == trunfo) {
                 this.rounds[round].winner = this.gamers[3];
             }
-            console.log("APENAS UM TRUNFO. WINNER É " + this.rounds[round].winner);
         }
         //se foi usado mais que um trunfo ganha o que tiver o trunfo mais alto
         if (countTrunfos > 1) {
-            var higherCard = -1;
             var higherCardPoints = 0;
             var higherCardSimb = 0;
             var winner = void 0;
@@ -363,12 +512,10 @@ var Mesa = (function () {
                 }
             }
             this.rounds[round].winner = winner;
-            console.log("VARIOS TRUNFOS . VENCEDOR É : " + this.rounds[round].winner);
         }
         //se nao houver trunfos, ganha quem tiver ganho posto a carta mais alta do naipe que o 1 jogador colocou
         if (countTrunfos == 0) {
-            console.log("NAO HOUVE TRUNFOS JOGADOS");
-            var higherCard = -1;
+            //console.log("NAO HOUVE TRUNFOS JOGADOS");
             var higherCardPoints = 0;
             var higherCardSimb = 0;
             var winner = void 0;
@@ -376,7 +523,7 @@ var Mesa = (function () {
                 higherCardPoints = card1._ponto;
                 winner = this.gamers[0];
             }
-            if (card1._tipoCard == tipo && card1._ponto == 0 && card1._simbolo > higherCardSimb) {
+            else if (card1._tipoCard == tipo && card1._ponto == 0 && card1._simbolo > higherCardSimb && higherCardPoints == 0) {
                 higherCardSimb = card1._simbolo;
                 winner = this.gamers[0];
             }
@@ -384,7 +531,7 @@ var Mesa = (function () {
                 higherCardPoints = card2._ponto;
                 winner = this.gamers[1];
             }
-            if (card2._tipoCard == tipo && card2._ponto == 0 && card2._simbolo > higherCardSimb) {
+            else if (card2._tipoCard == tipo && card2._ponto == 0 && card2._simbolo > higherCardSimb && higherCardPoints == 0) {
                 higherCardSimb = card2._simbolo;
                 winner = this.gamers[1];
             }
@@ -392,7 +539,7 @@ var Mesa = (function () {
                 higherCardPoints = card3._ponto;
                 winner = this.gamers[2];
             }
-            if (card3._tipoCard == tipo && card3._ponto == 0 && card3._simbolo > higherCardSimb) {
+            else if (card3._tipoCard == tipo && card3._ponto == 0 && card3._simbolo > higherCardSimb && higherCardPoints == 0) {
                 higherCardSimb = card3._simbolo;
                 winner = this.gamers[2];
             }
@@ -400,7 +547,7 @@ var Mesa = (function () {
                 higherCardPoints = card4._ponto;
                 winner = this.gamers[3];
             }
-            if (card4._tipoCard == tipo && card4._ponto == 0 && card4._simbolo > higherCardSimb) {
+            else if (card4._tipoCard == tipo && card4._ponto == 0 && card4._simbolo > higherCardSimb && higherCardPoints == 0) {
                 higherCardSimb = card4._simbolo;
                 winner = this.gamers[3];
             }
@@ -412,6 +559,28 @@ var Mesa = (function () {
         console.log("FINAL VENCEDOR DA RONDA: " + this.rounds[round].winner);
         this.round++;
         //this.startRound();
+    };
+    Mesa.prototype.finishGameWithRenuncia = function (player) {
+        var player1 = this.gamers[0];
+        var totalPointsPlayer1 = 0;
+        var player2 = this.gamers[1];
+        var totalPointsPlayer2 = 0;
+        var player3 = this.gamers[2];
+        var totalPointsPlayer3 = 0;
+        var player4 = this.gamers[3];
+        var totalPointsPlayer4 = 0;
+        if (player1 == player || player3 == player) {
+            totalPointsPlayer1 = 120;
+            totalPointsPlayer3 = 120;
+            this.winner1 = player1;
+            this.winner2 = player3;
+        }
+        else {
+            totalPointsPlayer2 = 120;
+            totalPointsPlayer4 = 120;
+            this.winner1 = player2;
+            this.winner2 = player4;
+        }
     };
     Mesa.prototype.finishGame = function (room) {
         var player1 = this.gamers[0];
@@ -573,7 +742,7 @@ var Mesa = (function () {
             this.cards[i - 1] = this.cards[j];
             this.cards[j] = k;
         }
-        console.log(this.cards);
+        //console.log(this.cards);
     };
     Mesa.prototype.getCard = function (naipe, simbolo) {
         for (var i = 0; i < this.cards.length; i++) {

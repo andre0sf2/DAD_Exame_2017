@@ -37,6 +37,10 @@ var ChatLobbyComponent = (function () {
                 date: m.date
             });
             _this.arrAux = _this.transform(_this.images, _this.chatMessages);
+            if (_this.arrAux.length != 0) {
+                var box = document.getElementById('Box');
+                box.scrollTop = box.scrollHeight;
+            }
         });
     };
     ChatLobbyComponent.prototype.sendMessage = function () {
