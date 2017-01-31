@@ -2,11 +2,12 @@
   "name": "ex2",
   "version": "1.0.0",
   "description": "",
-  "main": "mongo2.database.js",
+  "main": "app.js",
   "scripts": {
     "start": "npm run build:live",
     "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./app.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc"
   },
   "keywords": [],
   "author": "",

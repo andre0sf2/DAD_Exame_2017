@@ -49,7 +49,7 @@ export class LoginComponent {
     }
 
     goBack(): void {
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('');
     }
 
 }

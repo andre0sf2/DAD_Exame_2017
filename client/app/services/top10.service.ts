@@ -13,7 +13,7 @@ export class Top10Service{
     bestPlayers : User[] = [];
 
     getTop10byStars():Observable<User[]>{
-        return this.http.get('http://localhost:7777/api/v1/top/stars')
+        return this.http.get('http://138.68.100.185:7777/api/v1/top/stars')
             .map(data => {
                 this.bestPlayers = data.json();
                 return this.bestPlayers;
@@ -25,7 +25,7 @@ export class Top10Service{
     }
 
     getTop10byPoints():Observable<User[]>{
-        return this.http.get('http://localhost:7777/api/v1/top/points')
+        return this.http.get('http://138.68.100.185:7777/api/v1/top/points')
             .map(data => {
                 this.bestPlayers = data.json();
                 return this.bestPlayers;

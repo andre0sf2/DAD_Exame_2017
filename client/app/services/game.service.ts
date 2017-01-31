@@ -19,7 +19,7 @@ export class GameService{
         let headers = this.createHeaders(user.token);
         let myGames: Game[] = [];
 
-        return this.http.get('http://localhost:7777/api/v1/games', headers)
+        return this.http.get('http://138.68.100.185:7777/api/v1/games', headers)
             .map(resource => {
                 resource.json().forEach((game:Game)=>{
                     if(game.UserOwner == user._id.toString()){
@@ -39,7 +39,7 @@ export class GameService{
         let headers = this.createHeaders(user.token);
         let ongoingGames: Game[] = [];
 
-        return this.http.get('http://localhost:7777/api/v1/games', headers)
+        return this.http.get('http://138.68.100.185:7777/api/v1/games', headers)
             .map(resource => {
                 resource.json().forEach((game:Game)=>{
                     let i:number;
@@ -63,7 +63,7 @@ export class GameService{
         let headers = this.createHeaders(user.token);
         let otherGames: Game[] = [];
 
-        return this.http.get('http://localhost:7777/api/v1/games', headers)
+        return this.http.get('http://138.68.100.185:7777/api/v1/games', headers)
             .map(resource => {
                 resource.json().forEach((game:Game)=>{
                     if(game.UserOwner != user._id.toString() && game.status == 'on lobby'){
@@ -81,7 +81,7 @@ export class GameService{
    createGame(user: User): Observable<string>{
         let headers = this.createHeaders(user.token);
         console.log(user._id);
-        return this.http.post('http://localhost:7777/api/v1/games', {
+        return this.http.post('http://138.68.100.185:7777/api/v1/games', {
 	        UserOwner: user._id,
             UsernameOwner: user.username,
 	        finish: '',
@@ -102,7 +102,7 @@ export class GameService{
     
     deleteGame(game: Game, user: User){
         let headers = this.createHeaders(user.token);
-        return this.http.delete('http://localhost:7777/api/v1/games/'+ game._id, headers)
+        return this.http.delete('http://138.68.100.185:7777/api/v1/games/'+ game._id, headers)
         .map(response => {
             return response.json();
         })
@@ -114,7 +114,7 @@ export class GameService{
     updateGame(game:Game, user : User) : Observable<Game>{
         let headers = this.createHeaders(user.token);
 
-        return this.http.put('http://localhost:7777/api/v1/games/' + game._id, JSON.stringify(game), headers)
+        return this.http.put('http://138.68.100.185:7777/api/v1/games/' + game._id, JSON.stringify(game), headers)
             .map(response => {
                 return response.json();
             })
@@ -133,7 +133,7 @@ export class GameService{
     getAllGames(): Observable<Game[]>{
         let publicHeaders = new Headers({'Content-Type': 'application/json'});
 
-        return this.http.get('http://localhost:7777/api/v1/allgames', publicHeaders)
+        return this.http.get('http://138.68.100.185:7777/api/v1/allgames', publicHeaders)
         .map (response => {
             return response.json();
         })
@@ -146,7 +146,7 @@ export class GameService{
         let publicHeaders = new Headers({'Content-Type': 'application/json'});
         let games : Game[] = [];
 
-        return this.http.get('http://localhost:7777/api/v1/allgames', publicHeaders)
+        return this.http.get('http://138.68.100.185:7777/api/v1/allgames', publicHeaders)
         .map (response => {
             response.json().forEach((game:Game)=>{
                 game.players.forEach((p: User)=> {
@@ -168,7 +168,7 @@ export class GameService{
         let publicHeaders = new Headers({'Content-Type': 'application/json'});
         let game : Game;
 
-        return this.http.get('http://localhost:7777/api/v1/games/'+room, publicHeaders)
+        return this.http.get('http://138.68.100.185:7777/api/v1/games/'+room, publicHeaders)
             .map (response => {
                 return response.json();
             })

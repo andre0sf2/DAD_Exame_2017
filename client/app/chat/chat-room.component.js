@@ -26,7 +26,6 @@ var ChatRoomComponent = (function () {
         this.chatMessages = [];
         this.images = [];
         this.arrAux = [];
-        this.notificationMsg = [];
         this.chatForm = this.formBuilder.group({
             'message': [null, forms_1.Validators.minLength(1)]
         });

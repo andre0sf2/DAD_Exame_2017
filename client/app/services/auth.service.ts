@@ -15,7 +15,7 @@ import {User} from '../model/user';
 import { CookieService } from 'angular2-cookie/core';
 import {UserService} from "./user.service";
 
-const url = 'http://localhost:7777/api/v1/';
+const url = 'http://138.68.100.185:7777/api/v1/';
 
 @Injectable()
 export class AuthService {

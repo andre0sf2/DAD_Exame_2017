@@ -19,7 +19,7 @@ var Top10Service = (function () {
     }
     Top10Service.prototype.getTop10byStars = function () {
         var _this = this;
-        return this.http.get('http://localhost:7777/api/v1/top/stars')
+        return this.http.get('http://138.68.100.185:7777/api/v1/top/stars')
             .map(function (data) {
             _this.bestPlayers = data.json();
             return _this.bestPlayers;
@@ -31,7 +31,7 @@ var Top10Service = (function () {
     };
     Top10Service.prototype.getTop10byPoints = function () {
         var _this = this;
-        return this.http.get('http://localhost:7777/api/v1/top/points')
+        return this.http.get('http://138.68.100.185:7777/api/v1/top/points')
             .map(function (data) {
             _this.bestPlayers = data.json();
             return _this.bestPlayers;

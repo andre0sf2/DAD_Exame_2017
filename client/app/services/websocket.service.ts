@@ -10,7 +10,7 @@ export class WebSocketService {
 
     constructor() {
         if (!this.socket) {
-            this.socket = io(`http://localhost:7777`);
+            this.socket = io(`http://138.68.100.185:7777`);
         }
     }
 

@@ -22,7 +22,6 @@ var ChatLobbyComponent = (function () {
         this.auth = auth;
         this.type = "Lobby";
         this.chatMessages = [];
-        this.notificationMsg = [];
         this.images = [];
         this.arrAux = [];
         this.chatForm = this.formBuilder.group({

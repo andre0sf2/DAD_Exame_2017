@@ -108,7 +108,7 @@ var TableComponent = (function () {
         this.websocketService.getRoundWinners().subscribe(function (m) {
             console.log("WINNER OF ROUND");
             console.log(m);
-            _this.cleanMesa();
+            setTimeout(_this.cleanMesa(), 1000);
         });
     };
     TableComponent.prototype.getGamePlayers = function () {

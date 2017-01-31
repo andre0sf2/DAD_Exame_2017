@@ -65,9 +65,10 @@ new User().init(restifyServer, settings);
 import {Game} from './app.games';
 new Game().init(restifyServer, settings);
 
-restifyServer.get(/^\/(?!api\/).*!/, restify.serveStatic({
-    directory: '../client',
-    default: 'index.html'
+restifyServer.get(/\/?.*/, restify.serveStatic({
+    directory: __dirname.replace("server", "client"),
+    default: 'index.html',
+    match: /^((?!app.js).)*$/
 }));
 
 database.connect(url, () => {

@@ -125,7 +125,7 @@ export class TableComponent implements OnInit {
         this.websocketService.getRoundWinners().subscribe((m: any) => {
             console.log("WINNER OF ROUND");
             console.log(m);
-            this.cleanMesa();
+            setTimeout(this.cleanMesa(), 1000);
         })
     }
     getGamePlayers() {

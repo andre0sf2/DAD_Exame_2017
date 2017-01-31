@@ -20,7 +20,7 @@ var GameService = (function () {
     GameService.prototype.findMyGames = function (user) {
         var headers = this.createHeaders(user.token);
         var myGames = [];
-        return this.http.get('http://localhost:7777/api/v1/games', headers)
+        return this.http.get('http://138.68.100.185:7777/api/v1/games', headers)
             .map(function (resource) {
             resource.json().forEach(function (game) {
                 if (game.UserOwner == user._id.toString()) {
@@ -36,7 +36,7 @@ var GameService = (function () {
     GameService.prototype.findPlayingGames = function (user) {
         var headers = this.createHeaders(user.token);
         var ongoingGames = [];
-        return this.http.get('http://localhost:7777/api/v1/games', headers)
+        return this.http.get('http://138.68.100.185:7777/api/v1/games', headers)
             .map(function (resource) {
             resource.json().forEach(function (game) {
                 var i;
@@ -56,7 +56,7 @@ var GameService = (function () {
     GameService.prototype.findOtherGames = function (user) {
         var headers = this.createHeaders(user.token);
         var otherGames = [];
-        return this.http.get('http://localhost:7777/api/v1/games', headers)
+        return this.http.get('http://138.68.100.185:7777/api/v1/games', headers)
             .map(function (resource) {
             resource.json().forEach(function (game) {
                 if (game.UserOwner != user._id.toString() && game.status == 'on lobby') {
@@ -72,7 +72,7 @@ var GameService = (function () {
     GameService.prototype.createGame = function (user) {
         var headers = this.createHeaders(user.token);
         console.log(user._id);
-        return this.http.post('http://localhost:7777/api/v1/games', {
+        return this.http.post('http://138.68.100.185:7777/api/v1/games', {
             UserOwner: user._id,
             UsernameOwner: user.username,
             finish: '',
@@ -92,7 +92,7 @@ var GameService = (function () {
     };
     GameService.prototype.deleteGame = function (game, user) {
         var headers = this.createHeaders(user.token);
-        return this.http.delete('http://localhost:7777/api/v1/games/' + game._id, headers)
+        return this.http.delete('http://138.68.100.185:7777/api/v1/games/' + game._id, headers)
             .map(function (response) {
             return response.json();
         })
@@ -102,7 +102,7 @@ var GameService = (function () {
     };
     GameService.prototype.updateGame = function (game, user) {
         var headers = this.createHeaders(user.token);
-        return this.http.put('http://localhost:7777/api/v1/games/' + game._id, JSON.stringify(game), headers)
+        return this.http.put('http://138.68.100.185:7777/api/v1/games/' + game._id, JSON.stringify(game), headers)
             .map(function (response) {
             return response.json();
         })
@@ -118,7 +118,7 @@ var GameService = (function () {
     };
     GameService.prototype.getAllGames = function () {
         var publicHeaders = new http_1.Headers({ 'Content-Type': 'application/json' });
-        return this.http.get('http://localhost:7777/api/v1/allgames', publicHeaders)
+        return this.http.get('http://138.68.100.185:7777/api/v1/allgames', publicHeaders)
             .map(function (response) {
             return response.json();
         })
@@ -129,7 +129,7 @@ var GameService = (function () {
     GameService.prototype.getMyGames = function (user) {
         var publicHeaders = new http_1.Headers({ 'Content-Type': 'application/json' });
         var games = [];
-        return this.http.get('http://localhost:7777/api/v1/allgames', publicHeaders)
+        return this.http.get('http://138.68.100.185:7777/api/v1/allgames', publicHeaders)
             .map(function (response) {
             response.json().forEach(function (game) {
                 game.players.forEach(function (p) {
@@ -149,7 +149,7 @@ var GameService = (function () {
     GameService.prototype.getGame = function (room) {
         var publicHeaders = new http_1.Headers({ 'Content-Type': 'application/json' });
         var game;
-        return this.http.get('http://localhost:7777/api/v1/games/' + room, publicHeaders)
+        return this.http.get('http://138.68.100.185:7777/api/v1/games/' + room, publicHeaders)
             .map(function (response) {
             return response.json();
         })

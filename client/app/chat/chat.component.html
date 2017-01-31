@@ -3,6 +3,7 @@
         <h3 class="panel-title">{{type}} Chat</h3>
     </div>
     <div>
+
         <div id="Box" class="message-list">
             <p *ngFor="let m of arrAux;" style="word-break: break-all"> <img width="5%" src="{{m.image}}"> <strong> {{ m.message.chat }} </strong> {{m.message.date}} </p>
         </div>

@@ -42,7 +42,7 @@ var LoginComponent = (function () {
         });
     };
     LoginComponent.prototype.goBack = function () {
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('');
     };
     return LoginComponent;
 }());

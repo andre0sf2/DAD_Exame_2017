@@ -863,7 +863,7 @@ export class Mesa {
 
     }
 
-    public writeUserToDB(player: string, newStars: number, newPoints: number) {
+        public writeUserToDB(player: string, newStars: number, newPoints: number) {
         let oldstars: any;
         let oldpoints: any;
 
